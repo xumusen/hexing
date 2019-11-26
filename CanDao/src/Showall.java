@@ -27,7 +27,8 @@ import com.utils.Paging;
 public class Showall extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    private final static String URL = "jdbc:sqlserver://123.123.96.76:2433;DatabaseName=hexing";
+   // private final static String URL = "jdbc:sqlserver://123.123.96.76:2433;DatabaseName=hexing";
+    private final static String URL = "jdbc:sqlserver://192.168.5.142:1433;DatabaseName=hexing";
     private static final String USER="sa";
     private static final String PASSWORD="Xuc2008@126.com";
     
@@ -71,7 +72,7 @@ public class Showall extends HttpServlet {
 		try {
 			//String sql ="SELECT top 100 [orderid],[thirdSn],[storeId],[fromType],[name],[phone],[takeNo],[tableNum],[userNote],[peopleNum],[tableNo],[deviceNo],[staffId],[staffNo],[staffBane],[memberId],[point],[pointExpiryDate],[orderTime],[orderDate],[orderStatus],[orderType],[posOrderType],[isPayed],[payType],[isInvoice],[invoiceDesc],[taxNo],[price],[deliveryFee],[mealFee],[productPrice],[discountPrice],[merchantBearPrice],[thirdPlatformBearPrice],[merchantPrice],[commission],[extra],[paymentDetails],[status],[products],[discounts],[createtime]  FROM [dbo].[order];";
 
-			String totalsql="select count(1) as num from [order]";
+			String totalsql="select count(1) as num from [orders]";
 			 //String limitsql="select * from("+sql+")pp limit "+start+","+pageSize;
 			 
 			 ResultSet totalset = st.executeQuery(totalsql);
