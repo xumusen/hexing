@@ -1,14 +1,19 @@
 package com.utils;
 import java.sql.*;
+import java.util.ResourceBundle;
 
 
 
 	public class DBUtil {
 
 	    //这里可以设置数据库名称
-	    private final static String URL = "jdbc:sqlserver://www.baofengrose.com:2433;DatabaseName=hexing";
+/*	    private final static String URL = "jdbc:sqlserver://www.baofengrose.com:2433;DatabaseName=hexing";
 	    private static final String USER="sa";
-	    private static final String PASSWORD="Xuc2008@126.com";
+	    private static final String PASSWORD="Xuc2008@126.com";*/
+		static ResourceBundle resource = ResourceBundle.getBundle("web");
+		private final static String URL = resource.getString("URL");
+		private static final String USER = resource.getString("USER");
+		private static final String PASSWORD = resource.getString("PASSWORD");
 	    
 	    private static Connection conn=null;
 	    //静态代码块（将加载驱动、连接数据库放入静态块中）

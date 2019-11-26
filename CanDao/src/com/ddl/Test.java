@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import com.entity.Order;
 import com.entity.PaymentDetails;
@@ -601,7 +602,7 @@ public class Test {
 		// ResultSet rs = stmt.executeQuery("SELECT * FROM error1102 where 异常信息
 		// ='请求Seito无响应' ");
 		
-		
+	/*	
 		  ResultSet rs =
 		  stmt.executeQuery("select * from  error1117 where \"接口名称\"='同步堂食订单' and \"异常信息\"='请求Seito无响应' ");
 		 // stmt.executeQuery(" select * from error1114 AS e where e.异常信息='ActionName (candao.posEntryApi.entry) is illegal.' ");
@@ -609,8 +610,10 @@ public class Test {
 		  while(rs.next()){//如果对象中有数据，就会循环打印出来
 		  System.out.println(rs.getString("请求内容"));
 		  Test.postDineorder(rs.getString("请求内容")); 
-		  }
+		  }*/
 		 
+		ResourceBundle resource = ResourceBundle.getBundle("web"); 
+		System.out.println(resource.getString("URL"));
 
 		//Test.postDineorder(order);
 	}

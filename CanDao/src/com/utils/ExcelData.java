@@ -135,7 +135,7 @@ public class ExcelData {
 		sheet1.readExcelDataRetail();*/
 		
 		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1103/20191103-DQ测试用例.xlsx", "Sheet4");
-		//ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1103\\20191103-DQ测试用例.xlsx", "Sheet3");
+		ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1113\\ncr1113.xlsx", "Sheet1");
 		//获取第二行第4列
 		//String cell2 = sheet1.getExcelDateByIndex(1, 3);
 		//根据第3列值为“customer23”的这一行，来获取该行第2列的值
@@ -147,7 +147,7 @@ public class ExcelData {
 		sheet1.readExcelData();*/
 	/*	ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\lincoln-验证结果\\yitunnel（1114生产验证结果）.xlsx", "Sheet1");
 		sheet1.readExcelDataRetail();*/
-		ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1118/st1.xlsx", "Sheet1");
+		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1118/st1.xlsx", "Sheet1");
 		sheet1.readExcelData();
 	/*	ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1108/ncr1108.xlsx", "Sheet1");
 		sheet1.readExcelDataCancel();*/
