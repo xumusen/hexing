@@ -240,7 +240,7 @@ public class Test {
 				PaymentDetails details = (PaymentDetails) JSONObject.toBean(paymentDetail, PaymentDetails.class);
 
 				try {
-					details.insertPaymentDetails(orderId, details,orderDate,orderTime,"");
+					details.insertPaymentDetails(orderId, details,orderDate,orderTime,"",storeId);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -372,10 +372,10 @@ public class Test {
 						DisProducts disProducts2 = (DisProducts) JSONObject.toBean(disproducts.getJSONObject(j),
 								DisProducts.class,disproductmap);
 						
-						DisProducts.insertDisProducts(orderId, disProducts2);
+						DisProducts.insertDisProducts(orderId, disProducts2,storeId,orderDate,orderTime);
 					}
 				}
-				Discounts.insertDiscount(orderId, discount1);
+				Discounts.insertDiscount(orderId, discount1,storeId,orderDate,orderTime);
 
 			}
 		} catch (Exception e) {
@@ -400,7 +400,7 @@ public class Test {
 			Products product1 = (Products) JSONObject.toBean(product, Products.class, comboses);
 			System.out.println(product1.getPrice());
 			try {
-				product1.insertProducts(orderId, product1);
+				product1.insertProducts(orderId, product1,storeId);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -516,7 +516,7 @@ public class Test {
 						System.out.println("j is  " + j);
 						Combos combos = (Combos) JSONObject.toBean(comboses1.getJSONObject(j),
 								Combos.class);
-						Combos.insertCombos(orderId, combos,product1.getPid(),product1.getNum());
+						Combos.insertCombos(orderId, combos,product1.getPid(),product1.getNum(),storeId);
 
 						if (product1.getCombos().get(j).getSkus() != null) {
 							try {

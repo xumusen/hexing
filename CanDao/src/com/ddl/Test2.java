@@ -351,7 +351,7 @@ public class Test2 {
 			PaymentDetails details = (PaymentDetails) JSONObject.toBean(paymentDetail, PaymentDetails.class);
 
 			try {
-				details.insertPaymentDetails(orderId, details,orderDate,orderTime,originOrderId);
+				details.insertPaymentDetails(orderId, details,orderDate,orderTime,originOrderId,storeId);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

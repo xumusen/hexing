@@ -104,7 +104,7 @@ public class PaymentDetails {
 		this.code = code;
 	}
 
-	public static void insertPaymentDetails(String orderid,PaymentDetails paymentDetails,String orderDate,String orderTime,String originOrderId)throws SQLException{
+	public static void insertPaymentDetails(String orderid,PaymentDetails paymentDetails,String orderDate,String orderTime,String originOrderId,String storeid)throws SQLException{
 	        //首先拿到数据库的连接
 	        Connection conn=DBUtil.getConnection();
 	     /*   String sql="" + 
@@ -114,8 +114,8 @@ public class PaymentDetails {
 */	        
 	        String sql=""+
 	        		"INSERT INTO paymentDetails"+
-	        		"(orderid,payType,[type],posType,posName,typeName,[money],tradeNo,code,orderDate,orderTime,originOrderId)"
-	        		+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+	        		"(orderid,payType,[type],posType,posName,typeName,[money],tradeNo,code,orderDate,orderTime,originOrderId,storeid)"
+	        		+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	        PreparedStatement psmt = conn.prepareStatement(sql);
 	        
 	        //先对应SQL语句，给SQL语句传递参数
@@ -131,6 +131,7 @@ public class PaymentDetails {
 	        psmt.setString(10, orderDate);
 	        psmt.setString(11, orderTime);
 	        psmt.setString(12, originOrderId);
+	        psmt.setString(13, storeid);
 	        //执行SQL语句
 	        psmt.execute();
 	        /**

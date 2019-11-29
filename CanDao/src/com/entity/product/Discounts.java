@@ -121,7 +121,7 @@ public class Discounts {
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
 	}
-	public static void insertDiscount(String orderid,Discounts discounts)throws SQLException{
+	public static void insertDiscount(String orderid,Discounts discounts,String storeid,String orderDate,String orderTime)throws SQLException{
 	    //首先拿到数据库的连接
 	    Connection conn=DBUtil.getConnection();
 	 /*   String sql="" + 
@@ -131,8 +131,8 @@ public class Discounts {
 	*/	        
 	    String sql=""+
 	    		"INSERT INTO discounts"+
-	    		"(code,pid,vendor,num,[type],childType,title,[content],price,totalAmount,thirdSubsidy,merchantSubsidy,orderid)"+
-	    		"values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	    		"(code,pid,vendor,num,[type],childType,title,[content],price,totalAmount,thirdSubsidy,merchantSubsidy,orderid,storeid,orderDate,orderTime)"+
+	    		"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	   // System.out.println(sql);
 	    PreparedStatement psmt = conn.prepareStatement(sql);
 	    
@@ -150,8 +150,9 @@ public class Discounts {
 	    psmt.setString(11,  discounts.getThirdSubsidy());
 	    psmt.setString(12,  discounts.getMerchantSubsidy());
 	    psmt.setString(13,orderid);
-	    
-	    
+	    psmt.setString(14,storeid);
+	    psmt.setString(15,orderDate);
+	    psmt.setString(16,orderTime);
 
 
 	    //执行SQL语句

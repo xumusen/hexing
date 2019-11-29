@@ -66,7 +66,7 @@ public class DisProducts {
 	public void setOrderid(String orderid) {
 		this.orderid = orderid;
 	}
-	public static void insertDisProducts(String orderid,DisProducts disproducts)throws SQLException{
+	public static void insertDisProducts(String orderid,DisProducts disproducts,String storeid,String orderDate,String orderTime)throws SQLException{
 	    //首先拿到数据库的连接
 	    Connection conn=DBUtil.getConnection();
 	 /*   String sql="" + 
@@ -76,8 +76,8 @@ public class DisProducts {
 	*/	        
 	    String sql=""+
 	    		"INSERT INTO disProducts"+
-	    		"(pid,name,num,price,orderid)"+
-	    		"values (?,?,?,?,?)";
+	    		"(pid,name,num,price,orderid,storeid)"+
+	    		"values (?,?,?,?,?,?,?,?)";
 	    System.out.println(sql);
 	    PreparedStatement psmt = conn.prepareStatement(sql);
 	    
@@ -87,7 +87,9 @@ public class DisProducts {
 	    psmt.setString(3, disproducts.getNum());
 	    psmt.setString(4, disproducts.getPrice());
 	    psmt.setString(5, orderid);
-
+	    psmt.setString(6, storeid);
+	    psmt.setString(7, orderDate);
+	    psmt.setString(8, orderTime);
 	    
 	    
 
