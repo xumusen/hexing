@@ -65,7 +65,7 @@ public void setUpdateTime(String updateTime) {
 	this.updateTime = updateTime;
 }
 
-public static void CancelOrder(CancelOrder cancelOrder) throws SQLException {
+public static void InsertCancelOrder(CancelOrder cancelOrder) throws SQLException {
 	
 	// TODO Auto-generated constructor stub
 	 Connection conn=DBUtil.getConnection();
@@ -74,6 +74,7 @@ public static void CancelOrder(CancelOrder cancelOrder) throws SQLException {
     		//"(code,pid,vendor,num,[type],childType,title,[content],price,totalAmount,thirdSubsidy,merchantSubsidy,orderid)"+
     		"values (?,?,?,?,?)";
    // System.out.println(sql);
+
     PreparedStatement psmt = conn.prepareStatement(sql);
     
     //先对应SQL语句，给SQL语句传递参数
@@ -90,13 +91,12 @@ public static void CancelOrder(CancelOrder cancelOrder) throws SQLException {
     psmt.setString(11,  discounts.getThirdSubsidy());
     psmt.setString(12,  discounts.getMerchantSubsidy());
     psmt.setString(13,orderid);*/
-    
-    
-
-
     //执行SQL语句
     psmt.execute();
 }
+
+
+
 	public static void CancelOrder(String cancelOrder) throws SQLException {
 		
 		JSONObject jsonobj = JSONObject.fromObject(cancelOrder);
@@ -108,8 +108,12 @@ public static void CancelOrder(CancelOrder cancelOrder) throws SQLException {
 		String cancelNote=data.getString("cancelNote");
 		String updateTime=data.getString("updateTime");
 		CancelOrder cancelOrder2 = (CancelOrder) JSONObject.toBean(data, CancelOrder.class);
-		CancelOrder.CancelOrder(cancelOrder2);
-		
+		CancelOrder.InsertCancelOrder(cancelOrder2);
+		Connection conn=DBUtil.getConnection();
+		String udpateOrder="update orders set iscancel=1 where orderid=? ";
+		PreparedStatement psmt = conn.prepareStatement(udpateOrder);
+		psmt.setString(1, orderId);
+		int r=psmt.executeUpdate();
 	}
 
 
