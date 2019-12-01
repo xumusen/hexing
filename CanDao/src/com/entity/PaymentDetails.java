@@ -77,7 +77,15 @@ public class PaymentDetails {
 	String tradeNo;
 	String posName;
 	String posType;
-	String code;
+	String code,num;
+	public String getNum() {
+		return num;
+	}
+
+	public void setNum(String num) {
+		this.num = num;
+	}
+
 	String orderDate,orderTime;
 	
 	 public String getOrderDate() {
@@ -114,8 +122,8 @@ public class PaymentDetails {
 */	        
 	        String sql=""+
 	        		"INSERT INTO paymentDetails"+
-	        		"(orderid,payType,[type],posType,posName,typeName,[money],tradeNo,code,orderDate,orderTime,originOrderId,storeid)"
-	        		+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	        		"(orderid,payType,[type],posType,posName,typeName,[money],tradeNo,code,num,orderDate,orderTime,originOrderId,storeid)"
+	        		+ "VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	        PreparedStatement psmt = conn.prepareStatement(sql);
 	        
 	        //先对应SQL语句，给SQL语句传递参数
@@ -128,10 +136,11 @@ public class PaymentDetails {
 	        psmt.setString(7, paymentDetails.getMoney());
 	        psmt.setString(8, paymentDetails.getTradeNo());
 	        psmt.setString(9, paymentDetails.getCode());
-	        psmt.setString(10, orderDate);
-	        psmt.setString(11, orderTime);
-	        psmt.setString(12, originOrderId);
-	        psmt.setString(13, storeid);
+	        psmt.setString(10, paymentDetails.getNum());
+	        psmt.setString(11, orderDate);
+	        psmt.setString(12, orderTime);
+	        psmt.setString(13, originOrderId);
+	        psmt.setString(14, storeid);
 	        //执行SQL语句
 	        psmt.execute();
 	        /**

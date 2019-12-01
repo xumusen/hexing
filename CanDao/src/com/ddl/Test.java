@@ -312,6 +312,13 @@ public class Test {
 			// TODO: handle exception
 			String mealFee = "";
 		}
+		try {
+			String originPrice = jsonobject.getString("originPrice");
+			System.out.println("originPrice =" + originPrice);
+		} catch (Exception e) {
+			// TODO: handle exception
+			String originPrice = "";
+		}
 		String price = jsonobject.getString("price");
 
 		try {

@@ -10,6 +10,8 @@ import com.ddl.CancelOrder;
 import com.ddl.Test;
 import com.ddl.Test2;
 
+import net.sf.json.JSONObject;
+
 import java.io.FileInputStream;
 import java.sql.SQLException;
 /**
@@ -83,8 +85,25 @@ public class ExcelData {
 			for(int j=0;j<columns;j++){
 				String cell = row.getCell(j).toString();
 				System.out.println(cell);
-				//Test2.retailOrder(cell);
-				Test.postDineorder(cell);
+				JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
+				//JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
+				String actionName=jsonobj.getString("actionName");
+				if(actionName.equals("candao.order.postDineInOrder")){
+					Test.postDineorder(cell);
+				}else if(actionName.equals("candao.retail.order")){
+					Test2.retailOrder(cell);
+				}else if(actionName.equals("candao.order.postDineInStatus")){
+					CancelOrder.CancelOrder(cell);
+				}else if(actionName.equals("candao.retail.updateOrderStatus")){
+					System.out.println("更新新零售订单状态啦啦啦啦啦");
+				}
+				
+				
+				
+				
+				
+				
+				//Test.postDineorder(cell);
 			}
 		}
 	}
@@ -135,8 +154,8 @@ public class ExcelData {
 		sheet1.readExcelDataRetail();*/
 		
 		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1103/20191103-DQ测试用例.xlsx", "Sheet4");
-		//ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1113\\ncr1113.xlsx", "Sheet1");
-		ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1129/订单数据20191129.xlsx", "Sheet1");
+		ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1129\\订单数据20191129.xlsx", "大而全");
+		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1129/订单数据20191129.xlsx", "Sheet1");
 		sheet1.readExcelData();
 		//sheet1.readExcelDataRetail();
 		//获取第二行第4列
@@ -168,6 +187,12 @@ public class ExcelData {
 		sheet1.readExcelData();*/
 	/*	ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1106/ST11063701.xlsx", "Sheet3");
 		sheet1.readExcelDataCancel();*/
+		
+		
+		
+		
+		
+		
 		
 	}
 }

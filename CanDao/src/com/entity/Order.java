@@ -327,6 +327,7 @@ public class Order {
 	tableNum,
 	userNote,
 	peopleNum,
+	counts,
 	tableNo,
 	deviceNo,
 	staffId,
@@ -348,6 +349,7 @@ public class Order {
 	price,
 	deliveryFee,
 	mealFee,
+	originPrice,
 	productPrice,
 	discountPrice,
 	merchantBearPrice,
@@ -355,6 +357,22 @@ public class Order {
 	merchantPrice,
 	commission,
 	extra;
+	public String getCounts() {
+		return counts;
+	}
+
+	public void setCounts(String counts) {
+		this.counts = counts;
+	}
+
+	public String getOriginPrice() {
+		return originPrice;
+	}
+
+	public void setOriginPrice(String originPrice) {
+		this.originPrice = originPrice;
+	}
+
 	public List<PaymentDetails> getPaymentDetails() {
 		return paymentDetails;
 	}
@@ -409,8 +427,8 @@ public static void insertOrder(String orderid,Order order)throws SQLException{
     				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";*/
     String sql=""+
     		"INSERT INTO [orders]"+
-    				"(orderid,thirdSn,storeId,fromType,name,phone,takeNo,tableNum,userNote,peopleNum,tableNo,deviceNo,staffId,staffNo,staffBane,memberId,point,pointExpiryDate,orderTime,orderDate,orderStatus,orderType,posOrderType,isPayed,payType,isInvoice,invoiceDesc,taxNo,price,deliveryFee,mealFee,productPrice,discountPrice,merchantBearPrice,thirdPlatformBearPrice,merchantPrice,commission,extra,createtime)"+
-    				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    				"(orderid,thirdSn,storeId,fromType,name,phone,takeNo,tableNum,userNote,peopleNum,counts,tableNo,deviceNo,staffId,staffNo,staffBane,memberId,point,pointExpiryDate,orderTime,orderDate,orderStatus,orderType,posOrderType,isPayed,payType,isInvoice,invoiceDesc,taxNo,price,deliveryFee,mealFee,originPrice,productPrice,discountPrice,merchantBearPrice,thirdPlatformBearPrice,merchantPrice,commission,extra,createtime)"+
+    				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     PreparedStatement psmt = conn.prepareStatement(sql);
     //先对应SQL语句，给SQL语句传递参数
     psmt.setString(1,  orderid);
@@ -423,34 +441,36 @@ public static void insertOrder(String orderid,Order order)throws SQLException{
     psmt.setString(8,  order.getTableNum());
     psmt.setString(9,  order.getUserNote());
     psmt.setString(10,  order.getPeopleNum());
-    psmt.setString(11,  order.getTableNo());
-    psmt.setString(12,  order.getDeviceNo());
-    psmt.setString(13,  order.getStaffId());
-    psmt.setString(14,  order.getStaffNo());
-    psmt.setString(15,  order.getStaffBane());
-    psmt.setString(16,  order.getMemberId());
-    psmt.setString(17,  order.getPoint());
-    psmt.setString(18,  order.getPointExpiryDate());
-    psmt.setString(19,  order.getOrderTime());
-    psmt.setString(20,  order.getOrderDate());
-    psmt.setString(21,  order.getOrderStatus());
-    psmt.setString(22,  order.getOrderType());
-    psmt.setString(23,  order.getPosOrderType());
-    psmt.setString(24,  order.getIsPayed());
-    psmt.setString(25,  order.getPayType());
-    psmt.setString(26,  order.getIsInvoice());
-    psmt.setString(27,  order.getInvoiceDesc());
-    psmt.setString(28,  order.getTaxNo());
-    psmt.setString(29,  order.getPrice());
-    psmt.setString(30,  order.getDeliveryFee());
-    psmt.setString(31,  order.getMealFee());
-    psmt.setString(32,  order.getProductPrice());
-    psmt.setString(33,  order.getDiscountPrice());
-    psmt.setString(34,  order.getMerchantBearPrice());
-    psmt.setString(35,  order.getThirdPlatformBearPrice());
-    psmt.setString(36,  order.getMerchantPrice());
-    psmt.setString(37,  order.getCommission());
-    psmt.setString(38,  order.getExtra());
+    psmt.setString(11,  order.getCounts());
+    psmt.setString(12,  order.getTableNo());
+    psmt.setString(13,  order.getDeviceNo());
+    psmt.setString(14,  order.getStaffId());
+    psmt.setString(15,  order.getStaffNo());
+    psmt.setString(16,  order.getStaffBane());
+    psmt.setString(17,  order.getMemberId());
+    psmt.setString(18,  order.getPoint());
+    psmt.setString(19,  order.getPointExpiryDate());
+    psmt.setString(20,  order.getOrderTime());
+    psmt.setString(21,  order.getOrderDate());
+    psmt.setString(22,  order.getOrderStatus());
+    psmt.setString(23,  order.getOrderType());
+    psmt.setString(24,  order.getPosOrderType());
+    psmt.setString(25,  order.getIsPayed());
+    psmt.setString(26,  order.getPayType());
+    psmt.setString(27,  order.getIsInvoice());
+    psmt.setString(28,  order.getInvoiceDesc());
+    psmt.setString(29,  order.getTaxNo());
+    psmt.setString(30,  order.getPrice());
+    psmt.setString(31,  order.getDeliveryFee());
+    psmt.setString(32,  order.getMealFee());
+    psmt.setString(33,  order.getOriginPrice());
+    psmt.setString(34,  order.getProductPrice());
+    psmt.setString(35,  order.getDiscountPrice());
+    psmt.setString(36,  order.getMerchantBearPrice());
+    psmt.setString(37,  order.getThirdPlatformBearPrice());
+    psmt.setString(38,  order.getMerchantPrice());
+    psmt.setString(39,  order.getCommission());
+    psmt.setString(40,  order.getExtra());
     /*  
     psmt.setString(39,  order.getPaymentDetails());
     psmt.setString(40,  order.getStatus());
@@ -460,7 +480,7 @@ public static void insertOrder(String orderid,Order order)throws SQLException{
 	Date date=new Date();
 	SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String dateStr2 = df2.format(date);
-	psmt.setString(39,dateStr2);
+	psmt.setString(41,dateStr2);
     //执行SQL语句
     psmt.execute();
     /**

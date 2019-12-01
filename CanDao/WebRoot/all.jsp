@@ -150,6 +150,7 @@
 				<th>price</th>
 				<th>deliveryFee</th>
 				<th>mealFee</th>
+				<th>originPrice</th>
 				<th>productPrice</th>
 				<th>discountPrice</th>
 				<th>merchantBearPrice</th>
@@ -168,6 +169,7 @@
 				<th>tableNum</th>
 				<th>userNote</th>
 				<th>peopleNum</th>
+				<th>counts</th>
 				<th>tableNo</th>
 				<th>deviceNo</th>
 				<th>staffId</th>
@@ -197,6 +199,7 @@
 					<td>${order.price}</td>
 					<td>${order.deliveryFee}</td>
 					<td>${order.mealFee}</td>
+					<td>${order.originPrice}</td>
 					<td>${order.productPrice}</td>
 					<td>${order.discountPrice}</td>
 					<td>${order.merchantBearPrice}</td>
@@ -215,6 +218,7 @@
 					<td>${order.tableNum}</td>
 					<td>${order.userNote}</td>
 					<td>${order.peopleNum}</td>
+					<td>${order.counts}</td>
 					<td>${order.tableNo}</td>
 					<td>${order.deviceNo}</td>
 					<td>${order.staffId}</td>

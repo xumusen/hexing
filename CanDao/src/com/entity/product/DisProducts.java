@@ -38,16 +38,17 @@ public class DisProducts {
 	String price;
 	String orderid;
 	String itemDisc;
-	Dept dept;
-	Types types;
-	
-	
 	public String getItemDisc() {
 		return itemDisc;
 	}
 	public void setItemDisc(String itemDisc) {
 		this.itemDisc = itemDisc;
 	}
+	Dept dept;
+	Types types;
+	
+	
+
 	public Dept getDept() {
 		return dept;
 	}
@@ -76,8 +77,8 @@ public class DisProducts {
 	*/	        
 	    String sql=""+
 	    		"INSERT INTO disProducts"+
-	    		"(pid,name,num,price,orderid,storeid)"+
-	    		"values (?,?,?,?,?,?,?,?)";
+	    		"(pid,name,num,price,itemDisc,orderid,storeid,orderDate,orderTime)"+
+	    		"values (?,?,?,?,?,?,?,?,?)";
 	    System.out.println(sql);
 	    PreparedStatement psmt = conn.prepareStatement(sql);
 	    
@@ -86,10 +87,11 @@ public class DisProducts {
 	    psmt.setString(2, disproducts.getName());
 	    psmt.setString(3, disproducts.getNum());
 	    psmt.setString(4, disproducts.getPrice());
-	    psmt.setString(5, orderid);
-	    psmt.setString(6, storeid);
-	    psmt.setString(7, orderDate);
-	    psmt.setString(8, orderTime);
+	    psmt.setString(5, disproducts.getItemDisc());
+	    psmt.setString(6, orderid);
+	    psmt.setString(7, storeid);
+	    psmt.setString(8, orderDate);
+	    psmt.setString(9, orderTime);
 	    
 	    
 
