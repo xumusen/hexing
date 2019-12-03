@@ -42,7 +42,7 @@ public class MysqlJdbc {
 			while (rs.next()) {
 				// System.out.println(rs.getString("req"));
 				//Test.postDineorder(rs.getString("req"));
-				 String cell=rs.getString("业务json数据");
+				 String cell=rs.getString("json");
 				JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
 				//JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
 				String actionName=jsonobj.getString("actionName");
