@@ -2,6 +2,12 @@ package com.utils;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+import com.ddl.CancelOrder;
+import com.ddl.Test;
+import com.ddl.Test2;
+
+import net.sf.json.JSONObject;
+
 
 
 	public class DBUtil {
@@ -42,9 +48,22 @@ import java.util.ResourceBundle;
 	        //3.通过数据库的连接操作数据库，实现增删改查
 	        Statement stmt = conn.createStatement();
 	        //ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句   ，返回一个结果集（ResultSet）对象。
-	        ResultSet rs = stmt.executeQuery("select * from status");
+	        ResultSet rs = stmt.executeQuery("SELECT * from orderCollection ");
 	        while(rs.next()){//如果对象中有数据，就会循环打印出来
-	            System.out.println(rs.getInt("title")+","+rs.getString("value")+","+rs.getInt("datetime"));
+	        	String cell=rs.getString("dm5u_prefix_paas_data_analyse_data_json");
+	            System.out.println(cell);
+	            JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
+				//JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
+				String actionName=jsonobj.getString("actionName");
+				if(actionName.equals("candao.order.postDineInOrder")){
+					Test.postDineorder(cell);
+				}else if(actionName.equals("candao.retail.order")){
+					Test2.retailOrder(cell);
+				}else if(actionName.equals("candao.order.postDineInStatus")){
+					CancelOrder.CancelOrder(cell);
+				}else if(actionName.equals("candao.retail.updateOrderStatus")){
+					System.out.println("更新新零售订单状态啦啦啦啦啦");
+				}
 	        }
 	    }
 
