@@ -103,15 +103,16 @@ public class Test3 {
 	public static void main(String[] args) throws IOException, SQLException {
 		// TODO Auto-generated method stub
 		//String content = Test.readFileContent("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1202/appDataController.json").trim();
-		String filename="H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1202\\appDataController - 副本.json";
-		String filenames="H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1202\\appDataController.json";
-		String writename="H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1202\\appDataWrite.json";
-		String content = Test.readFileContent(filename).trim();
+		//String filename="/Users/jason/OneDrive - cd/项目资料/吉野家/order/1202/response1101-1129.json";
+		String filename="/Users/jason/OneDrive - cd/项目资料/吉野家/order/1202/response1202-1203.json";
+		//String filenames="H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1202\\appDataController.json";
+		//String writename="H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1202\\appDataWrite.json";
+		//String content = Test.readFileContent(filename).trim();
 		
 		LinkedList<OrderCollect> returnList=(LinkedList<OrderCollect>) Test3.getOrderObjectsByClass("",filename,OrderCollect.class);
 		System.out.println(returnList.size());
 		for(int i=0;i<returnList.size();i++){
-			//OrderCollect.insertPaymentDetails(returnList.get(i));
+			//OrderCollect.insertOrderCollect(returnList.get(i));
 			System.out.println(returnList.get(i).getDm5u_prefix_paas_data_analyse_data_json());
 		}
 		

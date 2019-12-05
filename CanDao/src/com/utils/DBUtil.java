@@ -48,7 +48,8 @@ import net.sf.json.JSONObject;
 	        //3.通过数据库的连接操作数据库，实现增删改查
 	        Statement stmt = conn.createStatement();
 	        //ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句   ，返回一个结果集（ResultSet）对象。
-	        ResultSet rs = stmt.executeQuery("SELECT * from orderCollection ");
+	        //ResultSet rs = stmt.executeQuery("SELECT * from orderCancelCollect ");
+	        ResultSet rs = stmt.executeQuery("SELECT * from orderCollect ");
 	        while(rs.next()){//如果对象中有数据，就会循环打印出来
 	        	String cell=rs.getString("dm5u_prefix_paas_data_analyse_data_json");
 	            System.out.println(cell);

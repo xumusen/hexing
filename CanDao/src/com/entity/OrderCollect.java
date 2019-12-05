@@ -191,7 +191,7 @@ public class OrderCollect {
 	}
 
 	
-	public static void insertPaymentDetails(OrderCollect orderCollect)throws SQLException{
+	public static void insertOrderCollect(OrderCollect orderCollect)throws SQLException{
         //首先拿到数据库的连接
         Connection conn=DBUtil.getConnection();
      /*   String sql="" + 
