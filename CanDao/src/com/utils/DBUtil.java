@@ -49,9 +49,10 @@ import net.sf.json.JSONObject;
 	        Statement stmt = conn.createStatement();
 	        //ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句   ，返回一个结果集（ResultSet）对象。
 	        //ResultSet rs = stmt.executeQuery("SELECT * from orderCancelCollect ");
-	        ResultSet rs = stmt.executeQuery("SELECT * from orderCollect ");
+	        //ResultSet rs = stmt.executeQuery("SELECT * from orderCollect ");
+	        ResultSet rs = stmt.executeQuery("select substring(msg,38,len(msg)) AS num from qcOrder AS qo where qo.sysName='api-gateway' and qo.flag='1' ");
 	        while(rs.next()){//如果对象中有数据，就会循环打印出来
-	        	String cell=rs.getString("dm5u_prefix_paas_data_analyse_data_json");
+	        	String cell=rs.getString("num");
 	            System.out.println(cell);
 	            JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
 				//JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
