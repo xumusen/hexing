@@ -402,7 +402,7 @@ public class Order2 {
 	
 	
 
-public static void insertOrder(String orderid,Order2 order)throws SQLException{
+public static void insertOrder(String orderid,Order2 order,Title title)throws SQLException{
     //首先拿到数据库的连接
     Connection conn=DBUtil.getConnection();
  /*   String sql="" + 
@@ -416,8 +416,8 @@ public static void insertOrder(String orderid,Order2 order)throws SQLException{
     				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";*/
     String sql=""+
     		"INSERT INTO order_goods"+
-    		"(orderId,orderNo,originOrderId,[type],sn,storeId,subStoreId,storeName,brandId,brandName,counts,name,openId,unionId,phone,deviceNo,fromType,orderStatus,orderTime,orderDate,payType,isPayed,paytime,currency,price,productPrice,realTimeProductPrice,discountPrice,merchantBearPrice,merchantPrice,userId,thirdUserId,point,pointExpiryDate,registerPhone,userNote,isStoreFirstOrder,isBrandFirstOrder)"+
-    		"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    		"(orderId,orderNo,originOrderId,[type],sn,storeId,subStoreId,storeName,brandId,brandName,counts,name,openId,unionId,phone,deviceNo,fromType,orderStatus,orderTime,orderDate,payType,isPayed,paytime,currency,price,productPrice,realTimeProductPrice,discountPrice,merchantBearPrice,merchantPrice,userId,thirdUserId,point,pointExpiryDate,registerPhone,userNote,isStoreFirstOrder,isBrandFirstOrder,storeid2,accessKey,actionName,timestamp,timestamp2,ticket,sign,serviceType,vendor,json)"+
+    		"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     PreparedStatement psmt = conn.prepareStatement(sql);
     
     //先对应SQL语句，给SQL语句传递参数
@@ -460,7 +460,16 @@ public static void insertOrder(String orderid,Order2 order)throws SQLException{
     psmt.setString(37,  order.getIsStoreFirstOrder());
     psmt.setString(38,  order.getIsBrandFirstOrder());
 
-
+    psmt.setString(39,  title.getStoreId());
+    psmt.setString(40,  title.getAccessKey());
+    psmt.setString(41,  title.getActionName());
+    psmt.setLong(42,  title.getTimestamp());
+    psmt.setString(43,  title.getTimestamp2());
+    psmt.setString(44,  title.getTicket());
+    psmt.setString(45,  title.getSign());
+    psmt.setString(46,  title.getServiceType());
+    psmt.setString(47,title.getVendor());
+    psmt.setString(48, title.getJson());
 
     //执行SQL语句
     psmt.execute();

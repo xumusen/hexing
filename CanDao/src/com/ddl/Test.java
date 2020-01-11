@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 import com.entity.Order;
 import com.entity.PaymentDetails;
 import com.entity.Status;
+import com.entity.Title;
 import com.entity.product.Category;
 import com.entity.product.Combos;
 import com.entity.product.Dept;
@@ -29,6 +30,7 @@ import com.entity.product.Skus;
 import com.entity.product.SubDept;
 import com.entity.product.Types;
 import com.utils.DBUtil;
+import com.utils.TimeUtils;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -79,6 +81,30 @@ public class Test {
 		 * System.out.println(jsonobj.getString("serviceType"));
 		 * System.out.println(jsonobj.getString("vendor"));
 		 */
+		
+		
+		String accessKey=jsonobj.getString("accessKey");
+		String actionName=jsonobj.getString("actionName");
+		long timestamp=jsonobj.getLong("timestamp");
+		String ticket=jsonobj.getString("ticket");
+		String sign=jsonobj.getString("sign");
+		String serviceType=jsonobj.getString("serviceType");
+		String vendor=jsonobj.getString("vendor");
+		String storeId2=jsonobj.getString("storeId");
+		Title title= new Title();
+		title.setAccessKey(accessKey);
+		title.setActionName(actionName);
+		title.setServiceType(serviceType);
+		title.setSign(sign);
+		title.setStoreId(storeId2);
+		title.setTicket(ticket);
+		title.setTimestamp(timestamp);
+		title.setTimestamp2(TimeUtils.getTimeStamptoString(timestamp));
+		title.setVendor(vendor);
+		title.setJson(order);
+		
+		
+		
 
 		JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
 
@@ -583,7 +609,7 @@ public class Test {
 			orders.put("paymentDetails", PaymentDetails.class);
 			orders.put("status", Status.class);
 			Order order1 = (Order) JSONObject.toBean(jsonobject, Order.class, orders);
-			Order.insertOrder(orderId, order1);
+			Order.insertOrder(orderId, order1,title);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -594,13 +620,13 @@ public class Test {
 		// TODO Auto-generated method stub
 		// String order = Test.readFileContent("/Users/jason/OneDrive -
 		// cd/项目资料/吉野家/order/1031/shitong1.txt").trim();
-	//	String order = Test.readFileContent("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1118/st1.txt").trim();
-		//String order = Test.readFileContent("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1108\\ncr1-test.txt").trim();
+		//String order = Test.readFileContent("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1118/st1.txt").trim();
+		String order = Test.readFileContent("E:\\OneDrive - cd\\项目资料\\吉野家\\order\\1108\\ncr1.txt").trim();
 	//	String order = Test.readFileContent("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1101\\st2error.txt").trim();
 		// String order = Test.readFileContent("/Users/jason/OneDrive -
 		// cd/项目资料/吉野家/order/1028-jian24/test3.txt").trim();
 		// System.out.println(order);
-		Statement stmt = DBUtil.getConnection().createStatement();
+		//Statement stmt = DBUtil.getConnection().createStatement();
 		// ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句
 		// ，返回一个结果集（ResultSet）对象。
 		// ResultSet rs = stmt.executeQuery("SELECT * FROM error2531 WHERE
@@ -621,8 +647,8 @@ public class Test {
 		 
 		ResourceBundle resource = ResourceBundle.getBundle("web"); 
 		System.out.println(resource.getString("URL"));
-
-		//Test.postDineorder(order);
+		System.out.println(order);
+		Test.postDineorder(order);
 	}
 
 

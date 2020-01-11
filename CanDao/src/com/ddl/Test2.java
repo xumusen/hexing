@@ -13,6 +13,7 @@ import com.entity.Order;
 import com.entity.Order2;
 import com.entity.PaymentDetails;
 import com.entity.Status;
+import com.entity.Title;
 import com.entity.goods.Combos;
 import com.entity.goods.DisProducts;
 import com.entity.goods.Discounts;
@@ -21,6 +22,7 @@ import com.entity.goods.Products_goods;
 import com.entity.goods.Propertys;
 import com.entity.goods.Skus;
 import com.utils.ExcelData;
+import com.utils.TimeUtils;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -70,6 +72,36 @@ public class Test2 {
 		// System.out.println(order);
 		JSONObject jsonobj = JSONObject.fromObject(order);// 将字符串转化成json对象
 
+		String accessKey=jsonobj.getString("accessKey");
+		String actionName=jsonobj.getString("actionName");
+		long timestamp=jsonobj.getLong("timestamp");
+		String ticket=jsonobj.getString("ticket");
+		String sign=jsonobj.getString("sign");
+		String serviceType=jsonobj.getString("serviceType");
+		String vendor=jsonobj.getString("vendor");
+		
+		String storeId2="";
+		try {
+			 storeId2=jsonobj.getString("storeId");
+			System.out.println("storeId2 =" + storeId2);
+		} catch (Exception e) {
+			// TODO: handle exception
+			 storeId2 = "";
+		}
+		Title title= new Title();
+		title.setAccessKey(accessKey);
+		title.setActionName(actionName);
+		title.setServiceType(serviceType);
+		title.setSign(sign);
+		title.setStoreId(storeId2);
+		title.setTicket(ticket);
+		title.setTimestamp(timestamp);
+		title.setTimestamp2(TimeUtils.getTimeStamptoString(timestamp));
+		title.setVendor(vendor);
+		title.setJson(order);
+		
+		
+		
 		JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
 
 		System.out.println(jsonobj.getString("data"));
@@ -617,7 +649,7 @@ public class Test2 {
 			orders.put("paymentDetails", PaymentDetails.class);
 			orders.put("status", Status.class);
 			Order2 order1 = (Order2) JSONObject.toBean(jsonobject, Order2.class, orders);
-			Order2.insertOrder(orderId, order1);
+			Order2.insertOrder(orderId, order1,title);
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

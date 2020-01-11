@@ -413,7 +413,7 @@ public class Order {
 	
 	
 
-public static void insertOrder(String orderid,Order order)throws SQLException{
+public static void insertOrder(String orderid,Order order,Title title)throws SQLException{
     //首先拿到数据库的连接
     Connection conn=DBUtil.getConnection();
  /*   String sql="" + 
@@ -427,8 +427,8 @@ public static void insertOrder(String orderid,Order order)throws SQLException{
     				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";*/
     String sql=""+
     		"INSERT INTO [orders]"+
-    				"(orderid,thirdSn,storeId,fromType,name,phone,takeNo,tableNum,userNote,peopleNum,counts,tableNo,deviceNo,staffId,staffNo,staffBane,memberId,point,pointExpiryDate,orderTime,orderDate,orderStatus,orderType,posOrderType,isPayed,payType,isInvoice,invoiceDesc,taxNo,price,deliveryFee,mealFee,originPrice,productPrice,discountPrice,merchantBearPrice,thirdPlatformBearPrice,merchantPrice,commission,extra,createtime)"+
-    				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    				"(orderid,thirdSn,storeId,fromType,name,phone,takeNo,tableNum,userNote,peopleNum,counts,tableNo,deviceNo,staffId,staffNo,staffBane,memberId,point,pointExpiryDate,orderTime,orderDate,orderStatus,orderType,posOrderType,isPayed,payType,isInvoice,invoiceDesc,taxNo,price,deliveryFee,mealFee,originPrice,productPrice,discountPrice,merchantBearPrice,thirdPlatformBearPrice,merchantPrice,commission,extra,createtime,storeid2,accessKey,actionName,timestamp,timestamp2,ticket,sign,serviceType,vendor,json)"+
+    				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     PreparedStatement psmt = conn.prepareStatement(sql);
     //先对应SQL语句，给SQL语句传递参数
     psmt.setString(1,  orderid);
@@ -471,16 +471,23 @@ public static void insertOrder(String orderid,Order order)throws SQLException{
     psmt.setString(38,  order.getMerchantPrice());
     psmt.setString(39,  order.getCommission());
     psmt.setString(40,  order.getExtra());
-    /*  
-    psmt.setString(39,  order.getPaymentDetails());
-    psmt.setString(40,  order.getStatus());
-    psmt.setString(41,  order.getProducts());
-    psmt.setString(42,  order.getDiscounts());
-    */
 	Date date=new Date();
 	SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	String dateStr2 = df2.format(date);
 	psmt.setString(41,dateStr2);
+	
+	psmt.setString(42,  title.getStoreId());
+    psmt.setString(43,  title.getAccessKey());
+    psmt.setString(44,  title.getActionName());
+    psmt.setLong(45,  title.getTimestamp());
+    psmt.setString(46,  title.getTimestamp2());
+    psmt.setString(47,  title.getTicket());
+    psmt.setString(48,  title.getSign());
+    psmt.setString(49,  title.getServiceType());
+    psmt.setString(50,title.getVendor());
+    psmt.setString(51, title.getJson());
+
+
     //执行SQL语句
     psmt.execute();
     /**
