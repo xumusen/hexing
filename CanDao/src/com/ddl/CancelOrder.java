@@ -142,7 +142,7 @@ public static void InsertCancelOrder(CancelOrder cancelOrder,Title title) throws
 		
 		try {
 			String cancelNote=data.getString("cancelNote");
-			System.out.println("cancelNote =" + cancelNote);
+		//	System.out.println("cancelNote =" + cancelNote);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String cancelNote = "";

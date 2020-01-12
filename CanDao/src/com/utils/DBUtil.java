@@ -53,7 +53,7 @@ import net.sf.json.JSONObject;
 	        ResultSet rs = stmt.executeQuery("select substring(msg,38,len(msg)) AS num from qcOrder AS qo where qo.sysName='api-gateway' and qo.flag='1' ");
 	        while(rs.next()){//如果对象中有数据，就会循环打印出来
 	        	String cell=rs.getString("num");
-	            System.out.println(cell);
+	           // System.out.println(cell);
 	            JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
 				//JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
 				String actionName=jsonobj.getString("actionName");

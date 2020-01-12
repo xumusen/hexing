@@ -57,7 +57,7 @@ public class DisProducts {
 	    		"INSERT INTO disProducts"+
 	    		"(pid,name,num,price,orderid)"+
 	    		"values (?,?,?,?,?)";
-	    System.out.println(sql);
+	   // System.out.println(sql);
 	    PreparedStatement psmt = conn.prepareStatement(sql);
 	    
 	    //先对应SQL语句，给SQL语句传递参数

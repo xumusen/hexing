@@ -83,7 +83,7 @@ public class Test2 {
 		String storeId2="";
 		try {
 			 storeId2=jsonobj.getString("storeId");
-			System.out.println("storeId2 =" + storeId2);
+		//	System.out.println("storeId2 =" + storeId2);
 		} catch (Exception e) {
 			// TODO: handle exception
 			 storeId2 = "";
@@ -104,7 +104,7 @@ public class Test2 {
 		
 		JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
 
-		System.out.println(jsonobj.getString("data"));
+	//	System.out.println(jsonobj.getString("data"));
 		String orderId = jsonobject.getString("orderId");
 		/*
 		 * String thirdSn=jsonobject.getString("sn");
@@ -113,7 +113,7 @@ public class Test2 {
 		// String thirdSn=jsonobject.getString("thirdSn");
 
 		if (jsonobject == null || jsonobject.isEmpty() || jsonobject.isNullObject() || "null".equals(jsonobject)) {
-			System.out.println("订单数据有问题");
+	//		System.out.println("订单数据有问题");
 		}
 
 		/*
@@ -124,28 +124,28 @@ public class Test2 {
 
 		try {
 			String sn = jsonobject.getString("sn");
-			System.out.println("sn =" + sn);
+	//		System.out.println("sn =" + sn);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String sn = "";
 		}
 		try {
 			String subStoreId = jsonobject.getString("subStoreId");
-			System.out.println("subStoreId =" + subStoreId);
+	//		System.out.println("subStoreId =" + subStoreId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String subStoreId = "";
 		}
 		try {
 			String storeName = jsonobject.getString("storeName");
-			System.out.println("storeName =" + storeName);
+	//		System.out.println("storeName =" + storeName);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String storeName = "";
 		}
 		try {
 			String brandId = jsonobject.getString("brandId");
-			System.out.println("brandId =" + brandId);
+	//		System.out.println("brandId =" + brandId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String brandId = "";
@@ -153,7 +153,7 @@ public class Test2 {
 
 		try {
 			String brandName = jsonobject.getString("brandName");
-			System.out.println("brandName =" + brandName);
+	//		System.out.println("brandName =" + brandName);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String brandName = "";
@@ -161,7 +161,7 @@ public class Test2 {
 
 		try {
 			String counts = jsonobject.getString("counts");
-			System.out.println("counts =" + counts);
+	//		System.out.println("counts =" + counts);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String counts = "";
@@ -169,14 +169,14 @@ public class Test2 {
 
 		try {
 			String name = jsonobject.getString("name");
-			System.out.println("name =" + name);
+	//		System.out.println("name =" + name);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String name = "";
 		}
 		try {
 			String openId = jsonobject.getString("openId");
-			System.out.println("openId =" + openId);
+	//		System.out.println("openId =" + openId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String openId = "";
@@ -184,7 +184,7 @@ public class Test2 {
 
 		try {
 			String unionId = jsonobject.getString("unionId");
-			System.out.println("unionId =" + unionId);
+//			System.out.println("unionId =" + unionId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String unionId = "";
@@ -192,7 +192,7 @@ public class Test2 {
 
 		try {
 			String phone = jsonobject.getString("phone");
-			System.out.println("phone =" + phone);
+//			System.out.println("phone =" + phone);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String phone = "";
@@ -200,7 +200,7 @@ public class Test2 {
 
 		try {
 			String deviceNo = jsonobject.getString("deviceNo");
-			System.out.println("deviceNo =" + deviceNo);
+	//		System.out.println("deviceNo =" + deviceNo);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String deviceNo = "";
@@ -208,21 +208,21 @@ public class Test2 {
 
 		try {
 			String takeNo = jsonobject.getString("takeNo");
-			System.out.println("takeNo =" + takeNo);
+	//		System.out.println("takeNo =" + takeNo);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String takeNo = "";
 		}
 		try {
 			String tableNum = jsonobject.getString("tableNum");
-			System.out.println("tableNum =" + tableNum);
+	//		System.out.println("tableNum =" + tableNum);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String tableNum = "";
 		}
 		try {
 			int peopleNum = jsonobject.getInt("peopleNum");
-			System.out.println("peopleNum =" + peopleNum);
+	//		System.out.println("peopleNum =" + peopleNum);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String peopleNum = "";
@@ -230,14 +230,14 @@ public class Test2 {
 
 		try {
 			String deviceNo = jsonobject.getString("deviceNo");
-			System.out.println("deviceNo =" + deviceNo);
+	//		System.out.println("deviceNo =" + deviceNo);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String deviceNo = "";
 		}
 		try {
 			String staffId = jsonobject.getString("staffId");
-			System.out.println("staffId =" + staffId);
+	//		System.out.println("staffId =" + staffId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String staffId = "";
@@ -245,7 +245,7 @@ public class Test2 {
 
 		try {
 			String staffNo = jsonobject.getString("staffNo");
-			System.out.println("staffNo =" + staffNo);
+	//		System.out.println("staffNo =" + staffNo);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String staffNo = "";
@@ -253,7 +253,7 @@ public class Test2 {
 
 		try {
 			String staffBane = jsonobject.getString("staffBane");
-			System.out.println("staffBane =" + staffBane);
+	//		System.out.println("staffBane =" + staffBane);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String staffBane = "";
@@ -261,7 +261,7 @@ public class Test2 {
 
 		try {
 			String memberId = jsonobject.getString("memberId");
-			System.out.println("memberId =" + memberId);
+//			System.out.println("memberId =" + memberId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String memberId = "";
@@ -269,21 +269,21 @@ public class Test2 {
 
 		try {
 			String point = jsonobject.getString("point");
-			System.out.println("point =" + point);
+	//		System.out.println("point =" + point);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String point = "";
 		}
 		try {
 			String pointExpiryDate = jsonobject.getString("pointExpiryDate");
-			System.out.println("pointExpiryDate =" + pointExpiryDate);
+	//		System.out.println("pointExpiryDate =" + pointExpiryDate);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String pointExpiryDate = "";
 		}
 		try {
 			String posOrderType = jsonobject.getString("posOrderType");
-			System.out.println("posOrderType =" + posOrderType);
+	//		System.out.println("posOrderType =" + posOrderType);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String posOrderType = "";
@@ -291,7 +291,7 @@ public class Test2 {
 
 		try {
 			String userNote = jsonobject.getString("userNote");
-			System.out.println("userNote =" + userNote);
+	//		System.out.println("userNote =" + userNote);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String userNote = "";
@@ -299,35 +299,35 @@ public class Test2 {
 
 		try {
 			String payType = jsonobject.getString("payType");
-			System.out.println("payType =" + payType);
+	//		System.out.println("payType =" + payType);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String payType = "";
 		}
 		try {
 			String isPayed = jsonobject.getString("isPayed");
-			System.out.println("isPayed =" + isPayed);
+	//		System.out.println("isPayed =" + isPayed);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String isPayed = "";
 		}
 		try {
 			String paytime = jsonobject.getString("paytime");
-			System.out.println("paytime =" + paytime);
+	//		System.out.println("paytime =" + paytime);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String paytime = "";
 		}
 		try {
 			String currency = jsonobject.getString("currency");
-			System.out.println("currency =" + currency);
+	//		System.out.println("currency =" + currency);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String currency = "";
 		}
 		try {
 			String registerPhone = jsonobject.getString("registerPhone");
-			System.out.println("registerPhone =" + registerPhone);
+	//		System.out.println("registerPhone =" + registerPhone);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String registerPhone = "";
@@ -335,14 +335,14 @@ public class Test2 {
 
 		try {
 			String isStoreFirstOrder = jsonobject.getString("isStoreFirstOrder");
-			System.out.println("isStoreFirstOrder =" + isStoreFirstOrder);
+	//		System.out.println("isStoreFirstOrder =" + isStoreFirstOrder);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String isStoreFirstOrder = "";
 		}
 		try {
 			String isBrandFirstOrder = jsonobject.getString("isBrandFirstOrder");
-			System.out.println("isBrandFirstOrder =" + isBrandFirstOrder);
+	//		System.out.println("isBrandFirstOrder =" + isBrandFirstOrder);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String isBrandFirstOrder = "";
@@ -353,7 +353,7 @@ public class Test2 {
 		String originOrderId="";
 		try {
 			 originOrderId = jsonobject.getString("originOrderId");
-			System.out.println("originOrderId =" + originOrderId);
+	//		System.out.println("originOrderId =" + originOrderId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			 originOrderId ="" ;
@@ -370,7 +370,7 @@ public class Test2 {
 		boolean isPayed = jsonobject.getBoolean("isPayed");
 
 		JSONObject paymentDetails = jsonobject.getJSONObject(jsonobject.getString("paymentDetails"));// 获取数组
-		System.out.println(jsonobject.getString("paymentDetails"));
+//		System.out.println(jsonobject.getString("paymentDetails"));
 		/*
 		 * PaymentDetails
 		 * details=(PaymentDetails)JSONObject.toBean(paymentDetails,
@@ -398,42 +398,42 @@ public class Test2 {
 
 		try {
 			boolean isInvoice = jsonobject.getBoolean("isInvoice");
-			System.out.println("isInvoice =" + isInvoice);
+//			System.out.println("isInvoice =" + isInvoice);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String isInvoice = "";
 		}
 		try {
 			String invoiceDesc = jsonobject.getString("invoiceDesc");
-			System.out.println("invoiceDesc =" + invoiceDesc);
+	//		System.out.println("invoiceDesc =" + invoiceDesc);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String invoiceDesc = "";
 		}
 		try {
 			String taxNo = jsonobject.getString("taxNo");
-			System.out.println("taxNo =" + taxNo);
+	//		System.out.println("taxNo =" + taxNo);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String taxNo = "";
 		}
 		try {
 			float deliveryFee = jsonobject.getLong("deliveryFee");
-			System.out.println("deliveryFee =" + deliveryFee);
+	//		System.out.println("deliveryFee =" + deliveryFee);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String deliveryFee = "";
 		}
 		try {
 			float productPrice = jsonobject.getLong("productPrice");
-			System.out.println("productPrice =" + productPrice);
+	//		System.out.println("productPrice =" + productPrice);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String productPrice = "";
 		}
 		try {
 			float realTimeProductPrice = jsonobject.getLong("realTimeProductPrice");
-			System.out.println("realTimeProductPrice =" + realTimeProductPrice);
+	//		System.out.println("realTimeProductPrice =" + realTimeProductPrice);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String realTimeProductPrice = "";
@@ -441,35 +441,35 @@ public class Test2 {
 
 		try {
 			float thirdPlatformBearPrice = jsonobject.getLong("thirdPlatformBearPrice");
-			System.out.println("thirdPlatformBearPrice =" + thirdPlatformBearPrice);
+	//		System.out.println("thirdPlatformBearPrice =" + thirdPlatformBearPrice);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String thirdPlatformBearPrice = "";
 		}
 		try {
 			float commission = jsonobject.getLong("commission");
-			System.out.println("commission =" + commission);
+	//		System.out.println("commission =" + commission);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String commission = "";
 		}
 		try {
 			String extra = jsonobject.getString("extra");
-			System.out.println("extra =" + extra);
+	//		System.out.println("extra =" + extra);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String extra = "";
 		}
 		try {
 			String userId = jsonobject.getString("userId");
-			System.out.println("userId =" + userId);
+	//		System.out.println("userId =" + userId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String userId = "";
 		}
 		try {
 			String thirdUserId = jsonobject.getString("thirdUserId");
-			System.out.println("thirdUserId =" + thirdUserId);
+	//		System.out.println("thirdUserId =" + thirdUserId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String thirdUserId = "";
@@ -477,7 +477,7 @@ public class Test2 {
 
 		try {
 			String mealFee = jsonobject.getString("mealFee");
-			System.out.println("mealFee =" + mealFee);
+	//		System.out.println("mealFee =" + mealFee);
 		} catch (Exception e) {
 			// TODO: handle exception
 			String mealFee = "";
@@ -491,14 +491,16 @@ public class Test2 {
 
 		try {
 			JSONArray status = JSONArray.fromObject(jsonobject.getString("status")); // 位于data下面
-			System.out.println(jsonobject.getString("status"));
+//			System.out.println(jsonobject.getString("status"));
 			for (int i = 0; i < status.size(); i++) {
 				JSONObject statuses = status.getJSONObject(i);// 获取数组
 				Status statuse1 = (Status) JSONObject.toBean(statuses, Status.class);
 				Status.updateStatus(orderId, statuse1);
-				System.out.println(statuse1.getTitle());
-				System.out.println(statuse1.getValue());
-				System.out.println(statuse1.getDateTime());
+				/*
+				 * System.out.println(statuse1.getTitle());
+				 * System.out.println(statuse1.getValue());
+				 * System.out.println(statuse1.getDateTime());
+				 */
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -542,7 +544,7 @@ public class Test2 {
 		}
 
 		JSONArray products = JSONArray.fromObject(jsonobject.getString("products"));
-		System.out.println(jsonobject.getString("products"));
+	//	System.out.println(jsonobject.getString("products"));
 		for (int i = 0; i < products.size(); i++) {
 			JSONObject product = products.getJSONObject(i);// 获取数组
 			// Products product1 = (Products) JSONObject.toBean(product,
@@ -552,7 +554,7 @@ public class Test2 {
 			comboses.put("skus", Skus.class);
 			comboses.put("properties", Propertys.class);
 			Products_goods product1 = (Products_goods) JSONObject.toBean(product, Products_goods.class, comboses);
-			System.out.println(product1.getPrice());
+	//		System.out.println(product1.getPrice());
 			try {
 				product1.insertProducts(orderId, product1,originOrderId);
 			} catch (SQLException e) {
@@ -581,7 +583,7 @@ public class Test2 {
 				try {
 					for (int j = 0; j < product1.getPropertys().size(); j++) {
 						JSONArray properties = JSONArray.fromObject(product1.getPropertys()); // 位于discounts下面
-						System.out.println("j is  " + j);
+		//				System.out.println("j is  " + j);
 						Propertys propertys = (Propertys) JSONObject.toBean(properties.getJSONObject(j),
 								Propertys.class);
 						Propertys.insertPropertys(orderId, propertys,product1.getPid());
@@ -597,7 +599,7 @@ public class Test2 {
 				try {
 					for (int j = 0; j < product1.getCombos().size(); j++) {
 						JSONArray comboses1 = JSONArray.fromObject(product1.getCombos()); // 位于discounts下面
-						System.out.println("j is  " + j);
+		//				System.out.println("j is  " + j);
 						Combos combos = (Combos) JSONObject.toBean(comboses1.getJSONObject(j),
 								Combos.class);
 						Combos.insertCombos(orderId, combos,product1.getPid(),product1.getNum());
@@ -662,7 +664,7 @@ public class Test2 {
 
 		String order = Test2.readFileContent("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1031/y1.txt").trim();
 		//String order = Test.readFileContent("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1028-jian24/test3.txt").trim();
-		System.out.println(order);
+//		System.out.println(order);
 /*	     Statement stmt = DBUtil.getConnection().createStatement();
 	        //ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句   ，返回一个结果集（ResultSet）对象。
 	        ResultSet rs = stmt.executeQuery("select * from oldorder2 where 接口名称='1-16同步堂食订单' ");

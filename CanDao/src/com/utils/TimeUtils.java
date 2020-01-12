@@ -12,7 +12,7 @@ public class TimeUtils {
 		Timestamp ts =new Timestamp(timestamp);
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time=sdf.format(ts);
-		System.out.println(time);
+		//System.out.println(time);
 		return time;
 	}
 

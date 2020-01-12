@@ -40,13 +40,14 @@ public class MysqlJdbc {
 			Statement stmt = connect.createStatement();
 			// ResultSet rs = stmt.executeQuery("SELECT * FROM api_log WHERE rsp LIKE
 			// '%OK%'");
-			ResultSet rs = stmt.executeQuery("SELECT data_json FROM dm5u_prefix_paas_data_analyse ");
+			stmt.setFetchSize(Integer.MIN_VALUE);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM dm5u_prefix_paas_data_analyse  ");
 			// user 为你表的名称
 			while (rs.next()) {
 				// System.out.println(rs.getString("req"));
 				// Test.postDineorder(rs.getString("req"));
 				String cell = rs.getString("data_json");
-
+				System.out.println(cell);
 				/*
 				 * String
 				 * cancelorder="{\"accessKey\":\"782b5654d5f7a26e\",\"actionName\":\"candao.order.postDineInStatus\",\"timestamp\":1578580506485,\"ticket\":\"4863d892-dfc8-41ff-915b-50fd2b9ba582\",\"sign\":\"c7ea8bc8e2ab6c7beb9f58c8c2e28f82\",\"serviceType\":\"pos\",\"vendor\":\"seito\",\"storeId\":\"Y0074\",\"data\":{\"orderId\":\"202001090066843\",\"status\":-1,\"cancelReason\":501,\"updateTime\":\"2020-01-09 11:32:58\"}}"
