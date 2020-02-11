@@ -154,7 +154,8 @@ public class ExcelData {
 		sheet1.readExcelDataRetail();*/
 		
 		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1103/20191103-DQ测试用例.xlsx", "Sheet4");
-		ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1129\\订单数据20191129.xlsx", "大而全");
+		//ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1129\\订单数据20191129.xlsx", "大而全");
+		ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\上线\\报表核对\\xiucan\\xiucan.xlsx", "Sheet1");
 		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1129/订单数据20191129.xlsx", "Sheet1");
 		sheet1.readExcelData();
 		//sheet1.readExcelDataRetail();

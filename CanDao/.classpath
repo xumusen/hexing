@@ -79,5 +79,6 @@
 	<classpathentry kind="lib" path="lib/xmlbeans-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.18.jar"/>
 	<classpathentry kind="lib" path="lib/fastjson-1.2.62.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.14.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -5,6 +5,8 @@ import java.util.ResourceBundle;
 import com.ddl.CancelOrder;
 import com.ddl.Test;
 import com.ddl.Test2;
+import com.ddl.Testpay;
+import com.ddl.Testxc;
 
 import net.sf.json.JSONObject;
 
@@ -50,23 +52,45 @@ import net.sf.json.JSONObject;
 	        //ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句   ，返回一个结果集（ResultSet）对象。
 	        //ResultSet rs = stmt.executeQuery("SELECT * from orderCancelCollect ");
 	        //ResultSet rs = stmt.executeQuery("SELECT * from orderCollect ");
-	        ResultSet rs = stmt.executeQuery("select substring(msg,38,len(msg)) AS num from qcOrder AS qo where qo.sysName='api-gateway' and qo.flag='1' ");
+	        ResultSet rs = stmt.executeQuery("select *  FROM xiaochengxunew");
+	       // ResultSet rs = stmt.executeQuery("SELECT  x.ods_order_postdineinorder_orderid ,x.ods_order_postdineinorder_products,x.ods_order_postdineinorder_storeid,x.ods_order_postdineinorder_ordertime,x.ods_order_postdineinorder_paymentdetails, x.ods_order_postdineinorder_orderdate FROM xiaochengxu AS x");
+
 	        while(rs.next()){//如果对象中有数据，就会循环打印出来
-	        	String cell=rs.getString("num");
-	           // System.out.println(cell);
-	            JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
+	        	String ods_order_postdineinorder_orderid=rs.getString("ods_order_postdineinorder_orderid");
+	        	System.out.println(ods_order_postdineinorder_orderid);
+	        	String ods_order_postdineinorder_products=rs.getString("ods_order_postdineinorder_products");
+	        	System.out.println(ods_order_postdineinorder_products);
+	        	String ods_order_postdineinorder_storeid=rs.getString("ods_order_postdineinorder_storeid");
+	        	System.out.println(ods_order_postdineinorder_storeid); 
+	        	//Testxc.postDineorder(ods_order_postdineinorder_orderid, ods_order_postdineinorder_storeid, ods_order_postdineinorder_products);
+	        	
+	        	
+	        	String ods_order_postdineinorder_ordertime=rs.getString("ods_order_postdineinorder_ordertime");
+	        	System.out.println(ods_order_postdineinorder_ordertime);
+	        	String ods_order_postdineinorder_paymentdetails=rs.getString("ods_order_postdineinorder_paymentdetails");
+	        	System.out.println(ods_order_postdineinorder_paymentdetails);
+	        	String ods_order_postdineinorder_orderdate=rs.getString("ods_order_postdineinorder_orderdate");
+	        	System.out.println(ods_order_postdineinorder_orderdate); 
+	        	Testpay.postDineorder(ods_order_postdineinorder_orderid, ods_order_postdineinorder_storeid,ods_order_postdineinorder_paymentdetails, ods_order_postdineinorder_orderdate,ods_order_postdineinorder_ordertime);
+	        	 
+	        	
+	        	
+	        	
+	           // JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
 				//JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
-				String actionName=jsonobj.getString("actionName");
-				if(actionName.equals("candao.order.postDineInOrder")){
-					Test.postDineorder(cell);
-				}else if(actionName.equals("candao.retail.order")){
-					Test2.retailOrder(cell);
-				}else if(actionName.equals("candao.order.postDineInStatus")){
-					CancelOrder.CancelOrder(cell);
-				}else if(actionName.equals("candao.retail.updateOrderStatus")){
-					System.out.println("更新新零售订单状态啦啦啦啦啦");
-				}
+				//String actionName=jsonobj.getString("actionName");
+			/*
+			 * if(actionName.equals("candao.order.postDineInOrder")){
+			 * Test.postDineorder(cell); }else if(actionName.equals("candao.retail.order")){
+			 * Test2.retailOrder(cell); }else
+			 * if(actionName.equals("candao.order.postDineInStatus")){
+			 * CancelOrder.CancelOrder(cell); }else
+			 * if(actionName.equals("candao.retail.updateOrderStatus")){
+			 * System.out.println("更新新零售订单状态啦啦啦啦啦"); }
+			 */
 	        }
+	        
+	        
 	    }
 
 
