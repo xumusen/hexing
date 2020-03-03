@@ -7,8 +7,8 @@ import java.util.Map;
 import com.entity.product.Category;
 import com.entity.product.Combos;
 import com.entity.product.Dept;
-import com.entity.product.ProcuctCategory;
-import com.entity.product.ProcuctContent;
+import com.entity.product.ProductCategory;
+import com.entity.product.ProductContent;
 import com.entity.product.Products;
 import com.entity.product.Propertys;
 import com.entity.product.Skus;
@@ -37,8 +37,8 @@ public class Testxc {
 		comboses.put("types", Types.class);
 		comboses.put("category", Category.class);
 		comboses.put("dept", Dept.class);
-		comboses.put("procuctContent", ProcuctContent.class);
-		comboses.put("procuctCategory", ProcuctCategory.class);
+		comboses.put("procuctContent", ProductContent.class);
+		comboses.put("procuctCategory", ProductCategory.class);
 		Products product1 = (Products) JSONObject.toBean(product, Products.class, comboses);
 	//	System.out.println(product1.getPrice());
 		try {
@@ -51,8 +51,8 @@ public class Testxc {
 		JSONObject deptobject = JSONObject.fromObject(product1.getDept());// 将字符串转化成json对象
 		JSONObject typesobject = JSONObject.fromObject(product1.getTypes());// 将字符串转化成json对象
 		JSONObject categoryobject = JSONObject.fromObject(product1.getCategory());// 将字符串转化成json对象
-		JSONObject procuctContentobject = JSONObject.fromObject(product1.getProcuctContent());// 将字符串转化成json对象
-		JSONObject procuctCategoryobject = JSONObject.fromObject(product1.getProcuctCategory());// 将字符串转化成json对象
+		JSONObject procuctContentobject = JSONObject.fromObject(product1.getProductContent());// 将字符串转化成json对象
+		JSONObject procuctCategoryobject = JSONObject.fromObject(product1.getProductCategory());// 将字符串转化成json对象
 
 		if (deptobject == null || deptobject.isEmpty() || deptobject.isNullObject()
 				|| "null".equals(deptobject)) {
@@ -93,9 +93,9 @@ public class Testxc {
 			//System.out.println("procuctContentobject is 空");
 		} else {
 			//System.out.println("procuctContent start ");
-			ProcuctContent procuctContent = (ProcuctContent) JSONObject.toBean(procuctContentobject,
-					ProcuctContent.class);
-			ProcuctContent.insertProcuctContent(orderId, procuctContent, product1.getPid());
+			ProductContent procuctContent = (ProductContent) JSONObject.toBean(procuctContentobject,
+					ProductContent.class);
+			ProductContent.insertProductContent(orderId, procuctContent, product1.getPid());
 			//System.out.println("procuctContent end ");
 		}
 		if (procuctCategoryobject == null || procuctCategoryobject.isEmpty() || procuctCategoryobject.isNullObject()
@@ -103,9 +103,9 @@ public class Testxc {
 			//System.out.println("procuctCategoryobject is 空");
 		} else {
 		//	System.out.println("procuctCategory start ");
-			ProcuctCategory procuctCategory = (ProcuctCategory) JSONObject.toBean(procuctCategoryobject,
-					ProcuctCategory.class);
-			ProcuctCategory.insertProcuctCategory(orderId, procuctCategory, product1.getPid());
+			ProductCategory procuctCategory = (ProductCategory) JSONObject.toBean(procuctCategoryobject,
+					ProductCategory.class);
+			ProductCategory.insertProductCategory(orderId, procuctCategory, product1.getPid());
 		//	System.out.println("procuctCategory end ");
 		}
 

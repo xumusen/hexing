@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import com.utils.DBUtil;
 
-public class ProcuctContent {
+public class ProductCategory {
 
 	public String getId() {
 		return id;
@@ -23,7 +23,7 @@ public class ProcuctContent {
 	String id;
 	String title;
 
-	public static void insertProcuctContent(String orderid,ProcuctContent procuctContent,String pid)throws SQLException{
+	public static void insertProductCategory(String orderid,ProductCategory productCategory,String pid)throws SQLException{
 	    //首先拿到数据库的连接
 	    Connection conn=DBUtil.getConnection();
 	 /*   String sql="" + 
@@ -32,15 +32,15 @@ public class ProcuctContent {
 	            "values(?,?,?)";//参数用?表示，相当于占位符;
 	*/	        
 	    String sql=""+
-	    		"insert into procuctContent"+
+	    		"insert into procuctCategory"+
 	    		"(id,title,pid,orderid)"+
 	    		"values (?,?,?,?)";
 	   // System.out.println(sql);
 	    PreparedStatement psmt = conn.prepareStatement(sql);
 	    
 	    //先对应SQL语句，给SQL语句传递参数
-	    psmt.setString(1, procuctContent.getId());
-	    psmt.setString(2, procuctContent.getTitle());
+	    psmt.setString(1, productCategory.getId());
+	    psmt.setString(2, productCategory.getTitle());
 	    psmt.setString(3, pid);
 	    psmt.setString(4, orderid);
 

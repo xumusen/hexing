@@ -23,17 +23,17 @@ public void setName(String name) {
 	this.name = name;
 }
 
-public ProcuctCategory getProcuctCategory() {
-	return procuctCategory;
+public ProductCategory getProductCategory() {
+	return productCategory;
 }
-public void setProcuctCategory(ProcuctCategory procuctCategory) {
-	this.procuctCategory = procuctCategory;
+public void setProcuctCategory(ProductCategory procuctCategory) {
+	this.productCategory = procuctCategory;
 }
-public ProcuctContent getProcuctContent() {
-	return procuctContent;
+public ProductContent getProductContent() {
+	return productContent;
 }
-public void setProcuctContent(ProcuctContent procuctContent) {
-	this.procuctContent = procuctContent;
+public void setProductContent(ProductContent productContent) {
+	this.productContent = productContent;
 }
 public Dept getDept() {
 	return dept;
@@ -108,8 +108,8 @@ String price;
 String boxNum;
 String boxPrice;
 String itemDisc;
-ProcuctCategory procuctCategory;
-ProcuctContent procuctContent;
+ProductCategory productCategory;
+ProductContent productContent;
 Dept dept;
 Category category;
 Types types;
