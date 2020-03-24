@@ -68,7 +68,7 @@ public String getOrderid() {
 public void setOrderid(String orderid) {
 	this.orderid = orderid;
 }
-public static void insertCombos(String orderid,Combos combos,String fid,String fnum,String storeid)throws SQLException{
+public static void insertCombos(String orderid,Combos combos,String fid,String fnum,String storeid,String orderdate)throws SQLException{
     //首先拿到数据库的连接
     Connection conn=DBUtil.getConnection();
  /*   String sql="" + 
@@ -78,8 +78,8 @@ public static void insertCombos(String orderid,Combos combos,String fid,String f
 */	        
     String sql=""+
     		"INSERT INTO combos"+
-    		"(pid,name,num,price,addPrice,orderid,fid,fnum,storeid)"+
-    		"values(?,?,?,?,?,?,?,?,?)";
+    		"(pid,name,num,price,addPrice,orderid,fid,fnum,storeid,orderdate)"+
+    		"values(?,?,?,?,?,?,?,?,?,?)";
     PreparedStatement psmt = conn.prepareStatement(sql);
     
     //先对应SQL语句，给SQL语句传递参数
@@ -92,7 +92,7 @@ public static void insertCombos(String orderid,Combos combos,String fid,String f
     psmt.setString(7,fid);
     psmt.setString(8,fnum);
     psmt.setString(9,storeid);
-
+    psmt.setString(10, orderdate);
 
     //执行SQL语句
     psmt.execute();

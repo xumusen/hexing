@@ -80,5 +80,7 @@
 	<classpathentry kind="lib" path="lib/mysql-connector-java-8.0.18.jar"/>
 	<classpathentry kind="lib" path="lib/fastjson-1.2.62.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.14.jar"/>
+	<classpathentry kind="lib" path="lib/excel-streaming-reader-2.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/xlsx-streamer-1.2.1.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

@@ -2,6 +2,11 @@ package com.utils;
 
 
 
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -9,11 +14,14 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import com.ddl.CancelOrder;
 import com.ddl.Test;
 import com.ddl.Test2;
+import com.monitorjbl.xlsx.StreamingReader;
 
 import net.sf.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 /**
  * Author: 灵枢
  * Date: 2018/12/05
@@ -144,9 +152,38 @@ public class ExcelData {
 			}
 		}
 	}
+	
+	   public static void testLoad() throws Exception{
+	        FileInputStream in = new FileInputStream("e:/a.xlsx");
+	        Workbook wk = StreamingReader.builder()
+	                .rowCacheSize(100)  //缓存到内存中的行数，默认是10
+	                .bufferSize(4096)  //读取资源时，缓存到内存的字节大小，默认是1024
+	                .open(in);  //打开资源，必须，可以是InputStream或者是File，注意：只能打开XLSX格式的文件
+	        Sheet sheet = wk.getSheetAt(0);
+	        //遍历所有的行
+	        for (Row row : sheet) {
+	           // System.out.println("开始遍历第" + row.getRowNum() + "行数据：");
+	            String regex=".*[a-zA-Z]+.*";  
+	        	Matcher m=Pattern.compile(regex).matcher(row.getCell(0).getStringCellValue());
+	        	if (m.matches()==true) 
+	        	{
+	            //遍历所有的列
+	            for (Cell cell : row) {
+	               // Matcher m=Pattern.compile(regex).matcher(cell.getStringCellValue());
+	              
+	                {
+	                	
+	                	  System.out.print(cell.getStringCellValue() + " ");
+	                }
+	            }
+	            System.out.println();
+	        	}
+	        }
+	    }
+	    
 
 	//测试方法
-	public static void main(String[] args) throws SQLException{
+	public static void main(String[] args) throws Exception{
 		//ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1103\\20191103-DQ测试用例.xlsx", "Sheet3");
 
 		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1104/j1.xlsx", "Sheet1");
@@ -155,9 +192,17 @@ public class ExcelData {
 		
 		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1103/20191103-DQ测试用例.xlsx", "Sheet4");
 		//ExcelData sheet1 = new ExcelData("H:\\OneDrive - cd\\项目资料\\吉野家\\order\\1129\\订单数据20191129.xlsx", "大而全");
-		ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\seito\\seito28.xlsx", "Sheet1");
-		//ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1129/订单数据20191129.xlsx", "Sheet1");
-		sheet1.readExcelData();
+		//ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\seito\\seito28.xlsx", "Sheet1");
+		
+		
+		ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\xiucan\\0323.xlsx", "Sheet1");
+		 // ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1129/订单数据20191129.xlsx", "Sheet1");
+		  sheet1.readExcelData();
+		 
+		
+		
+	//	testLoad();
+		
 		//sheet1.readExcelDataRetail();
 		//获取第二行第4列
 		//String cell2 = sheet1.getExcelDateByIndex(1, 3);

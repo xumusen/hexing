@@ -499,12 +499,10 @@ public class Test {
 			comboses.put("productCategory", ProductCategory.class);
 			Products product1 = (Products) JSONObject.toBean(product, Products.class, comboses);
 			// System.out.println(product1.getPrice());
-			try {
-				product1.insertProducts(orderId, product1, storeId);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			/*
+			 * try { product1.insertProducts(orderId, product1, storeId); } catch
+			 * (SQLException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+			 */
 
 			JSONObject deptobject = JSONObject.fromObject(product1.getDept());// 将字符串转化成json对象
 			JSONObject typesobject = JSONObject.fromObject(product1.getTypes());// 将字符串转化成json对象
@@ -515,20 +513,19 @@ public class Test {
 			if (deptobject == null || deptobject.isEmpty() || deptobject.isNullObject() || "null".equals(deptobject)) {
 				// System.out.println("deptobject is 空");
 			} else {
-				//System.out.println("depart 不是空");
+				// System.out.println("depart 不是空");
 				Map demap = new HashMap();
 				demap.put("subDept", SubDept.class);
-				
+
 				Dept dept = (Dept) JSONObject.toBean(deptobject, Dept.class, demap);
-				
-				if (dept.getSubDept() != null) 
-				{
-					//System.out.println("subdept is not null");
+
+				if (dept.getSubDept() != null) {
+					// System.out.println("subdept is not null");
 					JSONObject subDeptobject = JSONObject.fromObject(dept.getSubDept());
 					SubDept subDept = (SubDept) JSONObject.toBean(subDeptobject, SubDept.class);
 					SubDept.insertSubDept(orderId, subDept, dept.getId(), product1.getPid());
 				}
-				
+
 				Dept.insertDept(orderId, dept, product1.getPid());
 
 			}
@@ -605,15 +602,17 @@ public class Test {
 					e.printStackTrace();
 				}
 			}
+			boolean istaocan=false;
 
 			if (product1.getCombos() != null) {
+				istaocan=true;
 				try {
 					for (int j = 0; j < product1.getCombos().size(); j++) {
 
 						JSONArray comboses1 = JSONArray.fromObject(product1.getCombos()); // 位于discounts下面
 						// System.out.println("j is " + j);
 						Combos combos = (Combos) JSONObject.toBean(comboses1.getJSONObject(j), Combos.class);
-						Combos.insertCombos(orderId, combos, product1.getPid(), product1.getNum(), storeId);
+						Combos.insertCombos(orderId, combos, product1.getPid(), product1.getNum(), storeId,orderDate);
 
 						if (product1.getCombos().get(j).getSkus() != null) {
 							try {
@@ -660,6 +659,12 @@ public class Test {
 					e.printStackTrace();
 				}
 
+			}
+			try {
+				product1.insertProducts(orderId, product1, storeId,istaocan,orderDate);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}

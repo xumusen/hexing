@@ -41,12 +41,12 @@ public class MysqlJdbc {
 			// ResultSet rs = stmt.executeQuery("SELECT * FROM api_log WHERE rsp LIKE
 			// '%OK%'");
 			stmt.setFetchSize(Integer.MIN_VALUE);
-			ResultSet rs = stmt.executeQuery("SELECT * FROM dm5u_prefix_paas_data_analyse  ");
+			ResultSet rs = stmt.executeQuery("	SELECT * FROM order0312");
 			// user 为你表的名称
 			while (rs.next()) {
 				// System.out.println(rs.getString("req"));
 				// Test.postDineorder(rs.getString("req"));
-				String cell = rs.getString("data_json");
+				String cell = rs.getString("msg");
 				System.out.println(cell);
 				/*
 				 * String

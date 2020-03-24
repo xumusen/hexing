@@ -602,7 +602,7 @@ public class Test2 {
 		//				System.out.println("j is  " + j);
 						Combos combos = (Combos) JSONObject.toBean(comboses1.getJSONObject(j),
 								Combos.class);
-						Combos.insertCombos(orderId, combos,product1.getPid(),product1.getNum());
+						Combos.insertCombos(orderId, combos,product1.getPid(),product1.getNum(),orderDate);
 						//Combos.insertCombos(orderId, product1.getCombos().get(j), product1.getPid());
 					}
 

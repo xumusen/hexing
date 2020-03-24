@@ -135,7 +135,7 @@ public String getOrderid() {
 public void setOrderid(String orderid) {
 	this.orderid = orderid;
 }
-public static void insertProducts(String orderid,Products products)throws SQLException{
+public static void insertProducts(String orderid,Products products,boolean istaocan,String orderdate)throws SQLException{
     //首先拿到数据库的连接
     Connection conn=DBUtil.getConnection();
  /*   String sql="" + 
@@ -145,8 +145,8 @@ public static void insertProducts(String orderid,Products products)throws SQLExc
 */	        
     String sql=""+
     		"INSERT INTO products"+
-    		"(pid,name,num,price,boxNum,boxPrice,itemDisc,productTaxRate,orderid)"+
-    		"values (?,?,?,?,?,?,?,?,?)";
+    		"(pid,name,num,price,boxNum,boxPrice,itemDisc,productTaxRate,orderid,istaocan,orderdate)"+
+    		"values (?,?,?,?,?,?,?,?,?,?,?)";
     PreparedStatement psmt = conn.prepareStatement(sql);
     
     //先对应SQL语句，给SQL语句传递参数
@@ -159,7 +159,8 @@ public static void insertProducts(String orderid,Products products)throws SQLExc
     psmt.setString(7, products.getItemDisc());
     psmt.setString(8, products.getProductTaxRate());
     psmt.setString(9, orderid);
-
+    psmt.setBoolean(10, istaocan);
+    psmt.setString(11, orderdate);
 
 
     //执行SQL语句

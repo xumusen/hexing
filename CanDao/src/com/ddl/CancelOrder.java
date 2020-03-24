@@ -136,8 +136,15 @@ public static void InsertCancelOrder(CancelOrder cancelOrder,Title title) throws
 		JSONObject data = JSONObject.fromObject(jsonobj.getString("data"));
 		String orderId=data.getString("orderId");
 		String status=data.getString("status");
-		String cancelReason=data.getString("cancelReason");
+
 		
+		try {
+			String cancelReason=data.getString("cancelReason");
+		//	System.out.println("cancelNote =" + cancelNote);
+		} catch (Exception e) {
+			// TODO: handle exception
+			String cancelReason = "";
+		}
 		
 		
 		try {
@@ -156,6 +163,16 @@ public static void InsertCancelOrder(CancelOrder cancelOrder,Title title) throws
 		PreparedStatement psmt = conn.prepareStatement(udpateOrder);
 		psmt.setString(1, orderId);
 		int r=psmt.executeUpdate();
+		
+		String udpateProduct="update products set iscancel=1 where orderid=? ";
+		PreparedStatement psmtp = conn.prepareStatement(udpateProduct);
+		psmtp.setString(1, orderId);
+		int r1=psmtp.executeUpdate();
+		
+		String udpateCombos="update combos set iscancel=1 where orderid=? ";
+		PreparedStatement psmtc = conn.prepareStatement(udpateCombos);
+		psmtc.setString(1, orderId);
+		int r2=psmtc.executeUpdate();
 	}
 
 public static void main(String[] args) {

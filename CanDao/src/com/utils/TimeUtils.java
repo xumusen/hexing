@@ -28,6 +28,103 @@ public class TimeUtils {
 		return time;
 	}
 
+	public static void submitOrder() throws UnsupportedEncodingException {
+		
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		DateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		String time = sdf.format(ts);
+		String accessKey = "2b4449d3603b9b7e";
+		// String actionName = "candao.order.postDineInStatus";
+		String actionName = "candao.order.postDineInOrder";
+		String secret = "3057147bfa1749bd9e1d51ff18635cdd";
+		long timestamp = System.currentTimeMillis();
+		System.out.println(timestamp);
+		// String xiucandata =
+		// "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000008\",\"storeId\":\"0109999\",\"userNote\":\"\",\"orderTime\":\"2020-02-11
+		// 15:09:53\",\"orderDate\":\"2020-02-11\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}";
+		// String
+		// xiucandata="{\"fromType\":\"xiucan\",\"orderId\":\"19341901080615827879888360000101\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-03-02
+		// 15:35:00\",\"orderDate\":\"2020-03-02\",\"orderStatus\":7,\"orderType\":2,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":1.5,\"type\":3,\"typeName\":\"吉野家礼品卡\",\"num\":1,\"code\":\"00000002110\"}],\"discounts\":[],\"isInvoice\":true,\"price\":1.5,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":1.5,\"products\":[{\"pid\":\"41100002\",\"name\":\"海带结\",\"num\":1,\"price\":1.5}],\"counts\":1,\"originPrice\":1.5,\"productPrice\":1.5}";
+		// String
+		// xiucandata="{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000010\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-02-24
+		// 10:00:53\",\"orderDate\":\"2020-02-24\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}";
+
+		JSONObject content = new JSONObject();
+		JSONObject product_list = new JSONObject();
+
+		Map<String, Object> contents = new HashMap<String, Object>();
+		ArrayList<Products> product_lists = new ArrayList<Products>();
+		ArrayList<PaymentDetails> paymentDetailss = new ArrayList<PaymentDetails>();
+		Map<String, Object> products_list = new HashMap<String, Object>();
+		content.put("fromType", "xiucan");
+		content.put("orderId", "19341901080615827879888360000102");
+		content.put("storeId", "YS010204");
+		content.put("userNote", "");
+		content.put("orderTime", sdf.format(ts));
+		content.put("orderDate", sd.format(ts));
+		content.put("orderStatus", 7);
+		content.put("orderType", 2);
+		content.put("payType", 2);
+		content.put("isPayed", true);
+		JSONObject discount = new JSONObject();
+		JSONArray discounts = new JSONArray();
+		// discounts.add(discount);
+
+		content.put("discounts", discounts);
+		content.put("isInvoice", false);
+		content.put("price", 1.5);
+		content.put("mealFee", 0);
+		content.put("discountPrice", 0);
+		content.put("merchantBearPrice", 0);
+		content.put("merchantPrice", 1.5);
+		content.put("counts", 1);
+		content.put("originPrice", 1.5);
+		content.put("productPrice", 1.5);
+
+		JSONObject details = new JSONObject();
+		details.put("money", 1.5);
+		details.put("payType", 2);
+		details.put("type", 3);
+		details.put("typeName", "吉野家礼品");
+		details.put("num", 1);
+		details.put("code", "00000002110");
+		JSONArray arrayDetails = new JSONArray();
+		arrayDetails.add(details);
+		content.put("paymentDetails", arrayDetails);
+
+		JSONObject products = new JSONObject();
+		products.put("pid", "41100002");
+		products.put("name", "海带结");
+		products.put("price", 1.5);
+		products.put("num", 1);
+		JSONArray productes = new JSONArray();
+		productes.add(products);
+		content.put("products", productes);
+		System.out.println(content.toString());
+		// System.out.println(content.get("content"));
+		String sign = MD5.getMD5Str(accessKey + actionName + secret + timestamp
+				+ (StringUtil.isNullOrBlank(content.toString()) ? "" : content.toString()));
+		System.out.println(sign);
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("accessKey", accessKey);
+		jsonObj.put("actionName", actionName);
+		jsonObj.put("timestamp", timestamp);
+		jsonObj.put("ticket", UUID.randomUUID().toString());
+		jsonObj.put("vendor", "seito");
+		jsonObj.put("serviceType", "pos");
+		jsonObj.put("storeId", "YS010204");
+		jsonObj.put("sign", sign);
+		jsonObj.put("data", content);
+
+		String sr = HttpRequest.sendPost("http://zt_qc.can-dao.com:81/api", jsonObj);
+		byte[] bytes = sr.getBytes("utf-8");
+
+		String name = new String(bytes, "utf-8");
+		System.out.println(name);
+
+	}
+
 	public static void main(String[] args) throws UnsupportedEncodingException {
 		// TODO Auto-generated method stub
 
@@ -104,98 +201,6 @@ public class TimeUtils {
 		 */
 
 		// 提交正常单
-		Timestamp ts = new Timestamp(System.currentTimeMillis());
-		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		DateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
-		String time = sdf.format(ts);
-		String accessKey = "2b4449d3603b9b7e";
-		// String actionName = "candao.order.postDineInStatus";
-		String actionName = "candao.order.postDineInOrder";
-		String secret = "3057147bfa1749bd9e1d51ff18635cdd";
-		long timestamp = System.currentTimeMillis();
-		System.out.println(timestamp);
-		// String xiucandata =
-		// "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000008\",\"storeId\":\"0109999\",\"userNote\":\"\",\"orderTime\":\"2020-02-11
-		// 15:09:53\",\"orderDate\":\"2020-02-11\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}";
-		// String
-		// xiucandata="{\"fromType\":\"xiucan\",\"orderId\":\"19341901080615827879888360000101\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-03-02
-		// 15:35:00\",\"orderDate\":\"2020-03-02\",\"orderStatus\":7,\"orderType\":2,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":1.5,\"type\":3,\"typeName\":\"吉野家礼品卡\",\"num\":1,\"code\":\"00000002110\"}],\"discounts\":[],\"isInvoice\":true,\"price\":1.5,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":1.5,\"products\":[{\"pid\":\"41100002\",\"name\":\"海带结\",\"num\":1,\"price\":1.5}],\"counts\":1,\"originPrice\":1.5,\"productPrice\":1.5}";
-		// String
-		// xiucandata="{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000010\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-02-24
-		// 10:00:53\",\"orderDate\":\"2020-02-24\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}";
-
-		JSONObject content = new JSONObject();
-		JSONObject product_list = new JSONObject();
-
-		Map<String, Object> contents = new HashMap<String, Object>();
-		ArrayList<Products> product_lists = new ArrayList<Products>();
-		ArrayList<PaymentDetails> paymentDetailss = new ArrayList<PaymentDetails>();
-		Map<String, Object> products_list = new HashMap<String, Object>();
-		content.put("fromType", "xiucan");
-		content.put("orderId", "19341901080615827879888360000101");
-		content.put("storeId", "YS010204");
-		content.put("userNote", "");
-		content.put("orderTime", sdf.format(ts));
-		content.put("orderDate", sd.format(ts));
-		content.put("orderStatus", 7);
-		content.put("orderType", 2);
-		content.put("payType", 2);
-		content.put("isPayed", true);
-		JSONObject discount = new JSONObject();
-		JSONArray discounts = new JSONArray();
-		// discounts.add(discount);
-
-		content.put("discounts", discounts);
-		content.put("isInvoice", false);
-		content.put("price", 1.5);
-		content.put("mealFee", 0);
-		content.put("discountPrice", 0);
-		content.put("merchantBearPrice", 0);
-		content.put("merchantPrice", 1.5);
-		content.put("counts", 1);
-		content.put("originPrice", 1.5);
-		content.put("productPrice", 1.5);
-
-		JSONObject details = new JSONObject();
-		details.put("money", 1.5);
-		details.put("payType", 2);
-		details.put("type", 3);
-		details.put("typeName", "吉野家礼品");
-		details.put("num", 1);
-		details.put("code", "00000002110");
-		JSONArray arrayDetails = new JSONArray();
-		arrayDetails.add(details);
-		content.put("paymentDetails", arrayDetails);
-
-		JSONObject products = new JSONObject();
-		products.put("pid", "41100002");
-		products.put("name", "海带结");
-		products.put("price", 1.5);
-		products.put("num", 1);
-		JSONArray productes = new JSONArray();
-		productes.add(products);
-		content.put("products", productes);
-		System.out.println(content.toString());
-		// System.out.println(content.get("content"));
-		String sign = MD5.getMD5Str(accessKey + actionName + secret + timestamp
-				+ (StringUtil.isNullOrBlank(content.toString()) ? "" : content.toString()));
-		System.out.println(sign);
-		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("accessKey", accessKey);
-		jsonObj.put("actionName", actionName);
-		jsonObj.put("timestamp", timestamp);
-		jsonObj.put("ticket", UUID.randomUUID().toString());
-		jsonObj.put("vendor", "seito");
-		jsonObj.put("serviceType", "pos");
-		jsonObj.put("storeId", "YS010204");
-		jsonObj.put("sign", sign);
-		jsonObj.put("data", content);
-
-		String sr = HttpRequest.sendPost("http://zt_qc.can-dao.com:81/api", jsonObj);
-		byte[] bytes = sr.getBytes("gbk");
-
-		String name = new String(bytes, "utf-8");
-		System.out.println(name);
 
 	}
 
