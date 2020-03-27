@@ -41,7 +41,7 @@ public class MysqlJdbc {
 			// ResultSet rs = stmt.executeQuery("SELECT * FROM api_log WHERE rsp LIKE
 			// '%OK%'");
 			stmt.setFetchSize(Integer.MIN_VALUE);
-			ResultSet rs = stmt.executeQuery("	SELECT * FROM order0312");
+			ResultSet rs = stmt.executeQuery("	SELECT * FROM log0325	WHERE log_time<'2020-03-25 08:00:00' AND msg LIKE '%782b5654d5f7a26e%'");
 			// user 为你表的名称
 			while (rs.next()) {
 				// System.out.println(rs.getString("req"));

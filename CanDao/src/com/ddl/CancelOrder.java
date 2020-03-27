@@ -25,10 +25,18 @@ import com.utils.TimeUtils;
 import net.sf.json.JSONObject;
 
 public class CancelOrder {
-String orderId,status,cancelReason,cancelNote,updateTime;
+String orderId,status,cancelReason,cancelNote,updateTime,orderTime;
 
 
 
+
+public String getOrderTime() {
+	return orderTime;
+}
+
+public void setOrderTime(String orderTime) {
+	this.orderTime = orderTime;
+}
 
 public String getOrderId() {
 	return orderId;
@@ -76,9 +84,9 @@ public static void InsertCancelOrder(CancelOrder cancelOrder,Title title) throws
 	// TODO Auto-generated constructor stub
 	 Connection conn=DBUtil.getConnection();
 	String sql=""+
-			"insert into cancelorder(orderId,status,cancelReason,cancelNote,updateTime,storeId,accessKey,actionName,timestamp,timestamp2,ticket,sign,serviceType,vendor,json)"+
+			"insert into cancelorder(orderId,status,cancelReason,cancelNote,updateTime,orderTime,storeId,accessKey,actionName,timestamp,timestamp2,ticket,sign,serviceType,vendor,json)"+
     		//"(code,pid,vendor,num,[type],childType,title,[content],price,totalAmount,thirdSubsidy,merchantSubsidy,orderid)"+
-    		"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    		"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
    // System.out.println(sql);
 //,accessKey,actionName,timestamp,ticket,sign,serviceType,vendor,json
 	//,?,?,?,?,?,?,?,?
@@ -90,17 +98,18 @@ public static void InsertCancelOrder(CancelOrder cancelOrder,Title title) throws
     psmt.setString(3, cancelOrder.getCancelReason());
     psmt.setString(4,  cancelOrder.getCancelNote());
     psmt.setString(5,  cancelOrder.getUpdateTime());
-    psmt.setString(6,  title.getStoreId());
+    psmt.setString(6,  cancelOrder.getOrderTime());
+    psmt.setString(7,  title.getStoreId());
     
-    psmt.setString(7,  title.getAccessKey());
-    psmt.setString(8,  title.getActionName());
-    psmt.setLong(9,  title.getTimestamp());
-    psmt.setString(10,  title.getTimestamp2());
-    psmt.setString(11,  title.getTicket());
-    psmt.setString(12,  title.getSign());
-    psmt.setString(13,  title.getServiceType());
-    psmt.setString(14,title.getVendor());
-    psmt.setString(15, title.getJson());
+    psmt.setString(8,  title.getAccessKey());
+    psmt.setString(9,  title.getActionName());
+    psmt.setLong(10,  title.getTimestamp());
+    psmt.setString(11,  title.getTimestamp2());
+    psmt.setString(12,  title.getTicket());
+    psmt.setString(13,  title.getSign());
+    psmt.setString(14,  title.getServiceType());
+    psmt.setString(15,title.getVendor());
+    psmt.setString(16, title.getJson());
     //执行SQL语句
     psmt.execute();
 }
@@ -156,6 +165,7 @@ public static void InsertCancelOrder(CancelOrder cancelOrder,Title title) throws
 		}
 		
 		String updateTime=data.getString("updateTime");
+		String orderTime=data.getString("orderTime");
 		CancelOrder cancelOrder2 = (CancelOrder) JSONObject.toBean(data, CancelOrder.class);
 		CancelOrder.InsertCancelOrder(cancelOrder2,title);
 		Connection conn=DBUtil.getConnection();
