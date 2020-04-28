@@ -1,18 +1,23 @@
-package com.utils;
+package com.ddl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
-import com.ddl.CancelOrder;
-import com.ddl.Test;
-import com.ddl.Test2;
+import com.entity.product.Combos;
+import com.entity.product.Products;
+import com.entity.product.Propertys;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-public class MysqlJdbc {
+public class CaculateTaoCan {
+	
 	public static void main(String args[]) {
 		try {
 			// Class.forName("com.mysql.jdbc.Driver"); // 加载MYSQL JDBC驱动程序
@@ -42,39 +47,38 @@ public class MysqlJdbc {
 			// '%OK%'");
 			stmt.setFetchSize(Integer.MIN_VALUE);
 			//ResultSet rs = stmt.executeQuery("	SELECT * FROM log0325	WHERE log_time<'2020-03-25 08:00:00' AND msg LIKE '%782b5654d5f7a26e%'");
-			ResultSet rs = stmt.executeQuery("	SELECT * FROM log0427	");
+			ResultSet rs = stmt.executeQuery("	SELECT * FROM product_taocan0415 	");
 			
 			// user 为你表的名称
 			while (rs.next()) {
 				// System.out.println(rs.getString("req"));
 				// Test.postDineorder(rs.getString("req"));
-				String cell = rs.getString("msg");
-				System.out.println(cell);
-				/*
-				 * String
-				 * cancelorder="{\"accessKey\":\"782b5654d5f7a26e\",\"actionName\":\"candao.order.postDineInStatus\",\"timestamp\":1578580506485,\"ticket\":\"4863d892-dfc8-41ff-915b-50fd2b9ba582\",\"sign\":\"c7ea8bc8e2ab6c7beb9f58c8c2e28f82\",\"serviceType\":\"pos\",\"vendor\":\"seito\",\"storeId\":\"Y0074\",\"data\":{\"orderId\":\"202001090066843\",\"status\":-1,\"cancelReason\":501,\"updateTime\":\"2020-01-09 11:32:58\"}}"
-				 * ; String seitoorder=""; String ncrorder=""; String yitunnelorder=""; String
-				 * jian24order="";
-				 */
+				String combos = rs.getString("combos");
+				String order_id=rs.getString("order_id");
+				String pid=rs.getString("pid");
+				String name=rs.getString("name");
+				int num=rs.getInt("num");
+				float price=rs.getFloat("price");
+				String accesskey=rs.getString("access_key");
+				postDineorder(order_id,combos,pid,name,accesskey);
 
-				JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
-				// JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));//
-				// 将字符串转化成json对象
-				String actionName = jsonobj.getString("actionName");
-				if (actionName.equals("candao.order.postDineInOrder")) {
-					Test.postDineorder(cell);
-				} else if (actionName.equals("candao.retail.order")) {
-					Test2.retailOrder(cell);
-				} else if (actionName.equals("candao.order.postDineInStatus")) {
-					CancelOrder.CancelOrder(cell);
-				} else if (actionName.equals("candao.retail.updateOrderStatus")) {
-					System.out.println("更新新零售订单状态啦啦啦啦啦");
-				}
-
+	
 			}
 		} catch (Exception e) {
 			System.out.print("get data error!");
 			e.printStackTrace();
 		}
 	}
+	
+	public static void postDineorder(String orderId,String combos,String pid,String fname,String accesskey) throws SQLException {
+		JSONArray comboses = JSONArray.fromObject(combos);
+		for (int i=0;i<comboses.size();i++) {
+			Combos combos2=(Combos) JSONObject.toBean(comboses.getJSONObject(i),Combos.class);
+			Combos.insertCombos(orderId,combos2,pid,"","","",fname,accesskey);
+		}
+	
+	}
+	
+	
+
 }

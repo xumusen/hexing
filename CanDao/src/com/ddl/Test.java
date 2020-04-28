@@ -612,7 +612,7 @@ public class Test {
 						JSONArray comboses1 = JSONArray.fromObject(product1.getCombos()); // 位于discounts下面
 						// System.out.println("j is " + j);
 						Combos combos = (Combos) JSONObject.toBean(comboses1.getJSONObject(j), Combos.class);
-						Combos.insertCombos(orderId, combos, product1.getPid(), product1.getNum(), storeId,orderDate);
+						Combos.insertCombos(orderId, combos, product1.getPid(), product1.getNum(), storeId,orderDate,"","");
 
 						if (product1.getCombos().get(j).getSkus() != null) {
 							try {

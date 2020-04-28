@@ -1,5 +1,9 @@
 package com.utils;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -7,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import com.alibaba.fastjson.JSONArray;
@@ -15,6 +21,7 @@ import com.entity.product.Products;
 
 import http_post.HttpRequest;
 import md5.MD5;
+import md5.Md5Encrypt;
 import net.sf.json.JSONObject;
 
 public class TimeUtils {
@@ -181,26 +188,67 @@ public class TimeUtils {
 		 * System.out.println(sign2);
 		 */
 
-		/*
-		 * Timestamp ts = new Timestamp(System.currentTimeMillis()); DateFormat sdf =
-		 * new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); String time = sdf.format(ts);
-		 * String accessKey = "2b4449d3603b9b7e"; String actionName =
-		 * "candao.order.postDineInStatus"; //String
-		 * actionName="candao.order.postDineInOrder"; String secret =
-		 * "3057147bfa1749bd9e1d51ff18635cdd"; long timestamp =
-		 * System.currentTimeMillis(); System.out.println(timestamp); //String
-		 * xiucandata =
-		 * "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000008\",\"storeId\":\"0109999\",\"userNote\":\"\",\"orderTime\":\"2020-02-11 15:09:53\",\"orderDate\":\"2020-02-11\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}"
-		 * ; String
-		 * xiucandata="{\"orderId\":\"15151505090115814049856760000010\",\"status\":100,\"updateTime\":\"2020-02-24 10:02:45\",\"orderTime\":\"2020-02-24 10:00:53\"}"
-		 * ; //String
-		 * xiucandata="{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000010\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-02-24 10:00:53\",\"orderDate\":\"2020-02-24\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}"
-		 * ; String sign = MD5.getMD5Str( accessKey + actionName + secret + timestamp +
-		 * (StringUtil.isNullOrBlank(xiucandata) ? "" : xiucandata));
-		 * System.out.println(sign);
-		 */
-
+		
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = sdf.format(ts);
+		String accessKey = "2b4449d3603b9b7e";
+		String secret = "3057147bfa1749bd9e1d51ff18635cdd";
+		String serviceType="pos";
+		String vendor="seito";
+		String storeId="YS010204";
+		String actionName = "candao.order.postDineInOrder"; 
+		long timestamp = System.currentTimeMillis();
+		//System.out.println(timestamp); // String
+		//String xiucandata = "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000008\",\"storeId\":\"0109999\",\"userNote\":\"\",\"orderTime\":\"2020-02-11 15:09:53\",\"orderDate\":\"2020-02-11\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}";
+		String xiucandata="{\"fromType\":\"xiucan\",\"orderId\":\"19341900000115873842079980000910\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-04-20 20:03:43\",\"orderDate\":\"2020-04-20\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":2.5,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":2.5,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":2.5,\"products\":[{\"pid\":\"42300006\",\"name\":\"小袋黄瓜\",\"num\":1,\"price\":2.5}],\"counts\":1,\"originPrice\":2.5,\"productPrice\":2.5}";
+		//xiucandata = "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000010\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-02-24 10:00:53\",\"orderDate\":\"2020-02-24\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}";
+		String sign = MD5.getMD5Str(
+				accessKey + actionName + secret + timestamp + (StringUtil.isNullOrBlank(xiucandata) ? "" : xiucandata));
+		System.out.println(sign);
+		
+	
+		
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("actionName", actionName);
+		jsonObj.put("data", xiucandata);
+		jsonObj.put("accessKey", accessKey);
+		jsonObj.put("sign", sign);
+		jsonObj.put("timestamp",timestamp);
+		jsonObj.put("serviceType", serviceType);
+		jsonObj.put("ticket", UUID.randomUUID().toString());
+		jsonObj.put("vendor", vendor);
+		jsonObj.put("storeId", storeId);
+		//String sr = HttpRequest.sendPost( "http://zt_qc.can-dao.com:81/api",jsonObj);
+		//byte[] bytes=sr.getBytes("utf-8"); 
+		//String name=new String(bytes,"utf-8");
+		  
+		 
+		System.out.println(jsonObj);
+		//System.out.println(name);
+		String json="{\"serviceType\":\"pos\",\"actionName\":\"candao.order.postDineInOrder\",\"sign\":\"3ab113f528e9f0c4fc2a51e24ae96f9a\",\"ticket\":\"f9df7b87-186e-4b23-8e25-4ba4ee70e8d9\",\"accessKey\":\"4ca533f4b7f5da07\",\"timestamp\":1587095140789,\"vendor\":\"ncr\",\"storeId\":\"DQ010042\",\"data\":{\"orderTime\":\"2020-04-17 11:45:32\",\"orderStatus\":100,\"status\":[{\"dateTime\":\"2020-04-17 11:45:21\",\"value\":105,\"title\":\"下单（快餐）\"},{\"dateTime\":\"2020-04-17 11:45:32\",\"value\":115,\"title\":\"支付完成（快餐）\"}],\"storeId\":\"DQ010042\",\"orderDate\":\"2020-04-17\",\"thirdSn\":\"1004\",\"orderId\":\"DQ0100422004171004\",\"fromType\":\"pos\",\"deviceNo\":\"1\",\"staffId\":\"99\",\"staffBane\":\"屈金华\",\"ordertype\":3,\"posOrderType\":1,\"payType\":1,\"isPayed\":true,\"paymentDetails\":[{\"posType\":\"49\",\"tradeNo\":\"DQ010042202004171145261004\",\"posName\":\"微信当面付\",\"type\":15,\"money\":24.0,\"typeName\":\"微信线下支付\",\"payType\":1}],\"price\":24.0,\"deliveryFee\":0,\"mealFee\":0,\"discountPrice\":-0.0,\"thirdPlatformBearPrice\":0,\"merchantBearPrice\":0.0,\"merchantPrice\":24.0,\"commission\":0,\"discounts\":[],\"products\":[{\"itemDisc\":0.0,\"price\":24.0,\"pid\":\"1090011\",\"num\":1,\"dept\":{\"id\":\"9\",\"title\":\"暴风雪/中\"},\"name\":\"经典－巧克力(中)\",\"productTaxRate\":\"6%\",\"types\":{\"extra\":\"冰淇淋\",\"bigType\":\"1\"}}],\"originPrice\":24.0,\"productPrice\":24.0,\"counts\":1}}";
+		long timestamps = System.currentTimeMillis();
+		String Ordersign = MD5.getMD5Str(
+				accessKey + actionName + secret + timestamps + (StringUtil.isNullOrBlank(json) ? "" : json));
+		JSONObject jsonObject= JSONObject.fromObject(json);
+		String orderdata=jsonObject.getString("data");
+		JSONObject jsonNewObj = new JSONObject();
+		jsonNewObj.put("actionName", jsonObject.getString("actionName"));
+		jsonNewObj.put("data", jsonObject.getString("data"));
+		jsonNewObj.put("accessKey", jsonObject.getString("accessKey"));
+		jsonNewObj.put("sign", Ordersign);
+		jsonNewObj.put("timestamp",timestamps);
+		jsonNewObj.put("serviceType", jsonObject.getString("serviceType"));
+		jsonNewObj.put("ticket", UUID.randomUUID().toString());
+		jsonNewObj.put("vendor", jsonObject.getString("vendor"));
+		jsonNewObj.put("storeId", jsonObject.getString("storeId"));
+		System.out.println(jsonObject);
+		
 		// 提交正常单
+		/*
+		 * long l = Long.valueOf("1586833711262").longValue();
+		 * System.out.println(getTimeStamptoString(l));
+		 */
 
 	}
 

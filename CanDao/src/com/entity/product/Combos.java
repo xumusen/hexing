@@ -68,7 +68,7 @@ public String getOrderid() {
 public void setOrderid(String orderid) {
 	this.orderid = orderid;
 }
-public static void insertCombos(String orderid,Combos combos,String fid,String fnum,String storeid,String orderdate)throws SQLException{
+public static void insertCombos(String orderid,Combos combos,String fid,String fnum,String storeid,String orderdate,String fname,String accesskey)throws SQLException{
     //首先拿到数据库的连接
     Connection conn=DBUtil.getConnection();
  /*   String sql="" + 
@@ -78,8 +78,8 @@ public static void insertCombos(String orderid,Combos combos,String fid,String f
 */	        
     String sql=""+
     		"INSERT INTO combos"+
-    		"(pid,name,num,price,addPrice,orderid,fid,fnum,storeid,orderdate)"+
-    		"values(?,?,?,?,?,?,?,?,?,?)";
+    		"(pid,name,num,price,addPrice,orderid,fid,fnum,storeid,orderdate,fname,accesskey)"+
+    		"values(?,?,?,?,?,?,?,?,?,?,?,?)";
     PreparedStatement psmt = conn.prepareStatement(sql);
     
     //先对应SQL语句，给SQL语句传递参数
@@ -93,7 +93,8 @@ public static void insertCombos(String orderid,Combos combos,String fid,String f
     psmt.setString(8,fnum);
     psmt.setString(9,storeid);
     psmt.setString(10, orderdate);
-
+    psmt.setString(11, fname);
+    psmt.setString(12, accesskey);
     //执行SQL语句
     psmt.execute();
     /**
@@ -107,6 +108,33 @@ public static void insertCombos(String orderid,Combos combos,String fid,String f
 }
 
 
+
+public static void insertCombos(String orderId,String combos,String pid,String name) throws SQLException {
+	
+	
+	  Connection conn=DBUtil.getConnection();
+	  /*   String sql="" + 
+	             "insert into status"+
+	             "(title,value,dateTime) "+
+	             "values(?,?,?)";//参数用?表示，相当于占位符;
+	 */	        
+	     String sql=""+
+	     		"INSERT INTO tao_combos"+
+	     		"(orderid,combos,pid,name)"+
+	     		"values(?,?,?,?)";
+	     PreparedStatement psmt = conn.prepareStatement(sql);
+	     
+	     //先对应SQL语句，给SQL语句传递参数
+	     psmt.setString(1,  orderId);
+	     psmt.setString(2, combos);
+	     psmt.setString(3,pid);
+	     psmt.setString(4, name);
+
+	     //执行SQL语句
+	     psmt.execute();
+	
+	
+}
 
 
 
