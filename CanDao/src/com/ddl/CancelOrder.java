@@ -165,7 +165,15 @@ public static void InsertCancelOrder(CancelOrder cancelOrder,Title title) throws
 		}
 		
 		String updateTime=data.getString("updateTime");
-		String orderTime=data.getString("orderTime");
+	
+		
+		try {
+			String orderTime=data.getString("orderTime");
+		//	System.out.println("cancelNote =" + cancelNote);
+		} catch (Exception e) {
+			// TODO: handle exception
+			String orderTime = "";
+		}
 		CancelOrder cancelOrder2 = (CancelOrder) JSONObject.toBean(data, CancelOrder.class);
 		CancelOrder.InsertCancelOrder(cancelOrder2,title);
 		Connection conn=DBUtil.getConnection();

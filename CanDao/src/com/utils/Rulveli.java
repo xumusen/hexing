@@ -105,7 +105,7 @@ public class Rulveli {
 		// TODO Auto-generated method stub
 		
 		DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd"); 
-		String stime ="2020-02-01";
+		String stime ="2020-05-09";
 		System.out.println(DateToJuLian(format1.parse(stime)));
 		
 		System.out.println(JuLianToDate("1650040"));

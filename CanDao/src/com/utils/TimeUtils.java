@@ -36,7 +36,7 @@ public class TimeUtils {
 	}
 
 	public static void submitOrder() throws UnsupportedEncodingException {
-		
+
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		DateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
@@ -188,67 +188,66 @@ public class TimeUtils {
 		 * System.out.println(sign2);
 		 */
 
-		
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = sdf.format(ts);
-		String accessKey = "2b4449d3603b9b7e";
-		String secret = "3057147bfa1749bd9e1d51ff18635cdd";
-		String serviceType="pos";
-		String vendor="seito";
-		String storeId="YS010204";
-		String actionName = "candao.order.postDineInOrder"; 
-		long timestamp = System.currentTimeMillis();
-		//System.out.println(timestamp); // String
-		//String xiucandata = "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000008\",\"storeId\":\"0109999\",\"userNote\":\"\",\"orderTime\":\"2020-02-11 15:09:53\",\"orderDate\":\"2020-02-11\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}";
-		String xiucandata="{\"fromType\":\"xiucan\",\"orderId\":\"19341900000115873842079980000910\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-04-20 20:03:43\",\"orderDate\":\"2020-04-20\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":2.5,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":2.5,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":2.5,\"products\":[{\"pid\":\"42300006\",\"name\":\"小袋黄瓜\",\"num\":1,\"price\":2.5}],\"counts\":1,\"originPrice\":2.5,\"productPrice\":2.5}";
-		//xiucandata = "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000010\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-02-24 10:00:53\",\"orderDate\":\"2020-02-24\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}";
-		String sign = MD5.getMD5Str(
-				accessKey + actionName + secret + timestamp + (StringUtil.isNullOrBlank(xiucandata) ? "" : xiucandata));
-		System.out.println(sign);
-		
-	
-		
-		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("actionName", actionName);
-		jsonObj.put("data", xiucandata);
-		jsonObj.put("accessKey", accessKey);
-		jsonObj.put("sign", sign);
-		jsonObj.put("timestamp",timestamp);
-		jsonObj.put("serviceType", serviceType);
-		jsonObj.put("ticket", UUID.randomUUID().toString());
-		jsonObj.put("vendor", vendor);
-		jsonObj.put("storeId", storeId);
-		//String sr = HttpRequest.sendPost( "http://zt_qc.can-dao.com:81/api",jsonObj);
-		//byte[] bytes=sr.getBytes("utf-8"); 
-		//String name=new String(bytes,"utf-8");
-		  
-		 
-		System.out.println(jsonObj);
-		//System.out.println(name);
-		String json="{\"serviceType\":\"pos\",\"actionName\":\"candao.order.postDineInOrder\",\"sign\":\"3ab113f528e9f0c4fc2a51e24ae96f9a\",\"ticket\":\"f9df7b87-186e-4b23-8e25-4ba4ee70e8d9\",\"accessKey\":\"4ca533f4b7f5da07\",\"timestamp\":1587095140789,\"vendor\":\"ncr\",\"storeId\":\"DQ010042\",\"data\":{\"orderTime\":\"2020-04-17 11:45:32\",\"orderStatus\":100,\"status\":[{\"dateTime\":\"2020-04-17 11:45:21\",\"value\":105,\"title\":\"下单（快餐）\"},{\"dateTime\":\"2020-04-17 11:45:32\",\"value\":115,\"title\":\"支付完成（快餐）\"}],\"storeId\":\"DQ010042\",\"orderDate\":\"2020-04-17\",\"thirdSn\":\"1004\",\"orderId\":\"DQ0100422004171004\",\"fromType\":\"pos\",\"deviceNo\":\"1\",\"staffId\":\"99\",\"staffBane\":\"屈金华\",\"ordertype\":3,\"posOrderType\":1,\"payType\":1,\"isPayed\":true,\"paymentDetails\":[{\"posType\":\"49\",\"tradeNo\":\"DQ010042202004171145261004\",\"posName\":\"微信当面付\",\"type\":15,\"money\":24.0,\"typeName\":\"微信线下支付\",\"payType\":1}],\"price\":24.0,\"deliveryFee\":0,\"mealFee\":0,\"discountPrice\":-0.0,\"thirdPlatformBearPrice\":0,\"merchantBearPrice\":0.0,\"merchantPrice\":24.0,\"commission\":0,\"discounts\":[],\"products\":[{\"itemDisc\":0.0,\"price\":24.0,\"pid\":\"1090011\",\"num\":1,\"dept\":{\"id\":\"9\",\"title\":\"暴风雪/中\"},\"name\":\"经典－巧克力(中)\",\"productTaxRate\":\"6%\",\"types\":{\"extra\":\"冰淇淋\",\"bigType\":\"1\"}}],\"originPrice\":24.0,\"productPrice\":24.0,\"counts\":1}}";
+		String accessKey = "782b5654d5f7a26e";
+		String secret = "204739a0b6f0f25cc3c1dee7715f27b8";
+		String actionName = "candao.order.postDineInOrder";
+		/*
+		 * String serviceType="pos"; String vendor="seito"; String storeId="YS010204";
+		 * String actionName = "candao.order.postDineInOrder";
+		 */
+		/*
+		 * long timestamp = System.currentTimeMillis(); System.out.println(timestamp);
+		 * // String //String xiucandata =
+		 * "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000008\",\"storeId\":\"0109999\",\"userNote\":\"\",\"orderTime\":\"2020-02-11 15:09:53\",\"orderDate\":\"2020-02-11\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}"
+		 * ; String
+		 * xiucandata="{\"fromType\":\"xiucan\",\"orderId\":\"19341900000115873842079980000910\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-04-20 20:03:43\",\"orderDate\":\"2020-04-20\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":2.5,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":2.5,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":2.5,\"products\":[{\"pid\":\"42300006\",\"name\":\"小袋黄瓜\",\"num\":1,\"price\":2.5}],\"counts\":1,\"originPrice\":2.5,\"productPrice\":2.5}"
+		 * ; //xiucandata =
+		 * "{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115814049856760000010\",\"storeId\":\"YS010204\",\"userNote\":\"\",\"orderTime\":\"2020-02-24 10:00:53\",\"orderDate\":\"2020-02-24\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":28,\"type\":2,\"typeName\":\"微信\"}],\"discounts\":[],\"isInvoice\":true,\"price\":28,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":28,\"products\":[{\"pid\":\"32101900\",\"name\":\"赤金牛肉面\",\"num\":1,\"price\":28}]}"
+		 * ; String sign = MD5.getMD5Str( accessKey + actionName + secret + timestamp +
+		 * (StringUtil.isNullOrBlank(xiucandata) ? "" : xiucandata));
+		 * System.out.println(sign); String
+		 * seitoDate="{\"orderId\":\"YS010018008202004260289506829\",\"thirdSn\":\"0080982\",\"storeId\":\"YS010018\",\"count\":3,\"fromType\":\"kiosk\",\"takeNo\":\"0882\",\"peopleNum\":0,\"productPrice\":22.5,\"deviceNo\":\"008\",\"staffId\":\"0000000006\",\"staffBane\":\"kiosk\",\"orderTime\":\"2020-04-26 09:41:59\",\"orderDate\":\"2020-04-26\",\"orderStatus\":100,\"orderType\":2,\"posOrderType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":1,\"type\":15,\"typeName\":\"微信线下支付\",\"money\":22.5,\"tradeNo\":\"YS010018008_0080982_200426094219\",\"posType\":\"WXZF\",\"posName\":\"微信支付\",\"code\":\"YS010018008_0080982_200426094219\",\"num\":1}],\"isInvoice\":false,\"price\":22.5,\"deliveryFee\":0.0,\"mealFee\":0.0,\"discountPrice\":0.0,\"merchantBearPrice\":0.0,\"thirdPlatformBearPrice\":0.0,\"merchantPrice\":22.5,\"originPrice\":22.5,\"commission\":0.0,\"status\":[{\"title\":\"下单（快餐）\",\"value\":\"105\",\"dateTime\":\"2020-04-26 09:41:20\"},{\"title\":\"支付（快餐）\",\"value\":\"110\",\"dateTime\":\"2020-04-26 09:41:59\"},{\"title\":\"支付完成（快餐）\",\"value\":\"115\",\"dateTime\":\"2020-04-26 09:42:21\"}],\"products\":[{\"pid\":\"32100436\",\"name\":\"豚馒小豆浆\",\"num\":2.0,\"price\":6.0,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y01\",\"title\":\"早餐类\",\"subDept\":{\"id\":\"0000Y13\",\"title\":\"副食\"}},\"category\":{\"id\":\"0000132\",\"title\":\"其他\"},\"types\":{\"bigType\":\"0000132\",\"extra\":\"其他\"},\"combos\":[{\"pid\":\"32100435\",\"name\":\"爆汁豚馒\",\"num\":1.0,\"price\":5.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"15100001\",\"name\":\"原味豆浆/大\",\"num\":1.0,\"price\":9.0,\"addPrice\":1.5,\"skus\":[]}]},{\"pid\":\"32100436\",\"name\":\"豚馒小豆浆\",\"num\":1.0,\"price\":6.0,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y01\",\"title\":\"早餐类\",\"subDept\":{\"id\":\"0000Y13\",\"title\":\"副食\"}},\"category\":{\"id\":\"0000132\",\"title\":\"其他\"},\"types\":{\"bigType\":\"0000132\",\"extra\":\"其他\"},\"combos\":[{\"pid\":\"32100435\",\"name\":\"爆汁豚馒\",\"num\":1.0,\"price\":5.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"15100001\",\"name\":\"原味豆浆/大\",\"num\":1.0,\"price\":9.0,\"addPrice\":1.5,\"skus\":[]}]}]}"
+		 * ;
+		 * 
+		 * 
+		 * JSONObject jsonObj = new JSONObject(); jsonObj.put("actionName", actionName);
+		 * jsonObj.put("data", xiucandata); jsonObj.put("accessKey", accessKey);
+		 * jsonObj.put("sign", sign); jsonObj.put("timestamp",timestamp);
+		 * jsonObj.put("serviceType", serviceType); jsonObj.put("ticket",
+		 * UUID.randomUUID().toString()); jsonObj.put("vendor", vendor);
+		 * jsonObj.put("storeId", storeId); //String sr = HttpRequest.sendPost(
+		 * "http://zt_qc.can-dao.com:81/api",jsonObj); //byte[]
+		 * bytes=sr.getBytes("utf-8"); //String name=new String(bytes,"utf-8");
+		 */
+
+		// System.out.println(jsonObj);
+		// System.out.println(name);
+		String json = "{\"accessKey\":\"782b5654d5f7a26e\",\"actionName\":\"candao.order.postDineInOrder\",\"timestamp\":1589347083149,\"ticket\":\"098ca637-51d3-45e9-85b2-c7ba0175ca83\",\"sign\":\"3759c159b7004b059d0cb4acc4dec7fa\",\"serviceType\":\"pos\",\"vendor\":\"seito\",\"storeId\":\"YS010999\",\"data\":{\"orderId\":\"YS010999002202005130340400053\",\"thirdSn\":\"0020069\",\"storeId\":\"YS010999\",\"counts\":14,\"fromType\":\"pos\",\"takeNo\":\"0269\",\"peopleNum\":0,\"productPrice\":662.0,\"deviceNo\":\"002\",\"staffId\":\"0000000004\",\"staffBane\":\"白羽\",\"orderTime\":\"2020-05-13 13:17:02\",\"orderDate\":\"2020-05-13\",\"orderStatus\":100,\"orderType\":3,\"posOrderType\":\"0\",\"isPayed\":true,\"paymentDetails\":[{\"payType\":1,\"type\":1,\"typeName\":\"现金\",\"money\":660.0,\"posType\":\"CASH\",\"posName\":\"现金\",\"num\":0}],\"isInvoice\":false,\"price\":660.0,\"deliveryFee\":0.0,\"mealFee\":0.0,\"discountPrice\":-2.0,\"merchantBearPrice\":2.0,\"thirdPlatformBearPrice\":0.0,\"merchantPrice\":660.0,\"originPrice\":662.0,\"commission\":0.0,\"status\":[{\"title\":\"下单（快餐）\",\"value\":\"105\",\"dateTime\":\"2020-05-13 13:14:44\"},{\"title\":\"支付（快餐）\",\"value\":\"110\",\"dateTime\":\"2020-05-13 13:17:02\"},{\"title\":\"支付完成（快餐）\",\"value\":\"115\",\"dateTime\":\"2020-05-13 13:17:11\"}],\"discounts\":[{\"code\":\"Y0000719\",\"pid\":\"Y0000719\",\"vendor\":\"seito\",\"num\":1,\"type\":3,\"childType\":3,\"title\":\"喜羊羊优惠2元\",\"content\":\"\",\"price\":-2.0,\"totalAmount\":-2.0,\"thirdSubsidy\":0.0,\"merchantSubsidy\":2.0,\"disProducts\":[{\"pid\":\"52100162\",\"name\":\"新标牛套\",\"num\":1.0,\"price\":39.0,\"itemDisc\":2.0}]}],\"products\":[{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41400005\",\"name\":\"新合茶碗蒸\",\"num\":1.0,\"price\":7.5,\"addPrice\":2.5,\"skus\":[]},{\"pid\":\"32105095\",\"name\":\"草莓芒芒果饮\",\"num\":1.0,\"price\":12.0,\"addPrice\":3.0,\"skus\":[]}]},{\"pid\":\"52100162\",\"name\":\"新标牛套\",\"num\":1.0,\"price\":39.0,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":2.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"21100026\",\"name\":\"招牌牛肉饭/标\",\"num\":1.0,\"price\":30.5,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"42200009\",\"name\":\"三色时蔬\",\"num\":1.0,\"price\":6.0,\"addPrice\":1.0,\"skus\":[]},{\"pid\":\"31100002\",\"name\":\"中可乐\",\"num\":1.0,\"price\":8.0,\"addPrice\":0.0,\"skus\":[]}]},{\"pid\":\"52100162\",\"name\":\"新标牛套\",\"num\":1.0,\"price\":39.0,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"21100026\",\"name\":\"招牌牛肉饭/标\",\"num\":1.0,\"price\":30.5,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"42200009\",\"name\":\"三色时蔬\",\"num\":1.0,\"price\":6.0,\"addPrice\":1.0,\"skus\":[]},{\"pid\":\"31100002\",\"name\":\"中可乐\",\"num\":1.0,\"price\":8.0,\"addPrice\":0.0,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":2.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41400005\",\"name\":\"新合茶碗蒸\",\"num\":1.0,\"price\":7.5,\"addPrice\":2.5,\"skus\":[]},{\"pid\":\"42400298\",\"name\":\"酸菜银鱼汤\",\"num\":1.0,\"price\":9.0,\"addPrice\":1.5,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41400005\",\"name\":\"新合茶碗蒸\",\"num\":1.0,\"price\":7.5,\"addPrice\":2.5,\"skus\":[]},{\"pid\":\"32105094\",\"name\":\"桃桃芒果气泡饮\",\"num\":1.0,\"price\":12.0,\"addPrice\":3.0,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41400005\",\"name\":\"新合茶碗蒸\",\"num\":1.0,\"price\":7.5,\"addPrice\":2.5,\"skus\":[]},{\"pid\":\"32101730\",\"name\":\"冰红茶/中\",\"num\":1.0,\"price\":8.5,\"addPrice\":0.5,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41300001\",\"name\":\"摇滚沙拉\",\"num\":1.0,\"price\":9.0,\"addPrice\":4.0,\"skus\":[]},{\"pid\":\"32101730\",\"name\":\"冰红茶/中\",\"num\":1.0,\"price\":8.5,\"addPrice\":0.5,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41300001\",\"name\":\"摇滚沙拉\",\"num\":1.0,\"price\":9.0,\"addPrice\":4.0,\"skus\":[]},{\"pid\":\"32101732\",\"name\":\"蜂蜜柚子茶\",\"num\":1.0,\"price\":10.0,\"addPrice\":2.0,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"42200009\",\"name\":\"三色时蔬\",\"num\":1.0,\"price\":6.0,\"addPrice\":1.0,\"skus\":[]},{\"pid\":\"31100003\",\"name\":\"大可乐\",\"num\":1.0,\"price\":9.5,\"addPrice\":1.5,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"42200009\",\"name\":\"三色时蔬\",\"num\":1.0,\"price\":6.0,\"addPrice\":1.0,\"skus\":[]},{\"pid\":\"32100121\",\"name\":\"新橙汁缤纷\",\"num\":1.0,\"price\":10.0,\"addPrice\":2.0,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41200001\",\"name\":\"金枪鱼土豆泥沙拉\",\"num\":1.0,\"price\":5.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"31100002\",\"name\":\"中可乐\",\"num\":1.0,\"price\":8.0,\"addPrice\":0.0,\"skus\":[]}]},{\"pid\":\"32101916\",\"name\":\"招牌牛肉套/大将军碗\",\"num\":1.0,\"price\":45.5,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"32101914\",\"name\":\"招牌牛/大将军碗\",\"num\":1.0,\"price\":37.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41200001\",\"name\":\"金枪鱼土豆泥沙拉\",\"num\":1.0,\"price\":5.0,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"32100120\",\"name\":\"新仙桃蜜语\",\"num\":1.0,\"price\":10.0,\"addPrice\":2.0,\"skus\":[]}]},{\"pid\":\"52100162\",\"name\":\"新标牛套\",\"num\":1.0,\"price\":39.0,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y02\",\"title\":\"正餐类\",\"subDept\":{\"id\":\"0000Y21\",\"title\":\"主餐类\"}},\"category\":{\"id\":\"0000211\",\"title\":\"牛肉类\"},\"types\":{\"bigType\":\"0000211\",\"extra\":\"牛肉类\"},\"combos\":[{\"pid\":\"21100026\",\"name\":\"招牌牛肉饭/标\",\"num\":1.0,\"price\":30.5,\"addPrice\":0.0,\"skus\":[]},{\"pid\":\"41400005\",\"name\":\"新合茶碗蒸\",\"num\":1.0,\"price\":7.5,\"addPrice\":2.5,\"skus\":[]},{\"pid\":\"31100005\",\"name\":\"中七喜\",\"num\":1.0,\"price\":8.0,\"addPrice\":0.0,\"skus\":[]}]}]}}";
+		JSONObject jsonObject = JSONObject.fromObject(json);
+		String orderdata = jsonObject.getString("data");
 		long timestamps = System.currentTimeMillis();
 		String Ordersign = MD5.getMD5Str(
-				accessKey + actionName + secret + timestamps + (StringUtil.isNullOrBlank(json) ? "" : json));
-		JSONObject jsonObject= JSONObject.fromObject(json);
-		String orderdata=jsonObject.getString("data");
+				accessKey + actionName + secret + timestamps + (StringUtil.isNullOrBlank(orderdata) ? "" : orderdata));
+
 		JSONObject jsonNewObj = new JSONObject();
 		jsonNewObj.put("actionName", jsonObject.getString("actionName"));
-		jsonNewObj.put("data", jsonObject.getString("data"));
-		jsonNewObj.put("accessKey", jsonObject.getString("accessKey"));
+		jsonNewObj.put("data", orderdata);
+		jsonNewObj.put("accessKey", accessKey);
 		jsonNewObj.put("sign", Ordersign);
-		jsonNewObj.put("timestamp",timestamps);
+		jsonNewObj.put("timestamp", timestamps);
 		jsonNewObj.put("serviceType", jsonObject.getString("serviceType"));
 		jsonNewObj.put("ticket", UUID.randomUUID().toString());
 		jsonNewObj.put("vendor", jsonObject.getString("vendor"));
 		jsonNewObj.put("storeId", jsonObject.getString("storeId"));
-		System.out.println(jsonObject);
-		
+		System.out.println(jsonNewObj);
+
 		// 提交正常单
-		/*
-		 * long l = Long.valueOf("1586833711262").longValue();
-		 * System.out.println(getTimeStamptoString(l));
-		 */
+
+		long l = Long.valueOf("158935610993").longValue();
+		// System.out.println(getTimeStamptoString(l));
 
 	}
 
