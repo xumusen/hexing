@@ -324,7 +324,9 @@ public class Test {
 		try {
 			paymentDetails = jsonobject.getJSONObject(jsonobject.getString("paymentDetails"));// 获取数组
 			JSONArray jsonArray = JSONArray.fromObject(jsonobject.getString("paymentDetails")); // 位于data下面
-
+			if (jsonArray.size() == 0 && Math.abs(jsonobject.getDouble("discountPrice")) == Math
+					.abs((jsonobject.getDouble("merchantPrice"))))
+				System.out.println(orderId + " paymentDetails是空的");
 			for (int i = 0; i < jsonArray.size(); i++) {
 				JSONObject paymentDetail = jsonArray.getJSONObject(i);// 获取数组
 				PaymentDetails details = (PaymentDetails) JSONObject.toBean(paymentDetail, PaymentDetails.class);
@@ -439,6 +441,7 @@ public class Test {
 		}
 
 		try {
+
 			JSONArray status = JSONArray.fromObject(jsonobject.getString("status")); // 位于data下面
 			// System.out.println(jsonobject.getString("status"));
 			for (int i = 0; i < status.size(); i++) {
@@ -481,192 +484,199 @@ public class Test {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		try {
 
-		JSONArray products = JSONArray.fromObject(jsonobject.getString("products"));
-		// System.out.println("products is " + jsonobject.getString("products"));
-		for (int i = 0; i < products.size(); i++) {
-			JSONObject product = products.getJSONObject(i);// 获取数组
-			// Products product1 = (Products) JSONObject.toBean(product,
-			// Products.class);
-			Map comboses = new HashMap();
-			comboses.put("combos", Combos.class);
-			comboses.put("skus", Skus.class);
-			comboses.put("properties", Propertys.class);
-			comboses.put("types", Types.class);
-			comboses.put("category", Category.class);
-			comboses.put("dept", Dept.class);
-			comboses.put("productContent", ProductContent.class);
-			comboses.put("productCategory", ProductCategory.class);
-			Products product1 = (Products) JSONObject.toBean(product, Products.class, comboses);
-			// System.out.println(product1.getPrice());
-			/*
-			 * try { product1.insertProducts(orderId, product1, storeId); } catch
-			 * (SQLException e) { // TODO Auto-generated catch block e.printStackTrace(); }
-			 */
+			JSONArray products = JSONArray.fromObject(jsonobject.getString("products"));
+			// System.out.println("products is " + jsonobject.getString("products"));
+			for (int i = 0; i < products.size(); i++) {
+				JSONObject product = products.getJSONObject(i);// 获取数组
+				// Products product1 = (Products) JSONObject.toBean(product,
+				// Products.class);
+				Map comboses = new HashMap();
+				comboses.put("combos", Combos.class);
+				comboses.put("skus", Skus.class);
+				comboses.put("properties", Propertys.class);
+				comboses.put("types", Types.class);
+				comboses.put("category", Category.class);
+				comboses.put("dept", Dept.class);
+				comboses.put("productContent", ProductContent.class);
+				comboses.put("productCategory", ProductCategory.class);
+				Products product1 = (Products) JSONObject.toBean(product, Products.class, comboses);
+				// System.out.println(product1.getPrice());
+				/*
+				 * try { product1.insertProducts(orderId, product1, storeId); } catch
+				 * (SQLException e) { // TODO Auto-generated catch block e.printStackTrace(); }
+				 */
 
-			JSONObject deptobject = JSONObject.fromObject(product1.getDept());// 将字符串转化成json对象
-			JSONObject typesobject = JSONObject.fromObject(product1.getTypes());// 将字符串转化成json对象
-			JSONObject categoryobject = JSONObject.fromObject(product1.getCategory());// 将字符串转化成json对象
-			JSONObject productContentobject = JSONObject.fromObject(product1.getProductContent());// 将字符串转化成json对象
-			JSONObject productCategoryobject = JSONObject.fromObject(product1.getProductCategory());// 将字符串转化成json对象
+				JSONObject deptobject = JSONObject.fromObject(product1.getDept());// 将字符串转化成json对象
+				JSONObject typesobject = JSONObject.fromObject(product1.getTypes());// 将字符串转化成json对象
+				JSONObject categoryobject = JSONObject.fromObject(product1.getCategory());// 将字符串转化成json对象
+				JSONObject productContentobject = JSONObject.fromObject(product1.getProductContent());// 将字符串转化成json对象
+				JSONObject productCategoryobject = JSONObject.fromObject(product1.getProductCategory());// 将字符串转化成json对象
 
-			if (deptobject == null || deptobject.isEmpty() || deptobject.isNullObject() || "null".equals(deptobject)) {
-				// System.out.println("deptobject is 空");
-			} else {
-				// System.out.println("depart 不是空");
-				Map demap = new HashMap();
-				demap.put("subDept", SubDept.class);
+				if (deptobject == null || deptobject.isEmpty() || deptobject.isNullObject() || "null".equals(deptobject)) {
+					// System.out.println("deptobject is 空");
+				} else {
+					// System.out.println("depart 不是空");
+					Map demap = new HashMap();
+					demap.put("subDept", SubDept.class);
 
-				Dept dept = (Dept) JSONObject.toBean(deptobject, Dept.class, demap);
+					Dept dept = (Dept) JSONObject.toBean(deptobject, Dept.class, demap);
 
-				if (dept.getSubDept() != null) {
-					// System.out.println("subdept is not null");
-					JSONObject subDeptobject = JSONObject.fromObject(dept.getSubDept());
-					SubDept subDept = (SubDept) JSONObject.toBean(subDeptobject, SubDept.class);
-					SubDept.insertSubDept(orderId, subDept, dept.getId(), product1.getPid());
-				}
-
-				Dept.insertDept(orderId, dept, product1.getPid());
-
-			}
-
-			if (typesobject == null || typesobject.isEmpty() || typesobject.isNullObject()
-					|| "null".equals(typesobject)) {
-				// System.out.println("typesobject is 空");
-			} else {
-				// System.out.println("types start ");
-				Types types = (Types) JSONObject.toBean(typesobject, Types.class);
-				Types.insertTypes(orderId, types, product1.getPid());
-				// System.out.println("types end ");
-			}
-			if (categoryobject == null || categoryobject.isEmpty() || categoryobject.isNullObject()
-					|| "null".equals(categoryobject)) {
-				// System.out.println("categoryobject is 空");
-			} else {
-				// System.out.println("category start ");
-				Category category = (Category) JSONObject.toBean(categoryobject, Category.class);
-				Category.insertCategory(orderId, category, product1.getPid());
-				// System.out.println("category end ");
-			}
-			if (productContentobject == null || productContentobject.isEmpty() || productContentobject.isNullObject()
-					|| "null".equals(productContentobject)) {
-				// System.out.println("productContentobject is 空");
-			} else {
-				// System.out.println("productContent start ");
-				ProductContent productContent = (ProductContent) JSONObject.toBean(productContentobject,
-						ProductContent.class);
-				ProductContent.insertProductContent(orderId, productContent, product1.getPid());
-				// System.out.println("productContent end ");
-			}
-			if (productCategoryobject == null || productCategoryobject.isEmpty() || productCategoryobject.isNullObject()
-					|| "null".equals(productCategoryobject)) {
-				// System.out.println("productCategoryobject is 空");
-			} else {
-				// System.out.println("productCategory start ");
-				ProductCategory productCategory = (ProductCategory) JSONObject.toBean(productCategoryobject,
-						ProductCategory.class);
-				ProductCategory.insertProductCategory(orderId, productCategory, product1.getPid());
-				// System.out.println("productCategory end ");
-			}
-
-			if (product1.getSkus() != null) {
-				try {
-					for (int j = 0; j < product1.getSkus().size(); j++) {
-
-						JSONArray pskus = JSONArray.fromObject(product1.getSkus()); // 位于discounts下面
-
-						Skus skus = (Skus) JSONObject.toBean(pskus.getJSONObject(j), Skus.class);
-
-						Skus.insertSkus(orderId, skus, product1.getPid());
+					if (dept.getSubDept() != null) {
+						// System.out.println("subdept is not null");
+						JSONObject subDeptobject = JSONObject.fromObject(dept.getSubDept());
+						SubDept subDept = (SubDept) JSONObject.toBean(subDeptobject, SubDept.class);
+						SubDept.insertSubDept(orderId, subDept, dept.getId(), product1.getPid());
 					}
 
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+					Dept.insertDept(orderId, dept, product1.getPid());
 
-			if (product1.getPropertys() != null) {
-				try {
-					// System.out.println(" properties is "+product1.getPropertys().size());
-					for (int j = 0; j < product1.getPropertys().size(); j++) {
-						JSONArray properties = JSONArray.fromObject(product1.getPropertys()); // 位于discounts下面
-						// System.out.println("j is " + j);
-						Propertys propertys = (Propertys) JSONObject.toBean(properties.getJSONObject(j),
-								Propertys.class);
-						Propertys.insertPropertys(orderId, propertys, product1.getPid());
+				}
+
+				if (typesobject == null || typesobject.isEmpty() || typesobject.isNullObject()
+						|| "null".equals(typesobject)) {
+					// System.out.println("typesobject is 空");
+				} else {
+					// System.out.println("types start ");
+					Types types = (Types) JSONObject.toBean(typesobject, Types.class);
+					Types.insertTypes(orderId, types, product1.getPid());
+					// System.out.println("types end ");
+				}
+				if (categoryobject == null || categoryobject.isEmpty() || categoryobject.isNullObject()
+						|| "null".equals(categoryobject)) {
+					// System.out.println("categoryobject is 空");
+				} else {
+					// System.out.println("category start ");
+					Category category = (Category) JSONObject.toBean(categoryobject, Category.class);
+					Category.insertCategory(orderId, category, product1.getPid());
+					// System.out.println("category end ");
+				}
+				if (productContentobject == null || productContentobject.isEmpty() || productContentobject.isNullObject()
+						|| "null".equals(productContentobject)) {
+					// System.out.println("productContentobject is 空");
+				} else {
+					// System.out.println("productContent start ");
+					ProductContent productContent = (ProductContent) JSONObject.toBean(productContentobject,
+							ProductContent.class);
+					ProductContent.insertProductContent(orderId, productContent, product1.getPid());
+					// System.out.println("productContent end ");
+				}
+				if (productCategoryobject == null || productCategoryobject.isEmpty() || productCategoryobject.isNullObject()
+						|| "null".equals(productCategoryobject)) {
+					// System.out.println("productCategoryobject is 空");
+				} else {
+					// System.out.println("productCategory start ");
+					ProductCategory productCategory = (ProductCategory) JSONObject.toBean(productCategoryobject,
+							ProductCategory.class);
+					ProductCategory.insertProductCategory(orderId, productCategory, product1.getPid());
+					// System.out.println("productCategory end ");
+				}
+
+				if (product1.getSkus() != null) {
+					try {
+						for (int j = 0; j < product1.getSkus().size(); j++) {
+
+							JSONArray pskus = JSONArray.fromObject(product1.getSkus()); // 位于discounts下面
+
+							Skus skus = (Skus) JSONObject.toBean(pskus.getJSONObject(j), Skus.class);
+
+							Skus.insertSkus(orderId, skus, product1.getPid());
+						}
+
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
-
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
-			}
-			boolean istaocan=false;
 
-			if (product1.getCombos() != null) {
-				istaocan=true;
-				try {
-					for (int j = 0; j < product1.getCombos().size(); j++) {
+				if (product1.getPropertys() != null) {
+					try {
+						// System.out.println(" properties is "+product1.getPropertys().size());
+						for (int j = 0; j < product1.getPropertys().size(); j++) {
+							JSONArray properties = JSONArray.fromObject(product1.getPropertys()); // 位于discounts下面
+							// System.out.println("j is " + j);
+							Propertys propertys = (Propertys) JSONObject.toBean(properties.getJSONObject(j),
+									Propertys.class);
+							Propertys.insertPropertys(orderId, propertys, product1.getPid());
+						}
 
-						JSONArray comboses1 = JSONArray.fromObject(product1.getCombos()); // 位于discounts下面
-						// System.out.println("j is " + j);
-						Combos combos = (Combos) JSONObject.toBean(comboses1.getJSONObject(j), Combos.class);
-						Combos.insertCombos(orderId, combos, product1.getPid(), product1.getNum(), storeId,orderDate,"","");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				boolean istaocan = false;
 
-						if (product1.getCombos().get(j).getSkus() != null) {
-							try {
-								for (int k = 0; k < product1.getCombos().get(j).getSkus().size(); k++) {
+				if (product1.getCombos() != null) {
+					istaocan = true;
+					try {
+						for (int j = 0; j < product1.getCombos().size(); j++) {
 
-									JSONArray skuses = JSONArray.fromObject(product1.getCombos().get(j).getSkus()); // 位于discounts下面
+							JSONArray comboses1 = JSONArray.fromObject(product1.getCombos()); // 位于discounts下面
+							// System.out.println("j is " + j);
+							Combos combos = (Combos) JSONObject.toBean(comboses1.getJSONObject(j), Combos.class);
+							Combos.insertCombos(orderId, combos, product1.getPid(), product1.getNum(), storeId, orderDate,
+									"", "");
 
-									Skus skus = (Skus) JSONObject.toBean(skuses.getJSONObject(k), Skus.class);
-									// Combos.insertCombos(orderId, combos,product1.getPid());
-									Skus.insertSkus(orderId, skus, product1.getPid());
+							if (product1.getCombos().get(j).getSkus() != null) {
+								try {
+									for (int k = 0; k < product1.getCombos().get(j).getSkus().size(); k++) {
 
+										JSONArray skuses = JSONArray.fromObject(product1.getCombos().get(j).getSkus()); // 位于discounts下面
+
+										Skus skus = (Skus) JSONObject.toBean(skuses.getJSONObject(k), Skus.class);
+										// Combos.insertCombos(orderId, combos,product1.getPid());
+										Skus.insertSkus(orderId, skus, product1.getPid());
+
+									}
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
 								}
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+
+							}
+
+							if (product1.getCombos().get(j).getPropertys() != null) {
+								try {
+									for (int k = 0; k < product1.getCombos().get(j).getPropertys().size(); k++) {
+
+										JSONArray compropertyes = JSONArray
+												.fromObject(product1.getCombos().get(j).getPropertys()); // 位于discounts下面
+
+										Propertys comproPropertys = (Propertys) JSONObject
+												.toBean(compropertyes.getJSONObject(k), Propertys.class);
+										Propertys.insertComPropertys(orderId, comproPropertys, product1.getPid(),
+												product1.getCombos().get(j).getPid());
+
+									}
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+
 							}
 
 						}
 
-						if (product1.getCombos().get(j).getPropertys() != null) {
-							try {
-								for (int k = 0; k < product1.getCombos().get(j).getPropertys().size(); k++) {
-
-									JSONArray compropertyes = JSONArray
-											.fromObject(product1.getCombos().get(j).getPropertys()); // 位于discounts下面
-
-									Propertys comproPropertys = (Propertys) JSONObject
-											.toBean(compropertyes.getJSONObject(k), Propertys.class);
-									Propertys.insertComPropertys(orderId, comproPropertys, product1.getPid(),
-											product1.getCombos().get(j).getPid());
-
-								}
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-						}
-
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 
+				}
+				try {
+					product1.insertProducts(orderId, product1, storeId, istaocan, orderDate);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
 			}
-			try {
-				product1.insertProducts(orderId, product1, storeId,istaocan,orderDate);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			
+		} 
+		catch (Exception e) {
+			// TODO: handle exception
 		}
 
 		try {

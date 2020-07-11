@@ -42,8 +42,10 @@ public class MysqlJdbc {
 			// '%OK%'");
 			stmt.setFetchSize(Integer.MIN_VALUE);
 			//ResultSet rs = stmt.executeQuery("	SELECT * FROM log0325	WHERE log_time<'2020-03-25 08:00:00' AND msg LIKE '%782b5654d5f7a26e%'");
-			ResultSet rs = stmt.executeQuery("	SELECT * FROM log0509 WHERE action_name IN ('candao.order.postDineInOrder','candao.order.postDineInStatus','candao.retail.order')\r\n" + 
+			ResultSet rs = stmt.executeQuery("	SELECT * FROM log0707 WHERE action_name IN ('candao.order.postDineInOrder','candao.order.postDineInStatus','candao.retail.order')\r\n" + 
 					" 	");
+			
+		//	ResultSet rs = stmt.executeQuery("	SELECT * FROM log0606 WHERE action_name IN ('candao.order.postDineInStatus')\r\n" + 	" 	");
 			
 			// user 为你表的名称
 			while (rs.next()) {

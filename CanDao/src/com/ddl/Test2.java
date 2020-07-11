@@ -349,7 +349,15 @@ public class Test2 {
 		}
 
 		String storeId = jsonobject.getString("storeId");
-		String orderNo = jsonobject.getString("orderNo");
+		//String orderNo = jsonobject.getString("orderNo");
+		try {
+			String orderNo = jsonobject.getString("orderNo");
+	//		System.out.println("originOrderId =" + originOrderId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			String orderNo ="" ;
+		}
+		
 		String originOrderId="";
 		try {
 			 originOrderId = jsonobject.getString("originOrderId");
@@ -359,7 +367,17 @@ public class Test2 {
 			 originOrderId ="" ;
 		}
 
-		String type = jsonobject.getString("type");
+		//String type = jsonobject.getString("type");
+		String type="";
+		try {
+			type = jsonobject.getString("type");
+	//		System.out.println("originOrderId =" + originOrderId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			type ="" ;
+		}
+		
+		
 
 		String fromType = jsonobject.getString("fromType");
 
