@@ -188,6 +188,9 @@ public static void insertTstore(Tstore tstore)throws SQLException{
 
 	public static void main(String[] args) {
 		String filename="TYS010160202006071337";
+		System.out.println(filename.substring(1,9));
+		System.out.println(filename.substring(9,21));
 		System.out.println(filename.substring(9, 13)+"-"+filename.substring(13, 15)+"-"+filename.substring(15, 17));
+		System.out.println(filename.substring(17,21));
 	}
 }
