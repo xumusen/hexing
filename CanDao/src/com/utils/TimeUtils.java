@@ -191,13 +191,14 @@ public class TimeUtils {
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = sdf.format(ts);
+		System.out.println("当前的时间是  "+System.currentTimeMillis());
 		/*
 		 * String accessKey = "782b5654d5f7a26e"; String secret =
 		 * "204739a0b6f0f25cc3c1dee7715f27b8"; String actionName =
 		 * "candao.order.postDineInOrder";
 		 */
-		String accessKey="2b4449d3603b9b7e";
-		String secret="3057147bfa1749bd9e1d51ff18635cdd";
+		String accessKey="4ca533f4b7f5da07";
+		String secret="2482df65c5ecb83be8166805e9dc5c3b";
 
 		/*
 		 * String serviceType="pos"; String vendor="seito"; String storeId="YS010204";
@@ -234,8 +235,9 @@ public class TimeUtils {
 		
 		
 		//String json="{\"accessKey\":\"fb4fda21afeddcf4\",\"actionName\":\"candao.order.postDineInOrder\",\"timestamp\":1592725424534,\"ticket\":\"41d4db6e-2395-48e5-a017-ce8747b96830\",\"sign\":\"bc5b41b18e851f19eb378aaff6890d6b\",\"serviceType\":\"pos\",\"vendor\":\"seito\",\"storeId\":\"YS411017\",\"data\":{\"orderId\":\"YS411017001202006190292267414\",\"thirdSn\":\"0011359\",\"storeId\":\"YS411017\",\"counts\":-1,\"fromType\":\"pos\",\"takeNo\":\"0159\",\"peopleNum\":0,\"productPrice\":-9.9,\"deviceNo\":\"001\",\"staffId\":\"0006095011\",\"staffBane\":\"\",\"orderTime\":\"2020-06-19 16:19:14\",\"orderDate\":\"2020-06-19\",\"orderStatus\":100,\"orderType\":3,\"posOrderType\":\"0\",\"isPayed\":true,\"paymentDetails\":[{\"payType\":1,\"type\":1,\"typeName\":\"现金\",\"money\":-9.9,\"posType\":\"CASH\",\"posName\":\"现金\",\"num\":0}],\"isInvoice\":false,\"price\":-9.9,\"deliveryFee\":0.0,\"mealFee\":0.0,\"discountPrice\":0.0,\"merchantBearPrice\":0.0,\"thirdPlatformBearPrice\":0.0,\"merchantPrice\":-9.9,\"originPrice\":-9.9,\"commission\":0.0,\"status\":[{\"title\":\"下单（快餐）\",\"value\":\"105\",\"dateTime\":\"2020-06-19 16:19:02\"},{\"title\":\"支付（快餐）\",\"value\":\"110\",\"dateTime\":\"2020-06-19 16:19:14\"},{\"title\":\"支付完成（快餐）\",\"value\":\"115\",\"dateTime\":\"2020-06-19 16:19:15\"}],\"products\":[{\"pid\":\"414A0010\",\"name\":\"加点-卤琵琶腿/个\",\"num\":-1.0,\"price\":9.9,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y04\",\"title\":\"副食类\",\"subDept\":{\"id\":\"0000Y42\",\"title\":\"副食品系列\"}},\"category\":{\"id\":\"0000422\",\"title\":\"副食品\"},\"types\":{\"bigType\":\"0000422\",\"extra\":\"副食品\"}}]}}";
-		String json="{\"data\":{\"fromType\":\"xiucan\",\"orderId\":\"15151505090115948027229680000009\",\"storeId\":\"YS010999\",\"memberId\":\"15811339848\",\"phone\":\"15811339848\",\"userNote\":\" \",\"orderTime\":\"2020-07-15 16:45:31\",\"orderDate\":\"2020-07-15\",\"orderStatus\":7,\"orderType\":3,\"payType\":2,\"isPayed\":true,\"paymentDetails\":[{\"payType\":2,\"money\":39.9,\"type\":2,\"typeName\":\"微信\",\"tradeNo\":\"4200000574202007152749315653\"}],\"discounts\":[],\"isInvoice\":true,\"price\":39.9,\"mealFee\":0,\"discountPrice\":0,\"merchantBearPrice\":0,\"merchantPrice\":39.9,\"products\":[{\"pid\":\"32107028\",\"name\":\"敦煌晴雨伞\",\"num\":1,\"price\":39.9,\"combos\":[{\"pid\":\"32107021\",\"name\":\"敦煌晴雨伞/深\",\"price\":0,\"num\":1,\"addPrice\":0}]}],\"counts\":1,\"originPrice\":39.9,\"productPrice\":39.9},\"accessKey\":\"2b4449d3603b9b7e\",\"actionName\":\"candao.order.postDineInOrder\",\"timestamp\":1594802731938,\"ticket\":\"bc9d8c5e-56f4-42fc-803d-25a719a728f5\",\"vendor\":\"seito\",\"serviceType\":\"pos\",\"storeId\":\"YS010999\",\"sign\":\"b65fe0428888e9f968eb87236b797df8\"}\r\n" + 
+		String json="{\"accessKey\":\"4ca533f4b7f5da07\",\"actionName\":\"candao.order.postDineInOrder\",\"timestamp\":1598942396474,\"ticket\":\"f29d1b6b-8565-471d-a1cc-dedf395208b4\",\"serviceType\":\"pos\",\"vendor\":\"ncr\",\"storeId\":\"DQ451009\",\"data\":{\"orderTime\":\"2020-08-15 15:05:16\",\"orderStatus\":100,\"status\":[{\"title\":\"下单（快餐）\",\"value\":105,\"dateTime\":\"2020-08-15 15:04:35\"},{\"title\":\"支付完成（快餐）\",\"value\":115,\"dateTime\":\"2020-08-15 15:05:16\"}],\"storeId\":\"DQ451009\",\"orderDate\":\"2020-08-15\",\"thirdSn\":\"1056\",\"orderId\":\"DQ4510092008151056\",\"fromType\":\"pos\",\"deviceNo\":\"1\",\"staffId\":\"110\",\"staffBane\":\"张晔\",\"orderType\":3,\"posOrderType\":12,\"payType\":1,\"isPayed\":true,\"paymentDetails\":[{\"payType\":1,\"type\":32,\"typeName\":\"其他\",\"money\":60.5,\"posType\":\"114\",\"posName\":\"X微信应收\"}],\"price\":60.5,\"deliveryFee\":0,\"mealFee\":0,\"discountPrice\":-30.5,\"thirdPlatformBearPrice\":0,\"merchantBearPrice\":30.5,\"merchantPrice\":60.5,\"commission\":0,\"discounts\":[{\"code\":\"21559\",\"vendor\":\"ncr\",\"num\":1,\"type\":3,\"childType\":2,\"title\":\"X微信商城7折\",\"content\":\"X微信商城7折\",\"price\":-10.5,\"totalAmount\":-10.5,\"thirdSubsidy\":0,\"merchantSubsidy\":0,\"disProducts\":[{\"pid\":\"1050075\",\"name\":\"X草莓红丝绒扑扑满\",\"num\":1,\"price\":35.0,\"itemDisc\":10.5,\"types\":{\"bigType\":\"1\",\"extra\":\"冰淇淋\"},\"dept\":{\"id\":\"5\",\"title\":\"贵族系列\"},\"productTaxRate\":\"6%\"}]}],\"products\":[{\"pid\":\"1050075\",\"name\":\"X草莓红丝绒扑扑满\",\"num\":1,\"price\":35.0,\"itemDisc\":10.5,\"types\":{\"bigType\":\"1\",\"extra\":\"冰淇淋\"},\"dept\":{\"id\":\"5\",\"title\":\"贵族系列\"},\"productTaxRate\":\"6%\"},{\"pid\":\"1100565\",\"name\":\"X蜜桃芝士(大)\",\"num\":2,\"price\":28.0,\"itemDisc\":20.0,\"types\":{\"bigType\":\"1\",\"extra\":\"冰淇淋\"},\"dept\":{\"id\":\"10\",\"title\":\"暴风雪/大\"},\"productTaxRate\":\"6%\"}],\"originPrice\":91.0,\"productPrice\":91.0,\"counts\":3},\"sign\":\"6fed6744d4d90c60c55feaab72e38a8c\"}\r\n" + 
 				"";
+		
 		
 		
 		
@@ -258,16 +260,21 @@ public class TimeUtils {
 		jsonNewObj.put("storeId", jsonObject.getString("storeId"));
 		System.out.println(jsonNewObj);
 		
-		String sr = HttpRequest.sendPost(
-				"http://zt_qc.can-dao.com:81/api\r\n" + 
-				"",jsonNewObj);
+		/*
+		 * String sr = HttpRequest.sendPost( "http://zt_qc.can-dao.com:81/api\r\n" +
+		 * "",jsonNewObj);
+		 */
+		
+		String sr = HttpRequest.sendPost("http://open-api.hophing.cn/api",jsonNewObj);
 
 		System.out.println("result ----->  "+sr);
 
 		// 提交正常单
 
-		long l = Long.valueOf("158935610993").longValue();
-		// System.out.println(getTimeStamptoString(l));
+		/*
+		 * long l = Long.valueOf("1596441405463").longValue();
+		 * System.out.println(getTimeStamptoString(l));
+		 */
 
 	}
 

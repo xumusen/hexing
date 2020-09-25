@@ -83,5 +83,10 @@
 	<classpathentry kind="lib" path="lib/excel-streaming-reader-2.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/xlsx-streamer-1.2.1.jar"/>
 	<classpathentry kind="lib" path="lib/commons-net-3.6.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-client-3.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-common-3.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-hdfs-3.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hadoop-mapreduce-client-core-3.3.0.jar"/>
+	<classpathentry kind="lib" path="lib/hive-jdbc-uber-2.6.5.0-292.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

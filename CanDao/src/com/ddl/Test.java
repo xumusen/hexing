@@ -697,7 +697,7 @@ public class Test {
 		// cd/项目资料/吉野家/order/1031/shitong1.txt").trim();
 		// String order = Test.readFileContent("/Users/jason/OneDrive -
 		// cd/项目资料/吉野家/order/1118/st1.txt").trim();
-		String order = Test.readFileContent("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\seito\\seito0327.txt").trim();
+		String order = Test.readFileContent("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\seito\\seito.txt").trim();
 		// String order = Test.readFileContent("H:\\OneDrive -
 		// cd\\项目资料\\吉野家\\order\\1101\\st2error.txt").trim();
 		// String order = Test.readFileContent("/Users/jason/OneDrive -
