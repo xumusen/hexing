@@ -30,7 +30,7 @@ public class Testhive {
 	    public void showDatabases() throws Exception {
 	      //  String sql = "show databases";
 	      //  String order_info="select * from test.order_info limit 10";
-	        String checkEveryDay="select * from middle_log.ods_log20200921 \r\n" ;//+ 
+	        String checkEveryDay="select * from middle_log.ods_log20200926 \r\n" ;//+ 
 	        	//	"where action_name ='candao.order.postDineInOrder'  ";
 	        
 	        //System.out.println("Running: " + sql);
