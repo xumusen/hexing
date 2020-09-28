@@ -29,7 +29,7 @@ import com.entity.Tstore;
 
 public class DataGatherLocal {
 
-	private static final String path = "C://pos";
+	private static final String path = "C://postemp";
 	// private static final String path = "h://TYS010255202007040145.txt";
 
 	public static final String openFileStyle = "r";

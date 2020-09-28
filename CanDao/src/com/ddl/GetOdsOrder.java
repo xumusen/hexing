@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 import net.sf.json.JSONObject;
 
-public class Testhive {
+public class GetOdsOrder {
 
 	  	private static String driverName = "org.apache.hive.jdbc.HiveDriver";
 	    private static String url = "jdbc:hive2://192.168.212.2:10000";
@@ -27,7 +27,7 @@ public class Testhive {
 	        return stmt;
 	    }
 	    
-	    public void showDatabases() throws Exception {
+	    public void getOdsOrder() throws Exception {
 	      //  String sql = "show databases";
 	      //  String order_info="select * from test.order_info limit 10";
 	        String checkEveryDay="select * from middle_log.ods_log20200926 \r\n" ;//+ 
@@ -63,9 +63,9 @@ public class Testhive {
 	        }
 	    }
 	    public static void main(String[] args) throws Exception {
-			Testhive testhive=new Testhive();
+			GetOdsOrder testhive=new GetOdsOrder();
 			testhive.init();
-			testhive.showDatabases();
+			testhive.getOdsOrder();
 			testhive.destory();
 		}
 }
