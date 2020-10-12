@@ -31,11 +31,14 @@ public class GetOrderInfo {
     public void orderinfo() throws Exception {
       //  String sql = "show databases";
       //  String order_info="select * from test.order_info limit 10";
+    	String storeid="UF020999";
+    	String begindate="2020-09-01";
+    	String enddate="2020-09-30";
         String checkEveryDay="select *from  test.order_info  where fromtype not in ('180','247') and iscustomordernopush =TRUE and "
-        		+ "storeid ='UF020002' and "
-        		+ "trim(orderdate)='2020-09-11'";
+        		+ "storeid ='"+storeid+"' and "
+        		+ "trim(orderdate)>='"+begindate+"' and trim(orderdate)<='"+enddate+"'";
         
-        //System.out.println("Running: " + sql);
+        System.out.println("Running: " + checkEveryDay);
         rs = stmt.executeQuery(checkEveryDay);
         while (rs.next()) {
         	OrderInfo orderInfo=new OrderInfo();

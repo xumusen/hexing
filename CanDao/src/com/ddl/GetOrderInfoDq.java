@@ -32,10 +32,16 @@ public class GetOrderInfoDq {
     public void orderinfo() throws Exception {
       //  String sql = "show databases";
       //  String order_info="select * from test.order_info limit 10";
-    	String storeid="DQ451005";
-    	String begindate="2020-09-12";
-    	String enddate="2020-09-13";
-        String checkEveryDay="select * from test.order_info  where storeid ='"+storeid+"' and orderdate >='"+begindate+"' and orderdate <='"+enddate+"'";
+    	String storeid="DQ010137";
+    	String begindate="2020-09-30";
+    	String enddate="2020-09-30";
+       String checkEveryDay="select * from test.order_info  where storeid ='"+storeid+"' and orderdate >='"+begindate+"' and orderdate <='"+enddate+"'";
+        //String checkEveryDay="select * from test.order_info  where storeid in ('DQ010023','DQ010064','DQ010066','DQ010094','DQ010122','DQ010137','DQ010143','DQ010145','DQ010151','DQ022023','DQ022029','DQ022034','DQ024018') and orderdate ='2020-09-30' ";
+        /*
+		 * String
+		 * checkEveryDay="select * from test.order_info where  trim(orderdate) ='2020-09-29' and storeid  in ('DQ010121',	'DQ010125',	'DQ022015',	'DQ427002')\r\n"
+		 * + "";
+		 */
         System.out.println(checkEveryDay);
         //System.out.println("Running: " + sql);
         rs = stmt.executeQuery(checkEveryDay);

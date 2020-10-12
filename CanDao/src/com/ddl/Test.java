@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -697,7 +699,7 @@ public class Test {
 		// cd/项目资料/吉野家/order/1031/shitong1.txt").trim();
 		// String order = Test.readFileContent("/Users/jason/OneDrive -
 		// cd/项目资料/吉野家/order/1118/st1.txt").trim();
-		String order = Test.readFileContent("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\seito\\seito.txt").trim();
+		String order = Test.readFileContent("E:\\seito.txt").trim();
 		// String order = Test.readFileContent("H:\\OneDrive -
 		// cd\\项目资料\\吉野家\\order\\1101\\st2error.txt").trim();
 		// String order = Test.readFileContent("/Users/jason/OneDrive -
@@ -727,7 +729,13 @@ public class Test {
 		ResourceBundle resource = ResourceBundle.getBundle("web");
 		// System.out.println(resource.getString("URL"));
 		// System.out.println(order);
-		Test.postDineorder(order);
+		//Test.postDineorder(order);
+		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
+		   Calendar c = Calendar.getInstance();    
+	        c.add(Calendar.MONTH, 0);
+	        c.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天 
+	        String first = format.format(c.getTime());
+	        System.out.println("===============first:"+first);
 	}
 
 }
