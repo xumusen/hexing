@@ -365,4 +365,20 @@ public static void insertOrderInfo(OrderInfo orderinfo)throws SQLException{
      */
 }
 
+public static int truncateOrderInfo()throws SQLException{
+	  
+    Connection conn=DBUtil.getConnection();
+   String sql="TRUNCATE TABLE order_info";
+    PreparedStatement psmt = conn.prepareStatement(sql);
+    //执行SQL语句
+    int result=psmt.executeUpdate();
+   // conn.close();
+    System.out.println("order_info 已经被清空了");
+    return result;
+}
+
+public static void main(String[] args) throws SQLException {
+	OrderInfo.truncateOrderInfo();
+}
+
 }

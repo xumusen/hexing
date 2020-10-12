@@ -31,11 +31,11 @@ public class GetOrderInfo {
     public void orderinfo() throws Exception {
       //  String sql = "show databases";
       //  String order_info="select * from test.order_info limit 10";
-    	String storeid="UF020999";
-    	String begindate="2020-09-01";
-    	String enddate="2020-09-30";
+    	String storeid="'UF755002',	'UF020013',	'UF020020',	'YS371002',	'UF020003',	'UF020028',	'YS022027',	'YS451022',	'UF020006',	'UF020012',	'UF020016',	'YS024025',	'UF020002',	'UF020014',	'UF020001',	'UF020008'";
+    	String begindate="2020-10-11";
+    	String enddate="2020-10-11";
         String checkEveryDay="select *from  test.order_info  where fromtype not in ('180','247') and iscustomordernopush =TRUE and "
-        		+ "storeid ='"+storeid+"' and "
+        		+ "storeid in ("+storeid+") and "
         		+ "trim(orderdate)>='"+begindate+"' and trim(orderdate)<='"+enddate+"'";
         
         System.out.println("Running: " + checkEveryDay);
@@ -79,8 +79,10 @@ public class GetOrderInfo {
         	orderInfo.setPrice("");
         	//System.out.println(rs.getString("extorderid"));
         	OrderInfo.insertOrderInfo(orderInfo);
-        	System.out.println(rs.getString("storeid")+"已经写入了sqlserver");
+        	
         }
+        
+        System.out.println(rs.getString("storeid")+"已经写入了sqlserver");
     }
     public void destory() throws Exception {
         if ( rs != null) {
