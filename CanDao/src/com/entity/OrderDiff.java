@@ -179,7 +179,17 @@ public class OrderDiff {
 	}
 	
 	
-	
+	public static int truncateOrderDiff()throws SQLException{
+		  
+	    Connection conn=DBUtil.getConnection();
+	   String sql="TRUNCATE TABLE orderDiff";
+	    PreparedStatement psmt = conn.prepareStatement(sql);
+	    //执行SQL语句
+	    int result=psmt.executeUpdate();
+	   // conn.close();
+	    System.out.println("orderDiff 已经被清空了");
+	    return result;
+	}
 	
 	
 	

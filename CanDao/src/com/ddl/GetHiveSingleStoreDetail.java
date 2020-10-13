@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import com.entity.OrderDiff;
+import com.entity.OrderInfo;
 import com.entity.OrderInfoSum;
 
 import net.sf.json.JSONObject;
@@ -82,7 +83,9 @@ public class GetHiveSingleStoreDetail {
 
 	// 测试用例
 	public static void main(String[] args) throws Exception {
-
+		
+		OrderInfo.truncateOrderInfo();
+		OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT *FROM v_compare_sum AS cs WHERE\r\n" + 

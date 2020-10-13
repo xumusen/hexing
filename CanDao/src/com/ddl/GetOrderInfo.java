@@ -88,7 +88,7 @@ public class GetOrderInfo {
     
     public static void orderinfo(String storeid,String orderdate) throws Exception {
 
-        String checkEveryDay="select * from test.order_info where fromtype not in ('180','247') and iscustomordernopush =TRUE and brandid in (4,10007011,10006795) \r\n" + 
+        String checkEveryDay="select * from test.order_info where fromtype not in ('180','247') and iscustomordernopush =TRUE and brandid in (4,10007011,10006795,26002055) \r\n" + 
         		"and storeid ='"+storeid+"' and trim(orderdate) ='"+orderdate+"'  ";
         
         System.out.println("Running: " + checkEveryDay);

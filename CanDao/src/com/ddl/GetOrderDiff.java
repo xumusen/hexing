@@ -42,6 +42,7 @@ public class GetOrderDiff {
 	}
 	
 	public static void getDiffDetail(String storeid,String orderdate) throws SQLException {
+	
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("EXEC p_compare_single_seito '"+storeid+"','"+orderdate+"'");
 		while(rs.next()) {
@@ -64,7 +65,8 @@ public class GetOrderDiff {
 
 	// 测试用例
 	public static void main(String[] args) throws Exception {
-
+		
+		OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT *FROM v_compare_sum AS cs WHERE\r\n" + 
