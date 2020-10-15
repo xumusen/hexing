@@ -70,7 +70,7 @@ public class GetOrderDiff {
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT *FROM v_compare_sum AS cs WHERE\r\n" + 
-				"((cs.storeid NOT LIKE 'D%' AND cs.storeid NOT IN ('YJ314002','YJ314003','YJ010002')) OR cs.storeid IS NULL)\r\n" + 
+				"((cs.storeid NOT LIKE 'D%' ) OR cs.storeid IS NULL)\r\n" + 
 				"AND \r\n" + 
 				"(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)");
 		while (rs.next()) {

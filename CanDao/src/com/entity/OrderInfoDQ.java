@@ -282,7 +282,7 @@ public void setPrice(String price) {
 }
 
 
-public static void insertOrderInfo(OrderInfoDQ orderinfo)throws SQLException{
+public static void insertOrderInfoDQ(OrderInfoDQ orderinfo)throws SQLException{
   
     Connection conn=DBUtil.getConnection();
    String sql="INSERT INTO  dbo . order_info_dq \r\n" + 
@@ -363,6 +363,18 @@ public static void insertOrderInfo(OrderInfoDQ orderinfo)throws SQLException{
      * 当真正执行时，这些参数会加载在SQL语句中，把SQL语句拼接完整才去执行。
      * 这样就会减少对数据库的操作
      */
+}
+
+public static int truncateOrderInfoDq()throws SQLException{
+	  
+    Connection conn=DBUtil.getConnection();
+   String sql="TRUNCATE TABLE order_info_dq";
+    PreparedStatement psmt = conn.prepareStatement(sql);
+    //执行SQL语句
+    int result=psmt.executeUpdate();
+   // conn.close();
+    System.out.println("order_info_dq 已经被清空了");
+    return result;
 }
 
 }

@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.entity.OrderDiff;
 import com.entity.OrderInfo;
+import com.entity.OrderInfoDQ;
 import com.entity.OrderInfoSum;
 
 import net.sf.json.JSONObject;
@@ -80,16 +81,13 @@ public class GetHiveSingleStoreDetail {
 		return conn;
 	}
 	
-
-	// 测试用例
-	public static void main(String[] args) throws Exception {
-		
+	public static void  getSeitoOrderDetail() throws Exception{
 		OrderInfo.truncateOrderInfo();
 		OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT *FROM v_compare_sum AS cs WHERE\r\n" + 
-				"((cs.storeid NOT LIKE 'D%' AND cs.storeid NOT IN ('YJ314002','YJ314003','YJ010002')) OR cs.storeid IS NULL)\r\n" + 
+				"((cs.storeid NOT LIKE 'D%' ) OR cs.storeid IS NULL)\r\n" + 
 				"AND \r\n" + 
 				"(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)");
 		while (rs.next()) {
@@ -103,6 +101,32 @@ public class GetHiveSingleStoreDetail {
 			
 		}
 		System.out.println("大数据的门店记录都写入完毕");
+	}
+	
+	public static void  getNcrOrderDetail() throws Exception{
+		OrderInfoDQ.truncateOrderInfoDq();
+		//OrderDiff.truncateOrderDiff();
+		// 3.通过数据库的连接操作数据库，实现增删改查
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
+		while (rs.next()) {
+			// System.out.println(rs.getString("req"));
+			// Test.postDineorder(rs.getString("req"));
+			String storeid = rs.getString("storeid");
+			String orderdate=rs.getString("orderdate");
+			System.out.println(storeid+" "+orderdate);
+			//getDiffDetail(storeid, orderdate);
+			GetOrderInfoDq.excute(storeid, orderdate);
+			
+		}
+		System.out.println("大数据的门店记录都写入完毕");
+	}
+
+	// 测试用例
+	public static void main(String[] args) throws Exception {
+		
+		//getSeitoOrderDetail();
+		getNcrOrderDetail();
 	}
 
 }

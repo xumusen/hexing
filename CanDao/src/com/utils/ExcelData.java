@@ -89,22 +89,25 @@ public class ExcelData {
 		for(int i=0;i<rows;i++){
 			//获取列数
 			XSSFRow row = sheet.getRow(i);
-			int columns = row.getPhysicalNumberOfCells();
+			//int columns = row.getPhysicalNumberOfCells();
+			int columns=30;
 			for(int j=0;j<columns;j++){
 				String cell = row.getCell(j).toString();
 				System.out.println(cell);
-				JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
-				//JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));// 将字符串转化成json对象
-				String actionName=jsonobj.getString("actionName");
-				if(actionName.equals("candao.order.postDineInOrder")){
-					Test.postDineorder(cell);
-				}else if(actionName.equals("candao.retail.order")){
-					Test2.retailOrder(cell);
-				}else if(actionName.equals("candao.order.postDineInStatus")){
-					CancelOrder.CancelOrder(cell);
-				}else if(actionName.equals("candao.retail.updateOrderStatus")){
-					System.out.println("更新新零售订单状态啦啦啦啦啦");
-				}
+				
+				
+				/*
+				 * JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
+				 * //JSONObject jsonobject = JSONObject.fromObject(jsonobj.getString("data"));//
+				 * 将字符串转化成json对象 String actionName=jsonobj.getString("actionName");
+				 * if(actionName.equals("candao.order.postDineInOrder")){
+				 * Test.postDineorder(cell); }else if(actionName.equals("candao.retail.order")){
+				 * Test2.retailOrder(cell); }else
+				 * if(actionName.equals("candao.order.postDineInStatus")){
+				 * CancelOrder.CancelOrder(cell); }else
+				 * if(actionName.equals("candao.retail.updateOrderStatus")){
+				 * System.out.println("更新新零售订单状态啦啦啦啦啦"); }
+				 */
 				
 				
 				
@@ -196,7 +199,7 @@ public class ExcelData {
 		
 			//ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\xiucan\\error.xlsx", "Sheet1");
 		
-		ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\xiucan\\0506.xlsx", "Sheet2");
+		ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\世通数据\\10月销售数据\\DQ1-14日.xlsx", "Sheet1");
 		 // ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1129/订单数据20191129.xlsx", "Sheet1");
 		  sheet1.readExcelData();
 		 

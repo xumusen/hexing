@@ -83,9 +83,59 @@ public class GetOrderInfoDq {
         	orderInfo.setTc("");
         	orderInfo.setPrice("");
         	//System.out.println(rs.getString("extorderid"));
-        	OrderInfoDQ.insertOrderInfo(orderInfo);
+        	OrderInfoDQ.insertOrderInfoDQ(orderInfo);
         }
         System.out.println(rs.getString("storeid")+"已经写入了sqlserver");
+    }
+    public static void orderinfoDq(String storeid,String orderdate) throws Exception {
+
+        String checkEveryDay="select * from test.order_info where storeid ='"+storeid+"' and trim(orderdate) ='"+orderdate+"'  ";
+        
+        System.out.println("Running: " + checkEveryDay);
+        rs = stmt.executeQuery(checkEveryDay);
+        while (rs.next()) {
+        	OrderInfoDQ orderInfo=new OrderInfoDQ();
+        	orderInfo.setStoreid(rs.getString("storeid"));
+        	orderInfo.setBrandid(rs.getFloat("brandid"));
+        	orderInfo.setBrandname(rs.getString("brandname"));
+        	orderInfo.setOrderid(rs.getString("orderid"));
+
+        	orderInfo.setThirdsn(rs.getString("thirdsn"));
+        	orderInfo.setRegisteredamount(rs.getString("registeredamount"));
+        	orderInfo.setIscustomordernopush(rs.getBoolean("iscustomordernopush"));
+        	orderInfo.setRealtimeproductprice(rs.getString("realtimeproductprice"));
+
+        	orderInfo.setMealfee(rs.getString("mealfee"));
+        	orderInfo.setDeliveryfee(rs.getString("deliveryfee"));
+        	orderInfo.setFromtype(rs.getString("fromtype"));
+        	orderInfo.setMerchantprice(rs.getString("merchantprice"));
+        	orderInfo.setExtorderid(rs.getString("extorderid"));
+        	orderInfo.setFromname(rs.getString("fromname"));
+        	orderInfo.setFlag(rs.getString("flag"));
+        	orderInfo.setProvinceid(rs.getString("provinceid"));
+
+        	orderInfo.setProvincename(rs.getString("provincename"));
+        	orderInfo.setCityid(rs.getString("cityid"));
+        	orderInfo.setCityname(rs.getString("cityname"));
+        	orderInfo.setCdbrandid(rs.getString("cdbrandid"));
+
+        	orderInfo.setCdbrandname(rs.getString("cdbrandname"));
+        	orderInfo.setCdplatformkey(rs.getString("cdplatformkey"));
+        	orderInfo.setCdplatformname(rs.getString("cdplatformname"));
+        	orderInfo.setPaasstoreid(rs.getString("paasstoreid"));
+        	orderInfo.setCdstorename(rs.getString("cdstorename"));
+        	orderInfo.setExtstoreid(rs.getString("extstoreid"));
+        	orderInfo.setExtstorename(rs.getString("extstorename"));
+        	orderInfo.setOrderdate(rs.getString("orderdate"));
+
+        	orderInfo.setTc("");
+        	orderInfo.setPrice("");
+        	//System.out.println(rs.getString("extorderid"));
+        	OrderInfoDQ.insertOrderInfoDQ(orderInfo);
+        	
+        }
+        
+        System.out.println(storeid+" 已经写入了sqlserver");
     }
     public void destory() throws Exception {
         if ( rs != null) {
@@ -97,6 +147,12 @@ public class GetOrderInfoDq {
         if (conn != null) {
             conn.close();
         }
+    }
+    public static void excute(String storeid,String orderdate) throws Exception {
+    	GetOrderInfoDq getOrderInfoDq=new GetOrderInfoDq();
+    	getOrderInfoDq.init();
+		GetOrderInfoDq.orderinfoDq(storeid,orderdate);
+		getOrderInfoDq.destory();
     }
     public static void main(String[] args) throws Exception {
 		GetOrderInfoDq getOrderInfo=new GetOrderInfoDq();
