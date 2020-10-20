@@ -30,7 +30,7 @@ public class GetOdsOrder {
 	    public void getOdsOrder() throws Exception {
 	      //  String sql = "show databases";
 	      //  String order_info="select * from test.order_info limit 10";
-	        String checkEveryDay="select * from middle_log.ods_log20201013 where msg like '%YS010226%'" ;//+ 
+	        String checkEveryDay="select * from middle_log.ods_log20201001 where msg like '%YS411017%'" ;//+ 
 	        	//	"where action_name ='candao.order.postDineInOrder'  ";
 	        
 	        //System.out.println("Running: " + sql);

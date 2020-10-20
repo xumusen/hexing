@@ -17,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.activation.MimetypesFileTypeMap;
 
@@ -25,7 +26,9 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.poi.util.IOUtils;
 
+import com.entity.FileTime;
 import com.entity.Tstore;
+import com.utils.TimeUtils;
 
 public class DataGather {
 
@@ -419,7 +422,7 @@ public class DataGather {
 
 	}
 
-	public static void readFile(FTPClient ftpClient, String fileName) throws ParseException {
+	public static void readFile(FTPClient ftpClient, String fileName,String uploadtime) throws ParseException {
 		InputStream ins = null;
 		try {
 			// 从服务器上读取指定的文件
@@ -473,7 +476,8 @@ public class DataGather {
 					tstore.setAftertax(aftertax);
 					tstore.setUploadDate(fileName.substring(9, 13) + "-" + fileName.substring(13, 15) + "-"
 							+ fileName.substring(15, 17));
-					tstore.setUploadTime(fileName.substring(17, 21));
+					//tstore.setUploadTime(fileName.substring(17, 21));
+					tstore.setUploadTime(uploadtime);
 					Tstore.insertTstore(tstore);
 
 					count++;
@@ -497,11 +501,16 @@ public class DataGather {
 		}
 	}
 	
-	public static  void getSt()  throws SocketException, IOException, ParseException {
-		
+	public static  void getSt()  throws SocketException, IOException, ParseException, SQLException {
+		FileTime.truncatefiletime();
 		FTPClient ftpClient = new FTPClient();
 		ftpClient.connect("ftp.hophingfood.com", 21);
 		ftpClient.login("candao", "candao");//
+		ftpClient.setDefaultTimeout(20000);
+		ftpClient.setConnectTimeout(50000);
+		ftpClient.setSoTimeout(50000);
+		ftpClient.setDataTimeout(50000);
+		
 		if (FTPReply.isPositiveCompletion(ftpClient.getReplyCode())) {
 			Timestamp ts = new Timestamp(System.currentTimeMillis());
 			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -513,8 +522,31 @@ public class DataGather {
 			FTPFile[] file = getFTPDirectoryFiles(ftpClient, "st");
 			if (file != null && file.length > 0) {
 				for (int i = 0; i < file.length; i++) {
-					if (file[i].isFile() && file[i].getName().substring(0, 1).equals("T"))
-						readFile(ftpClient, file[i].getName());
+					if (file[i].isFile() && file[i].getName().substring(0, 1).equals("T")) {						
+						  Long uploadtime = file[i].getTimestamp().getTimeInMillis();
+						  FileTime fileTime=new FileTime();
+						  fileTime.setStoreid(file[i].getName().substring(1,9));
+						  fileTime.setOrderdate(file[i].getName().substring(9,17));
+						  fileTime.setOrdertime(file[i].getName().substring(17,21));
+						 // FileTime.insertFileTime(fileTime);
+						  
+						
+						  String lastModifyTimeStr = ftpClient.getModificationTime(file[i].getName());
+						  fileTime.setUploadtime(Long.parseLong(lastModifyTimeStr));
+						  FileTime.insertFileTime(fileTime);
+						 
+					       
+						/*
+						 * SimpleDateFormat sdf1 = new SimpleDateFormat( "yyyyMMddHHmmss"); Date
+						 * startTimeDate = sdf1.parse(lastModifyTimeStr); Long lastModifyTime =
+						 * startTimeDate.getTime() + file[0].getTimestamp().getTimeZone().getOffset(0);
+						 * fileTime.setUploadtime(lastModifyTime); FileTime.insertFileTime(fileTime);
+						 */
+						  
+			
+						  
+						  //readFile(ftpClient, file[i].getName());
+					}
 				}
 			}
 			Timestamp ts2 = new Timestamp(System.currentTimeMillis());
@@ -541,8 +573,8 @@ public static  void getDq()  throws SocketException, IOException, ParseException
 			FTPFile[] file = getFTPDirectoryFiles(ftpClient, "dq");
 			if (file != null && file.length > 0) {
 				for (int i = 0; i < file.length; i++) {
-					if (file[i].isFile() && file[i].getName().substring(0, 1).equals("T"))
-						readFile(ftpClient, file[i].getName());
+					if (file[i].isFile() && file[i].getName().substring(0, 1).equals("T")) {}
+						//readFile(ftpClient, file[i].getName());
 				}
 			}
 			Timestamp ts2 = new Timestamp(System.currentTimeMillis());
@@ -553,10 +585,12 @@ public static  void getDq()  throws SocketException, IOException, ParseException
 			System.out.println("连接失败");
 	}
 
-	public static void main(String[] args) throws SocketException, IOException, ParseException {
+	public static void main(String[] args) throws SocketException, IOException, ParseException, SQLException {
 
 		getSt();
-		getDq();
+		//getDq();
+		
+		
 		/*
 		 * String name="TUF020020202007122330"; System.out.println(name.substring(1,9));
 		 * System.out.println(name.substring(17,21));

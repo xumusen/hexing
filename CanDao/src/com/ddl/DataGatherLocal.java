@@ -3,6 +3,10 @@ package com.ddl;
 import java.io.RandomAccessFile;
 
 import java.net.SocketException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -17,6 +21,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.nio.*;
 
 import javax.activation.MimetypesFileTypeMap;
 
@@ -29,7 +34,7 @@ import com.entity.Tstore;
 
 public class DataGatherLocal {
 
-	private static final String path = "C://pos";
+	private static final String path = "C://postemp";
 	// private static final String path = "h://TYS010255202007040145.txt";
 
 	public static final String openFileStyle = "r";
@@ -73,7 +78,21 @@ public class DataGatherLocal {
 		try {
 
 			File[] files = new File(path).listFiles();
+		
 			for (File file : files) {
+				/*
+				 * Path pathnio=Paths.get(file.getAbsolutePath()); BasicFileAttributes attr =
+				 * Files.readAttributes(pathnio, BasicFileAttributes.class);
+				 * System.out.println("creationTime     = " + attr.creationTime());
+				 * System.out.println("lastAccessTime   = " + attr.lastAccessTime());
+				 * System.out.println("lastModifiedTime = " + attr.lastModifiedTime());
+				 * 
+				 * System.out.println("isDirectory      = " + attr.isDirectory());
+				 * System.out.println("isOther          = " + attr.isOther());
+				 * System.out.println("isRegularFile    = " + attr.isRegularFile());
+				 * System.out.println("isSymbolicLink   = " + attr.isSymbolicLink());
+				 * System.out.println("size             = " + attr.size());
+				 */
 				if (file.isFile() && file.exists() && file.getName().substring(0, 1).equals("T")) {
 
 					RandomAccessFile raf = new RandomAccessFile(file.getAbsolutePath(), openFileStyle);

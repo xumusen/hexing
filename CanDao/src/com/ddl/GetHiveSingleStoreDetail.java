@@ -125,8 +125,8 @@ public class GetHiveSingleStoreDetail {
 	// 测试用例
 	public static void main(String[] args) throws Exception {
 		
-		//getSeitoOrderDetail();
-		getNcrOrderDetail();
+		getSeitoOrderDetail();
+		//getNcrOrderDetail();
 	}
 
 }

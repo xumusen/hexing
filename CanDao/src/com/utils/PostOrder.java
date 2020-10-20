@@ -121,7 +121,7 @@ public class PostOrder {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		//取消单个订单
-		PostOrder.orderCancel("YS010189001202010010318811598",-1,"重推订单没推状态"); 
+		PostOrder.orderCancel("YS010071001202010160357200012",-1,"测试单"); 
 		
 		//批量取消订单
 		 //getOrderCancel();
