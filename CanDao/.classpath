@@ -88,5 +88,6 @@
 	<classpathentry kind="lib" path="lib/hadoop-hdfs-3.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/hadoop-mapreduce-client-core-3.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/hive-jdbc-uber-2.6.5.0-292.jar"/>
+	<classpathentry kind="lib" path="lib/javax.mail.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

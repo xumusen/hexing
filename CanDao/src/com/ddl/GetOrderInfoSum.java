@@ -69,7 +69,7 @@ public class GetOrderInfoSum {
         	orderInfoSum.setOrderdate(rs.getString("orderdate"));
         	OrderInfoSum.insertOrderInfoSum(orderInfoSum);
         	}
-        System.out.println("当前月的销售数据已经写入了sqlserver");
+        System.out.println("当前月的销售数据已经写入了sqlserver，执行完毕");
     }
     public void destory() throws Exception {
         if ( rs != null) {

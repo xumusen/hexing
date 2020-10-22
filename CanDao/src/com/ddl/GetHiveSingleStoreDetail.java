@@ -101,7 +101,7 @@ public class GetHiveSingleStoreDetail {
 			GetOrderInfo.excute(storeid, orderdate);
 			
 		}
-		System.out.println("大数据的门店记录都写入完毕");
+		System.out.println("大数据的吉野家门店记录都写入完毕，执行完毕");
 	}
 	
 	public static void  getNcrOrderDetail() throws Exception{
@@ -120,14 +120,15 @@ public class GetHiveSingleStoreDetail {
 			GetOrderInfoDq.excute(storeid, orderdate);
 			
 		}
-		System.out.println("大数据的门店记录都写入完毕");
+		System.out.println("大数据的DQ门店记录都写入完毕，执行完毕");
 	}
 
 	// 测试用例
 	public static void main(String[] args) throws Exception {
 		
-		//getSeitoOrderDetail();
 		getNcrOrderDetail();
+		getSeitoOrderDetail();
+		
 	}
 
 }

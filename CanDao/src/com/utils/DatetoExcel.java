@@ -1,5 +1,6 @@
 package com.utils;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -30,6 +32,7 @@ public class DatetoExcel {
 	private final static String URL = resource.getString("URL");
 	private static final String USER = resource.getString("USER");
 	private static final String PASSWORD = resource.getString("PASSWORD");
+	private final static String reportPath = resource.getString("reportPath");
 
 	private static Connection conn = null;
 	// 静态代码块（将加载驱动、连接数据库放入静态块中）
@@ -81,7 +84,8 @@ public class DatetoExcel {
     public static List<DiffNcrSum> getDiffNcrSum() throws SQLException{
     	Statement stmt = conn.createStatement();
     	List<DiffNcrSum> list=new ArrayList<DiffNcrSum>();
-    	ResultSet rs = stmt.executeQuery("SELECT * FROM diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
+    	//ResultSet rs = stmt.executeQuery("SELECT * FROM diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
+    	ResultSet rs = stmt.executeQuery("SELECT * FROM diffdq AS d WHERE d.差异<>-1.4 OR  d.差异 IS NULL ORDER BY d.DQorderdate,d.DQstoreid ");
     	while(rs.next()) {
     		DiffNcrSum diffNcrSum=new DiffNcrSum();
     		diffNcrSum.setDQstoreid(rs.getString("DQstoreid"));
@@ -237,9 +241,9 @@ public class DatetoExcel {
     		DateFormat dayf = new SimpleDateFormat("dd");
     		String time = sdf.format(ts);
     		String day=dayf.format(ts);
-            FileOutputStream fos=new FileOutputStream("C:/postemp/1-"+day+"日吉野家差异-"+time+".xls");
+            FileOutputStream fos=new FileOutputStream(reportPath+"//1-"+day+"日吉野家差异-"+time+".xls");
             workbook.write(fos);
-            System.out.println("写入成功");
+            System.out.println("吉野家差异报告生成，执行完毕");
             fos.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -320,10 +324,11 @@ public class DatetoExcel {
     		DateFormat sdf = new SimpleDateFormat("HHmmss");
     		DateFormat dayf = new SimpleDateFormat("dd");
     		String time = sdf.format(ts);
-    		String day=dayf.format(ts);
-            FileOutputStream fos=new FileOutputStream("C:/postemp/1-"+day+"日DQ差异-"+time+".xls");
+    		String day=dayf.format(ts);   // /home/jasonxu/下载
+            FileOutputStream fos=new FileOutputStream(reportPath+"//1-"+day+"日DQ差异-"+time+".xls");
+            //FileOutputStream fos=new FileOutputStream("/home/144c/postemp/1-"+day+"日DQ差异-"+time+".xls");
             workbook.write(fos);
-            System.out.println("写入成功");
+            System.out.println("DQ差异报告生成，执行完毕");
             fos.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -331,10 +336,77 @@ public class DatetoExcel {
         }
 
     }
+
+
+	private static void removeDir(File dir) {
+		File[] files=dir.listFiles();
+		for(File file:files){
+			if(file.isDirectory()){
+				removeDir(file);
+			}else{
+				System.out.println(file+":"+file.delete());
+			}
+		}
+		System.out.println(dir+":"+dir.delete());
+	}
+    public static boolean delFileOne(String fileUrl){
+        boolean delete_flag = false; 
+       if (!StringUtils.isEmpty(fileUrl)) {
+           File file = new File(fileUrl);  
+           if (file.exists()) {
+               delete_flag = file.delete(); 
+           }else {
+               delete_flag = false; 
+           }
+          
+     }
+       return  delete_flag;
+    }
+
+    public static void deleteDirectory(File file){
+        File[] list = file.listFiles();
+        Integer i = 0;
+        for (File f:list){
+            if (f.isDirectory()){
+                //删除子文件夹
+                deleteDirectory(new File(f.getPath()));
+            }else{
+                //删除文件
+                f.delete();
+                i ++;
+            }
+        }
+        //重新遍历一下文件夹内文件是否已删除干净，删除干净后则删除文件夹。
+        if (file.listFiles().length <=0 ){
+            file.delete();
+            
+        }
+      
+    }
+
+    public static void deletefiles(String path ) {
+    	
+    	String[] cmd = new String[] { "/bin/sh", "-c", "rm -rf "+path }; 
+    	try{
+    	Process process = Runtime.getRuntime().exec(cmd);
+    	}catch(IOException e){
+    	e.printStackTrace();
+    	}
+    }
+    
+    public static void createfiles(String path) {
+    	  File dir = new File(path);
+          if(!dir.exists()){
+              dir.mkdirs();
+          }
+    }
     //测试
     public static void main(String[] args) throws SQLException {
-    	//getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
+    	File dir=new File(reportPath);
+		removeDir(dir);
+        createfiles(reportPath);
     	getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
+    	getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
     }
 
 }

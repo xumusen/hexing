@@ -186,6 +186,18 @@ public static void insertTstore(Tstore tstore)throws SQLException{
      */
 }
 
+public static int truncateT()throws SQLException{
+	  
+    Connection conn=DBUtil.getConnection();
+   String sql="TRUNCATE TABLE t";
+    PreparedStatement psmt = conn.prepareStatement(sql);
+    //执行SQL语句
+    int result=psmt.executeUpdate();
+   // conn.close();
+    System.out.println("T表 已经被清空了");
+    return result;
+}
+
 	public static void main(String[] args) {
 		String filename="TYS010160202006071337";
 		System.out.println(filename.substring(1,9));

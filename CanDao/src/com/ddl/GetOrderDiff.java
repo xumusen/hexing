@@ -81,7 +81,7 @@ public class GetOrderDiff {
 			System.out.println(storeid+" "+orderdate);
 			getDiffDetail(storeid, orderdate);
 		}
-		System.out.println("所有的门店异常记录都写入完毕");
+		System.out.println("所有的门店异常记录都写入，执行完毕");
 	}
 
 }

@@ -729,7 +729,7 @@ public class Test {
 		ResourceBundle resource = ResourceBundle.getBundle("web");
 		// System.out.println(resource.getString("URL"));
 		// System.out.println(order);
-		//Test.postDineorder(order);
+		Test.postDineorder(order);
 		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
 		   Calendar c = Calendar.getInstance();    
 	        c.add(Calendar.MONTH, 0);
