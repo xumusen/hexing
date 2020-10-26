@@ -87,10 +87,13 @@ public class GetHiveSingleStoreDetail {
 		DataGather.getSt();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT *FROM v_compare_sum AS cs WHERE\r\n" + 
+		ResultSet rs = stmt.executeQuery("SELECT ss.分店,cs.* FROM v_compare_sum AS cs\r\n" + 
+				"LEFT JOIN seitoStore AS ss ON cs.storeid=ss.内部编号\r\n" + 
+				"WHERE\r\n" + 
 				"((cs.storeid NOT LIKE 'D%' ) OR cs.storeid IS NULL)\r\n" + 
 				"AND \r\n" + 
-				"(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)");
+				"(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)\r\n" + 
+				"ORDER BY cs.orderdate ASC");
 		while (rs.next()) {
 			// System.out.println(rs.getString("req"));
 			// Test.postDineorder(rs.getString("req"));

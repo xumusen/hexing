@@ -179,6 +179,7 @@ import com.entity.ReportFile;
 	        // 发送附件代码，结束
 	        // 发送邮件
 	        Transport.send(message);
+	        System.out.println("邮件已发送！执行完毕");
 	        }
 	        catch (MessagingException e) {
 	            String err = e.getMessage();

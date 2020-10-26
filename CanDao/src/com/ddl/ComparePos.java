@@ -15,15 +15,15 @@ public class ComparePos {
 		// TODO Auto-generated method stub
 		System.out.println("请确认好已经下载好t表及导入了最新的ncr报表数据");
 		/*删除t表*/
-		//Tstore.truncateT();
+		//Tstore.truncateT();//中午别执行
 		/*重写t表*/
-		//DataGatherLocal.main(args);
+		//DataGatherLocal.main(args);//中午别执行
 		/*获取大数据hive*/
-		//GetOrderInfoSum.main(args);
+		GetOrderInfoSum.main(args);
 		/*获取大数据门店明细*/
-		//GetHiveSingleStoreDetail.main(args);
+		GetHiveSingleStoreDetail.main(args);
 		/*对比形成差异数据*/
-		//GetOrderDiff.main(args);
+		GetOrderDiff.main(args);
 		/*生成excel报表*/
 		DatetoExcel.main(args);
 		/*发送邮件*/
