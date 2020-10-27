@@ -9,6 +9,8 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -33,6 +35,41 @@ public class TimeUtils {
 		String time = sdf.format(ts);
 		// System.out.println(time);
 		return time;
+	}
+	
+	public static String getFirstDay() {
+		  Calendar cale = null;
+	        cale = Calendar.getInstance();
+	        SimpleDateFormat format = new SimpleDateFormat("MMdd");
+	        String firstday, lastday;
+	        // 获取本月的第一天
+	        cale = Calendar.getInstance();
+	        cale.add(Calendar.MONTH, 0);
+	        cale.set(Calendar.DAY_OF_MONTH, 1);
+	        firstday = format.format(cale.getTime());
+	        return firstday;
+	}
+	
+	public static String getLastDay() {
+		  Calendar cale = null;
+	        cale = Calendar.getInstance();
+	        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+	        String  lastday;
+	        // 获取本月的最后一天
+	        cale = Calendar.getInstance();
+	        cale.add(Calendar.MONTH, 1);
+	        cale.set(Calendar.DAY_OF_MONTH, 0);
+	        lastday = format.format(cale.getTime());
+	        return lastday;
+	}
+	
+	public static String getYesterday() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, -1); //得到前一天
+		Date date1 = calendar.getTime();
+		DateFormat df = new SimpleDateFormat("MMdd");
+		String yesterday=df.format(date1);
+	    return yesterday;
 	}
 
 	public static void submitOrder() throws UnsupportedEncodingException {

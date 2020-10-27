@@ -19,7 +19,7 @@ public class ComparePos {
 		/*重写t表*/
 		//DataGatherLocal.main(args);//中午别执行
 		/*获取大数据hive*/
-		GetOrderInfoSum.main(args);
+		//GetOrderInfoSum.main(args);
 		/*获取大数据门店明细*/
 		GetHiveSingleStoreDetail.main(args);
 		/*对比形成差异数据*/

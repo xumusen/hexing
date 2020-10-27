@@ -2,6 +2,9 @@ package com.utils;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -138,7 +141,10 @@ import com.entity.ReportFile;
 	                message.setRecipients(Message.RecipientType.BCC, internetAddressBCC);
 	            }
 	        // 设置邮件标题
-	        message.setSubject("核对差异结果邮件");
+	        Timestamp ts = new Timestamp(System.currentTimeMillis());
+	        DateFormat dayf = new SimpleDateFormat("dd");
+	        String day=dayf.format(ts);
+	        message.setSubject("1-"+day+"日核对差异结果邮件");
 	        // 设置邮件的内容体
 	        message.setContent("测试的HTML邮件", "text/html;charset=UTF-8");
 	        //若需要开启邮件跟踪服务，请使用以下代码设置跟踪链接头。首先域名需要备案，设置且已正确解析了CNAME配置；其次发信需要打Tag，此Tag在控制台已创建并存在，Tag创建10分钟后方可使用；

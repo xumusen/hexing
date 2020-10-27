@@ -241,7 +241,7 @@ public class DatetoExcel {
     		DateFormat dayf = new SimpleDateFormat("dd");
     		String time = sdf.format(ts);
     		String day=dayf.format(ts);
-            FileOutputStream fos=new FileOutputStream(reportPath+"//1-"+day+"日吉野家差异-"+time+".xls");
+            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay()+"-"+TimeUtils.getYesterday()+"吉野家差异-"+time+".xls");
             workbook.write(fos);
             System.out.println("吉野家差异报告生成，执行完毕");
             fos.close();
@@ -325,7 +325,7 @@ public class DatetoExcel {
     		DateFormat dayf = new SimpleDateFormat("dd");
     		String time = sdf.format(ts);
     		String day=dayf.format(ts);   // /home/jasonxu/下载
-            FileOutputStream fos=new FileOutputStream(reportPath+"//1-"+day+"日DQ差异-"+time+".xls");
+            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay()+"-"+TimeUtils.getYesterday()+"DQ差异-"+time+".xls");
             //FileOutputStream fos=new FileOutputStream("/home/144c/postemp/1-"+day+"日DQ差异-"+time+".xls");
             workbook.write(fos);
             System.out.println("DQ差异报告生成，执行完毕");
