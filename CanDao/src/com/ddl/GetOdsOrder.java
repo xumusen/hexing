@@ -98,7 +98,7 @@ public class GetOdsOrder {
 			GetOdsOrder testhive=new GetOdsOrder();
 			testhive.init();
 			//testhive.getOdsOrder();
-			testhive.getOdsOrder( "YS431008", "20201018");
+			testhive.getOdsOrder( "YS431008", "20201002");
 			testhive.destory();
 		}
 }

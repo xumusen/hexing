@@ -112,7 +112,7 @@ import com.entity.ReportFile;
 	        };
 	        try {
 	        // 设置发件人邮件地址和名称。填写控制台配置的发信地址,比如xxx@xxx.com。和上面的mail.user保持一致。名称用户可以自定义填写。
-	        InternetAddress from = new InternetAddress("jasonxu@baofengrose.com", "jasonxu@can-dao.com");
+	        InternetAddress from = new InternetAddress("jasonxu@baofengrose.com", "Jason");
 	        message.setFrom(from);
 	        //可选。设置回信地址
 	        Address[] a = new Address[1];
@@ -141,10 +141,8 @@ import com.entity.ReportFile;
 	                message.setRecipients(Message.RecipientType.BCC, internetAddressBCC);
 	            }
 	        // 设置邮件标题
-	        Timestamp ts = new Timestamp(System.currentTimeMillis());
-	        DateFormat dayf = new SimpleDateFormat("dd");
-	        String day=dayf.format(ts);
-	        message.setSubject("1-"+day+"日核对差异结果邮件");
+	     
+	        message.setSubject(TimeUtils.getFirstDay()+"-"+TimeUtils.getYesterday()+"核对差异结果邮件");
 	        // 设置邮件的内容体
 	        message.setContent("测试的HTML邮件", "text/html;charset=UTF-8");
 	        //若需要开启邮件跟踪服务，请使用以下代码设置跟踪链接头。首先域名需要备案，设置且已正确解析了CNAME配置；其次发信需要打Tag，此Tag在控制台已创建并存在，Tag创建10分钟后方可使用；

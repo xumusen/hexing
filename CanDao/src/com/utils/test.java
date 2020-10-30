@@ -3,6 +3,7 @@ package com.utils;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,6 +15,14 @@ import com.entity.ReportFile;
 
 public class test {
 
+	public static String getTimeStamptoString(long timestamp) {
+		// Timestamp ts =new Timestamp(System.currentTimeMillis());
+		Timestamp ts = new Timestamp(timestamp);
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = sdf.format(ts);
+		// System.out.println(time);
+		return time;
+	} 
     public static void main(String[] args) throws SQLException {
     	   // 获取当月第一天和最后一天
         Calendar cale = null;
@@ -45,6 +54,15 @@ public class test {
 		Date date1 = calendar.getTime();
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println(df.format(date1)); 
+		
+		
+		
+
+		
+		  long l = Long.valueOf("1603876342160").longValue();
+		  System.out.println(getTimeStamptoString(l));
+		 
+
     }
 
 }

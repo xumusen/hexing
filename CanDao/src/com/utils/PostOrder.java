@@ -121,7 +121,7 @@ public class PostOrder {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		//取消单个订单
-		PostOrder.orderCancel("UF020014001202010100325477380",-1,"报废单"); 
+		PostOrder.orderCancel("DQ3180012010231035",-1,"重装系统单"); 
 		
 		//批量取消订单
 		 //getOrderCancel();
