@@ -530,9 +530,12 @@ public class DataGather {
 						  fileTime.setOrdertime(file[i].getName().substring(17,21));
 						 // FileTime.insertFileTime(fileTime);
 						  
-						
+						  
 						  String lastModifyTimeStr = ftpClient.getModificationTime(file[i].getName());
 						  fileTime.setUploadtime(Long.parseLong(lastModifyTimeStr));
+						  DateFormat sdf1 =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+						  fileTime.setTxttime(sdf1.format(uploadtime));
+						  fileTime.setFilename(file[i].getName());
 						  FileTime.insertFileTime(fileTime);
 						 
 					       

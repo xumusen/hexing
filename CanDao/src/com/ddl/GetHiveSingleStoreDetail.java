@@ -84,7 +84,7 @@ public class GetHiveSingleStoreDetail {
 	public static void  getSeitoOrderDetail() throws Exception{
 		OrderInfo.truncateOrderInfo();
 		OrderDiff.truncateOrderDiff();
-		DataGather.getSt();
+		//DataGather.getSt();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT ss.分店,cs.* FROM v_compare_sum AS cs\r\n" + 

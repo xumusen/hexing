@@ -198,6 +198,20 @@ public static int truncateT()throws SQLException{
     return result;
 }
 
+public static int deleteT(String storeid,String orderdate)throws SQLException{
+	  
+    Connection conn=DBUtil.getConnection();
+   String sql="delete from t where store='"+storeid+"' and uploaddatetime like '"+orderdate+"%'";
+   System.out.println(sql);
+    PreparedStatement psmt = conn.prepareStatement(sql);
+    //执行SQL语句
+    int result=psmt.executeUpdate();
+   // conn.close();
+   //System.out.println("T表 旧数据已经被删除了");
+    return result;
+}
+
+
 	public static void main(String[] args) {
 		String filename="TYS010160202006071337";
 		System.out.println(filename.substring(1,9));

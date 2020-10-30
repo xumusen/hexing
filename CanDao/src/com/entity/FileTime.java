@@ -7,11 +7,27 @@ import java.sql.SQLException;
 import com.utils.DBUtil;
 
 public class FileTime {
-	String storeid,orderdate,ordertime;
+	String storeid,orderdate,ordertime,filename,txttime;
 
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
 
 	public String getStoreid() {
 		return storeid;
+	}
+
+	public String getTxttime() {
+		return txttime;
+	}
+
+	public void setTxttime(String txttime) {
+		this.txttime = txttime;
 	}
 
 	public void setStoreid(String storeid) {
@@ -52,15 +68,19 @@ public class FileTime {
 	    		"           ([storeid]\r\n" + 
 	    		"           ,[orderdate]\r\n" + 
 	    		"           ,[ordertime]\r\n" + 
-	    		"           ,[uploadtime])\r\n" + 
+	    		"           ,[uploadtime]\r\n" + 
+	    		"           ,[filename]\r\n" + 
+	    		"           ,[txttime])\r\n" + 
 	    		"     VALUES\r\n" + 
-	    		"           (?,?,?,?)";
+	    		"           (?,?,?,?,?,?)";
 	    PreparedStatement psmt = conn.prepareStatement(sql);
 	    //先对应SQL语句，给SQL语句传递参数
 	    psmt.setString(1,  fileTime.getStoreid());
 	    psmt.setString(2,  fileTime.getOrderdate());
 	    psmt.setString(3,  fileTime.getOrdertime());
 	    psmt.setLong(4, fileTime.getUploadtime());
+	    psmt.setString(5, fileTime.getFilename());
+	    psmt.setString(6, fileTime.getTxttime());
 	    //执行SQL语句
 	    psmt.execute();
 	    /**
