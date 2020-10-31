@@ -163,8 +163,8 @@ public class DataGatherLocal {
 		 */
 	}
 
-	public void reloadFile(String begintime) throws Exception {
-		//DataGather.getSt();
+	public  void reloadFile(String begintime) throws Exception {
+		DataGather.getSt();
 		
 	 	Statement stmt = conn.createStatement();
     	List <DiffSeitoSum> list=new ArrayList<DiffSeitoSum>();
@@ -276,6 +276,12 @@ public class DataGatherLocal {
 		return newstr;
 
 	}
+	
+	public static void reLoadFile(String begintime) throws Exception {
+		DataGatherLocal dataGatherLocal = new DataGatherLocal();
+		//dataGatherLocal.loadFile();
+		dataGatherLocal.reloadFile(begintime);
+	}
 
 	public static void main(String[] args) throws Exception {
 
@@ -285,7 +291,7 @@ public class DataGatherLocal {
 		 */
 		DataGatherLocal dataGatherLocal = new DataGatherLocal();
 		//dataGatherLocal.loadFile();
-		dataGatherLocal.reloadFile("2020-10-29 00:00:00");
+		dataGatherLocal.reloadFile("2020-10-31 00:00:00");
 
 	}
 

@@ -62,7 +62,31 @@ public class TimeUtils {
 	        lastday = format.format(cale.getTime());
 	        return lastday;
 	}
+	public static String getFirstDay(String patten) {
+		  Calendar cale = null;
+	        cale = Calendar.getInstance();
+	        SimpleDateFormat format = new SimpleDateFormat(patten);
+	        String firstday, lastday;
+	        // 获取本月的第一天
+	        cale = Calendar.getInstance();
+	        cale.add(Calendar.MONTH, 0);
+	        cale.set(Calendar.DAY_OF_MONTH, 1);
+	        firstday = format.format(cale.getTime());
+	        return firstday;
+	}
 	
+	public static String getLastDay(String patten) {
+		  Calendar cale = null;
+	        cale = Calendar.getInstance();
+	        SimpleDateFormat format = new SimpleDateFormat(patten);
+	        String  lastday;
+	        // 获取本月的最后一天
+	        cale = Calendar.getInstance();
+	        cale.add(Calendar.MONTH, 1);
+	        cale.set(Calendar.DAY_OF_MONTH, 0);
+	        lastday = format.format(cale.getTime());
+	        return lastday;
+	}
 	public static String getYesterday() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DATE, -1); //得到前一天

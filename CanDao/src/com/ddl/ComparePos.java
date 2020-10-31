@@ -14,6 +14,7 @@ public class ComparePos {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("请确认好已经下载好t表及导入了最新的ncr报表数据");
+		DataGatherLocal.reLoadFile("2020-10-31 08:00:00");
 		/*删除t表*/
 		//Tstore.truncateT();//中午别执行
 		/*重写t表*/
@@ -21,7 +22,7 @@ public class ComparePos {
 		/*获取大数据hive*/
 		GetOrderInfoSum.main(args);
 		//更新txt的最新时间
-		DataGather.getSt();
+		//DataGather.getSt();//如执行了reload方法，可不执行
 		/*获取大数据门店明细*/
 		GetHiveSingleStoreDetail.main(args);
 		/*对比形成差异数据*/
