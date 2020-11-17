@@ -112,7 +112,7 @@ public class GetHiveSingleStoreDetail {
 		//OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
+		ResultSet rs = stmt.executeQuery("SELECT * FROM v_diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
 		while (rs.next()) {
 			// System.out.println(rs.getString("req"));
 			// Test.postDineorder(rs.getString("req"));
@@ -125,12 +125,16 @@ public class GetHiveSingleStoreDetail {
 		}
 		System.out.println("大数据的DQ门店记录都写入完毕，执行完毕");
 	}
+	public static void getDetail() throws Exception {
+		
+		getNcrOrderDetail();
+		getSeitoOrderDetail();
+	}
 
 	// 测试用例
 	public static void main(String[] args) throws Exception {
 		
-		getNcrOrderDetail();
-		getSeitoOrderDetail();
+	
 		
 	}
 

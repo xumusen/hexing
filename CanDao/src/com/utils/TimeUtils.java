@@ -63,28 +63,54 @@ public class TimeUtils {
 	        return lastday;
 	}
 	public static String getFirstDay(String patten) {
-		  Calendar cale = null;
-	        cale = Calendar.getInstance();
-	        SimpleDateFormat format = new SimpleDateFormat(patten);
-	        String firstday, lastday;
-	        // 获取本月的第一天
-	        cale = Calendar.getInstance();
-	        cale.add(Calendar.MONTH, 0);
-	        cale.set(Calendar.DAY_OF_MONTH, 1);
-	        firstday = format.format(cale.getTime());
+		Calendar cale = Calendar.getInstance();
+		Timestamp ts =new Timestamp(System.currentTimeMillis());
+		DateFormat sdf = new SimpleDateFormat(patten);
+		String nowday = sdf.format(ts);
+		String firstday;
+		SimpleDateFormat dayformat = new SimpleDateFormat(patten);
+		//System.out.println(nowday);
+
+
+		if (nowday.equals("01")) {
+
+			cale.add(Calendar.MONTH, -1);
+			cale.set(Calendar.DAY_OF_MONTH, 1);
+			firstday = dayformat.format(cale.getTime());
+
+		} else {
+			cale.add(Calendar.MONTH, 0);
+			cale.set(Calendar.DAY_OF_MONTH, 1);
+			firstday = dayformat.format(cale.getTime());
+		}
+	
 	        return firstday;
 	}
 	
 	public static String getLastDay(String patten) {
-		  Calendar cale = null;
-	        cale = Calendar.getInstance();
-	        SimpleDateFormat format = new SimpleDateFormat(patten);
-	        String  lastday;
-	        // 获取本月的最后一天
-	        cale = Calendar.getInstance();
-	        cale.add(Calendar.MONTH, 1);
-	        cale.set(Calendar.DAY_OF_MONTH, 0);
-	        lastday = format.format(cale.getTime());
+		
+		Calendar cale = Calendar.getInstance();
+		Timestamp ts =new Timestamp(System.currentTimeMillis());
+		DateFormat sdf = new SimpleDateFormat(patten);
+		String nowday = sdf.format(ts);
+		String lastday;
+		SimpleDateFormat dayformat = new SimpleDateFormat(patten);
+		//System.out.println(nowday);
+
+
+		if (nowday.equals("01")) {
+
+			cale.add(Calendar.MONTH, 0);
+			cale.set(Calendar.DAY_OF_MONTH, 0);
+			lastday = dayformat.format(cale.getTime());
+			//System.out.println(lastday);
+
+		} else {
+			cale.add(Calendar.MONTH, 1);
+			cale.set(Calendar.DAY_OF_MONTH, 0);
+			lastday = dayformat.format(cale.getTime());
+		//	System.out.println(lastday);
+		}
 	        return lastday;
 	}
 	public static String getYesterday() {
@@ -95,7 +121,14 @@ public class TimeUtils {
 		String yesterday=df.format(date1);
 	    return yesterday;
 	}
-
+	public static String getYesterday(String patten) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, -1); //得到前一天
+		Date date1 = calendar.getTime();
+		DateFormat df = new SimpleDateFormat(patten);
+		String yesterday=df.format(date1);
+	    return yesterday;
+	}
 	public static void submitOrder() throws UnsupportedEncodingException {
 
 		Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -301,9 +334,8 @@ public class TimeUtils {
 		
 		
 		//String json="{\"accessKey\":\"fb4fda21afeddcf4\",\"actionName\":\"candao.order.postDineInOrder\",\"timestamp\":1592725424534,\"ticket\":\"41d4db6e-2395-48e5-a017-ce8747b96830\",\"sign\":\"bc5b41b18e851f19eb378aaff6890d6b\",\"serviceType\":\"pos\",\"vendor\":\"seito\",\"storeId\":\"YS411017\",\"data\":{\"orderId\":\"YS411017001202006190292267414\",\"thirdSn\":\"0011359\",\"storeId\":\"YS411017\",\"counts\":-1,\"fromType\":\"pos\",\"takeNo\":\"0159\",\"peopleNum\":0,\"productPrice\":-9.9,\"deviceNo\":\"001\",\"staffId\":\"0006095011\",\"staffBane\":\"\",\"orderTime\":\"2020-06-19 16:19:14\",\"orderDate\":\"2020-06-19\",\"orderStatus\":100,\"orderType\":3,\"posOrderType\":\"0\",\"isPayed\":true,\"paymentDetails\":[{\"payType\":1,\"type\":1,\"typeName\":\"现金\",\"money\":-9.9,\"posType\":\"CASH\",\"posName\":\"现金\",\"num\":0}],\"isInvoice\":false,\"price\":-9.9,\"deliveryFee\":0.0,\"mealFee\":0.0,\"discountPrice\":0.0,\"merchantBearPrice\":0.0,\"thirdPlatformBearPrice\":0.0,\"merchantPrice\":-9.9,\"originPrice\":-9.9,\"commission\":0.0,\"status\":[{\"title\":\"下单（快餐）\",\"value\":\"105\",\"dateTime\":\"2020-06-19 16:19:02\"},{\"title\":\"支付（快餐）\",\"value\":\"110\",\"dateTime\":\"2020-06-19 16:19:14\"},{\"title\":\"支付完成（快餐）\",\"value\":\"115\",\"dateTime\":\"2020-06-19 16:19:15\"}],\"products\":[{\"pid\":\"414A0010\",\"name\":\"加点-卤琵琶腿/个\",\"num\":-1.0,\"price\":9.9,\"boxNum\":0.0,\"boxPrice\":0.0,\"itemDisc\":0.0,\"productTaxRate\":\"6\",\"productCategory\":{\"id\":\"1\",\"title\":\"品牌\"},\"productContent\":{\"id\":\"001\",\"title\":\"吉野家\"},\"dept\":{\"id\":\"0000Y04\",\"title\":\"副食类\",\"subDept\":{\"id\":\"0000Y42\",\"title\":\"副食品系列\"}},\"category\":{\"id\":\"0000422\",\"title\":\"副食品\"},\"types\":{\"bigType\":\"0000422\",\"extra\":\"副食品\"}}]}}";
-		String json="{\"accessKey\":\"4ca533f4b7f5da07\",\"data\":{\"orderTime\":\"2020-09-29 02:59:33\",\"orderStatus\":100,\"status\":[{\"dateTime\":\"2017-01-01 02:58:52\",\"title\":\"下单（快餐）\",\"value\":105},{\"dateTime\":\"2017-01-01 02:59:33\",\"title\":\"支付完成（快餐）\",\"value\":115}],\"storeId\":\"DQ010121\",\"orderDate\":\"2020-09-29\",\"thirdSn\":\"1006\",\"orderId\":\"DQ0101212009291006\",\"fromType\":\"pos\",\"deviceNo\":\"1\",\"staffId\":\"81\",\"staffBane\":\"孙晓彦\",\"orderType\":3,\"posOrderType\":1,\"payType\":1,\"isPayed\":true,\"paymentDetails\":[{\"posType\":\"49\",\"money\":24.0,\"type\":15,\"payType\":1,\"typeName\":\"微信线下支付\",\"posName\":\"微信当面付\"}],\"price\":24.0,\"deliveryFee\":0,\"mealFee\":0,\"discountPrice\":-0.0,\"thirdPlatformBearPrice\":0,\"merchantBearPrice\":0.0,\"merchantPrice\":24.0,\"commission\":0,\"discounts\":[],\"products\":[{\"dept\":{\"title\":\"暴风雪/小\",\"id\":\"8\"},\"num\":1,\"itemDisc\":0.0,\"pid\":\"1080471\",\"name\":\"香芋紫薯(小)\",\"types\":{\"extra\":\"冰淇淋\",\"bigType\":\"1\"},\"price\":24.0,\"productTaxRate\":\"6%\"}],\"originPrice\":24.0,\"productPrice\":24.0,\"counts\":1},\"ticket\":\"0ed02338-8c74-4482-8acf-06525d9f070f\",\"serviceType\":\"pos\",\"storeId\":\"DQ010121\",\"timestamp\":1601446974547,\"vendor\":\"ncr\",\"actionName\":\"candao.order.postDineInOrder\",\"sign\":\"e913a3cbdba47433082b621842a13ee6\"}";
-		
-		
+		String json="{\"timestamp\":1604379043122,\"vendor\":\"ncr\",\"storeId\":\"DQ411007\",\"ticket\":\"65867858-1178-48ba-9af3-910c34dc9f12\",\"actionName\":\"candao.order.postDineInOrder\",\"sign\":\"9e6fce6a17f4c74108c5715b80bc651b\",\"data\":{\"orderTime\":\"2020-11-02 12:32:24\",\"orderStatus\":100,\"status\":[{\"value\":105,\"dateTime\":\"2020-11-02 12:31:58\",\"title\":\"下单（快餐）\"},{\"value\":115,\"dateTime\":\"2020-11-02 12:32:24\",\"title\":\"支付完成（快餐）\"}],\"storeId\":\"DQ411007\",\"orderDate\":\"2020-11-02\",\"thirdSn\":\"1032\",\"orderId\":\"DQ4110072011021032\",\"fromType\":\"pos\",\"deviceNo\":\"1\",\"staffId\":\"113\",\"staffBane\":\"李德毅\",\"orderType\":3,\"posOrderType\":1,\"payType\":1,\"isPayed\":true,\"paymentDetails\":[{\"payType\":1,\"type\":16,\"tradeNo\":\"DQ411007202011021232031032\",\"typeName\":\"支付宝线下支付\",\"posType\":\"44\",\"money\":15.0,\"posName\":\"支付宝应收\"}],\"price\":15.0,\"deliveryFee\":0,\"mealFee\":0,\"discountPrice\":-0.0,\"thirdPlatformBearPrice\":0,\"merchantBearPrice\":0.0,\"merchantPrice\":15.0,\"commission\":0,\"discounts\":[],\"products\":[{\"name\":\"海盐焦糖曲奇奶茶-热\",\"price\":15.0,\"types\":{\"extra\":\"冰淇淋\",\"bigType\":\"1\"},\"pid\":\"1170127\",\"productTaxRate\":\"6%\",\"dept\":{\"title\":\"热饮系列\",\"id\":\"17\"},\"num\":1,\"itemDisc\":0.0}],\"originPrice\":15.0,\"productPrice\":15.0,\"counts\":1},\"serviceType\":\"pos\",\"accessKey\":\"4ca533f4b7f5da07\"}\r\n" + 
+				"";
 		
 		
 		
@@ -334,14 +366,14 @@ public class TimeUtils {
 		
 		String sr = HttpRequest.sendPost("http://open-api.hophing.cn/api",jsonNewObj);
 
-		System.out.println("result ----->  "+sr);
+		 System.out.println("result ----->  "+sr);
 
 		// 提交正常单
 
-		/*
-		 * long l = Long.valueOf("1596441405463").longValue();
-		 * System.out.println(getTimeStamptoString(l));
-		 */
+		
+		  long l = Long.valueOf("1604238827098").longValue();
+		  System.out.println(getTimeStamptoString(l));
+		 
 
 	}
 	

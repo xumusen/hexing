@@ -157,7 +157,7 @@ public class ExcelData {
 	}
 	
 	   public static void testLoad() throws Exception{
-	        FileInputStream in = new FileInputStream("e:/a.xlsx");
+	        FileInputStream in = new FileInputStream("E:\\OneDrive - cd\\项目资料\\吉野家\\世通数据\\10月销售数据\\a.xlsx");
 	        Workbook wk = StreamingReader.builder()
 	                .rowCacheSize(100)  //缓存到内存中的行数，默认是10
 	                .bufferSize(4096)  //读取资源时，缓存到内存的字节大小，默认是1024
@@ -199,13 +199,13 @@ public class ExcelData {
 		
 			//ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\xiucan\\error.xlsx", "Sheet1");
 		
-		ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\世通数据\\10月销售数据\\DQ1-14日.xlsx", "Sheet1");
+		ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\世通数据\\10月销售数据\\CrystalViewer - 2020-11-05T102414.432.xlsx", "Sheet1");
 		 // ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1129/订单数据20191129.xlsx", "Sheet1");
-		  sheet1.readExcelData();
+		//  sheet1.readExcelData();
 		 
 		
 		
-	//	testLoad();
+		testLoad();
 		
 		//sheet1.readExcelDataRetail();
 		//获取第二行第4列

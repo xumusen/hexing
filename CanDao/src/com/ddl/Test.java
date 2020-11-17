@@ -309,7 +309,16 @@ public class Test {
 		String fromType = jsonobject.getString("fromType");
 
 		String orderTime = jsonobject.getString("orderTime");
-		String orderDate = jsonobject.getString("orderDate");
+		//String orderDate = jsonobject.getString("orderDate");
+		String orderDate="";
+		try {
+			 orderDate = jsonobject.getString("orderDate");
+			// System.out.println("orderType =" + orderType);
+		} catch (Exception e) {
+			// TODO: handle exception
+			 orderDate = "1999-01-01";
+		}
+
 		int orderStatus = jsonobject.getInt("orderStatus");
 
 		try {
@@ -730,12 +739,7 @@ public class Test {
 		// System.out.println(resource.getString("URL"));
 		// System.out.println(order);
 		Test.postDineorder(order);
-		 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
-		   Calendar c = Calendar.getInstance();    
-	        c.add(Calendar.MONTH, 0);
-	        c.set(Calendar.DAY_OF_MONTH,1);//设置为1号,当前日期既为本月第一天 
-	        String first = format.format(c.getTime());
-	        System.out.println("===============first:"+first);
+
 	}
 
 }

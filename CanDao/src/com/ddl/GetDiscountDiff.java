@@ -12,6 +12,7 @@ import com.ddl.Test;
 import com.ddl.Test2;
 import com.entity.DiffDiscount;
 import com.entity.TableDiff;
+import com.utils.TimeUtils;
 
 import net.sf.json.JSONObject;
 
@@ -30,6 +31,8 @@ public class GetDiscountDiff {
 			String JDE_USER = resource.getString("JDE_USER");
 			String JDE_PASSWORD = resource.getString("JDE_PASSWORD");
 			Connection connect = DriverManager.getConnection(JDE_CONN, JDE_USER, JDE_PASSWORD);
+			String first=TimeUtils.getFirstDay("yyyy-MM-dd");
+    		String last=TimeUtils.getLastDay("yyyy-MM-dd");
 			// 连接URL为 jdbc:mysql//服务器地址/数据库名 ，后面的2个参数分别是登陆用户名和密码
 
 			System.out.println("Success connect Mysql server!");
@@ -39,12 +42,12 @@ public class GetDiscountDiff {
 			ResultSet rs = stmt.executeQuery("SELECT t1.uniteStoreId,t1.orderDate,t1.注册,t1.现金,t1.`注册-现金`,t2.优惠,t1.`注册-现金` -t2.优惠 as 注册现金优惠差值 FROM\r\n" + 
 					"( SELECT uniteStoreId,orderDate,SUM(undiscountedTotalPrice) as 注册,SUM(discountedTotalPrice) as 现金,SUM(undiscountedTotalPrice) -SUM(discountedTotalPrice) AS '注册-现金'\r\n" + 
 					"FROM   `storesaledetail` \r\n" + 
-					"WHERE  orderDate >= DATE_ADD(CURDATE(),INTERVAL -DAY(CURDATE())+1 DAY) AND orderDate <= LAST_DAY(CURDATE()) \r\n" + 
+					"WHERE  orderDate >='"+first+"' AND orderDate <='"+last+"' \r\n" + 
 					"GROUP BY uniteStoreId,orderDate \r\n" + 
 					"ORDER BY uniteStoreId,orderDate) t1\r\n" + 
 					"LEFT JOIN \r\n" + 
 					"(SELECT uniteStoreId,statDate,SUM(amount) AS '优惠' FROM   `discountinfo`\r\n" + 
-					"WHERE  statDate >= DATE_ADD(CURDATE(),INTERVAL -DAY(CURDATE())+1 DAY) AND statDate <= LAST_DAY(CURDATE()) \r\n" + 
+					"WHERE  statDate >= '"+first+"' AND statDate <= '"+last+"' \r\n" + 
 					"GROUP BY uniteStoreId,statDate\r\n" + 
 					"ORDER BY uniteStoreId,statDate)t2 \r\n" + 
 					"ON  t1.uniteStoreId = t2.uniteStoreId AND t1.orderDate = t2.statDate \r\n" + 
@@ -63,7 +66,7 @@ public class GetDiscountDiff {
 				String storeid=rs.getString("uniteStoreId");
 				String orderdate = rs.getString("orderDate").replace("-", "");
 				System.out.println(orderdate);
-				
+			if (!storeid.equals("DQ999999"))
 				GetOdsOrder.getdiscountdiff(storeid, orderdate);
 			}
 		} catch (Exception e) {

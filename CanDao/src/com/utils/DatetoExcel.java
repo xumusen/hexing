@@ -85,7 +85,7 @@ public class DatetoExcel {
     	Statement stmt = conn.createStatement();
     	List<DiffNcrSum> list=new ArrayList<DiffNcrSum>();
     	//ResultSet rs = stmt.executeQuery("SELECT * FROM diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
-    	ResultSet rs = stmt.executeQuery("SELECT * FROM diffdq AS d WHERE d.差异<>-1.4 OR  d.差异 IS NULL ORDER BY d.DQorderdate,d.DQstoreid ");
+    	ResultSet rs = stmt.executeQuery("SELECT * FROM v_diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
     	while(rs.next()) {
     		DiffNcrSum diffNcrSum=new DiffNcrSum();
     		diffNcrSum.setDQstoreid(rs.getString("DQstoreid"));
@@ -241,7 +241,7 @@ public class DatetoExcel {
     		DateFormat dayf = new SimpleDateFormat("dd");
     		String time = sdf.format(ts);
     		String day=dayf.format(ts);
-            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay()+"-"+TimeUtils.getYesterday()+"吉野家差异-"+time+".xls");
+            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"吉野家差异-"+time+".xls");
             workbook.write(fos);
             System.out.println("吉野家差异报告生成，执行完毕");
             fos.close();
@@ -322,11 +322,8 @@ public class DatetoExcel {
         try {
         	Timestamp ts = new Timestamp(System.currentTimeMillis());
     		DateFormat sdf = new SimpleDateFormat("HHmmss");
-    		DateFormat dayf = new SimpleDateFormat("dd");
     		String time = sdf.format(ts);
-    		String day=dayf.format(ts);   // /home/jasonxu/下载
-            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay()+"-"+TimeUtils.getYesterday()+"DQ差异-"+time+".xls");
-            //FileOutputStream fos=new FileOutputStream("/home/144c/postemp/1-"+day+"日DQ差异-"+time+".xls");
+            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"DQ差异-"+time+".xls");
             workbook.write(fos);
             System.out.println("DQ差异报告生成，执行完毕");
             fos.close();
@@ -400,13 +397,16 @@ public class DatetoExcel {
               dir.mkdirs();
           }
     }
-    //测试
-    public static void main(String[] args) throws SQLException {
+    public static void datetoexcel() throws SQLException {
     	File dir=new File(reportPath);
 		removeDir(dir);
         createfiles(reportPath);
     	getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
     	getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
+    }
+    //测试
+    public static void main(String[] args) throws SQLException {
+    	
     }
 
 }

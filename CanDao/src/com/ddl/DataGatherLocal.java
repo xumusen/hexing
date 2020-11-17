@@ -66,6 +66,7 @@ public class DataGatherLocal {
 	}
 
 
+	//private static final String path = "V://";
 	private static final String path = "C://postxt";
 	// private static final String path = "h://TYS010255202007040145.txt";
 
@@ -291,7 +292,7 @@ public class DataGatherLocal {
 		 */
 		DataGatherLocal dataGatherLocal = new DataGatherLocal();
 		//dataGatherLocal.loadFile();
-		dataGatherLocal.reloadFile("2020-10-31 00:00:00");
+		dataGatherLocal.reloadFile("2020-11-02 00:00:00");
 
 	}
 

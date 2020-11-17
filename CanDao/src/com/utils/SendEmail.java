@@ -72,7 +72,8 @@ import com.entity.ReportFile;
 		
 	    private static final String ALIDM_SMTP_HOST = "smtpdm.aliyun.com";
 	    private static final String ALIDM_SMTP_PORT = "25";//或"80"
-	    public static void main(String[] args) throws UnsupportedEncodingException {
+	    public static void sendemail() throws UnsupportedEncodingException {
+
 	        // 配置发送邮件的环境属性
 	        final Properties props = new Properties();
 	        // 表示SMTP发送邮件，需要进行身份验证
@@ -142,7 +143,7 @@ import com.entity.ReportFile;
 	            }
 	        // 设置邮件标题
 	     
-	        message.setSubject(TimeUtils.getFirstDay()+"-"+TimeUtils.getYesterday()+"核对差异结果邮件");
+	        message.setSubject(TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"核对差异结果邮件");
 	        // 设置邮件的内容体
 	        message.setContent("测试的HTML邮件", "text/html;charset=UTF-8");
 	        //若需要开启邮件跟踪服务，请使用以下代码设置跟踪链接头。首先域名需要备案，设置且已正确解析了CNAME配置；其次发信需要打Tag，此Tag在控制台已创建并存在，Tag创建10分钟后方可使用；
@@ -190,5 +191,7 @@ import com.entity.ReportFile;
 	            // 在这里处理message内容， 格式是固定的
 	            System.out.println(err);
 	        }
+	    }
+	    public static void main(String[] args) throws UnsupportedEncodingException {
 	    }
 	}

@@ -30,7 +30,7 @@ public class GetOdsOrder {
 	    public void getOdsOrder() throws Exception {
 	      //  String sql = "show databases";
 	      //  String order_info="select * from test.order_info limit 10";
-	        String checkEveryDay="select * from middle_log.ods_log20201019 where msg like '%DQ010%'" ;//+ 
+	        String checkEveryDay="select * from middle_log.ods_log20201004 " ;//+ 
 	        	//	"where action_name ='candao.order.postDineInOrder'  ";
 	        
 	        //System.out.println("Running: " + sql);
@@ -98,7 +98,7 @@ public class GetOdsOrder {
 			GetOdsOrder testhive=new GetOdsOrder();
 			testhive.init();
 			//testhive.getOdsOrder();
-			testhive.getOdsOrder( "0070746", "20201016");
+			testhive.getOdsOrder( "YS010023", "20201112");
 			testhive.destory();
 		}
 }

@@ -62,10 +62,8 @@ public class GetOrderDiff {
 			OrderDiff.insertOrderDiff(diff);
 		}
 	}
+	public static void getorderdifff() throws SQLException {
 
-	// 测试用例
-	public static void main(String[] args) throws Exception {
-		
 		OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
@@ -85,6 +83,11 @@ public class GetOrderDiff {
 			getDiffDetail(storeid, orderdate);
 		}
 		System.out.println("所有的门店异常记录都写入，执行完毕");
+	}
+
+	// 测试用例
+	public static void main(String[] args) throws Exception {
+		
 	}
 
 }
