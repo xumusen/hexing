@@ -66,7 +66,7 @@ public class GetDiscountDiff {
 				String storeid=rs.getString("uniteStoreId");
 				String orderdate = rs.getString("orderDate").replace("-", "");
 				System.out.println(orderdate);
-			if (!storeid.equals("DQ999999"))
+			//if (!storeid.equals("DQ999999"))
 				GetOdsOrder.getdiscountdiff(storeid, orderdate);
 			}
 		} catch (Exception e) {

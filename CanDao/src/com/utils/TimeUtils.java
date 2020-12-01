@@ -69,10 +69,10 @@ public class TimeUtils {
 		String nowday = sdf.format(ts);
 		String firstday;
 		SimpleDateFormat dayformat = new SimpleDateFormat(patten);
-		//System.out.println(nowday);
+		//System.out.println(nowday.substring(nowday.length()-2));
 
 
-		if (nowday.equals("01")) {
+		if (nowday.substring(nowday.length()-2).equals("01")) {
 
 			cale.add(Calendar.MONTH, -1);
 			cale.set(Calendar.DAY_OF_MONTH, 1);
@@ -98,7 +98,7 @@ public class TimeUtils {
 		//System.out.println(nowday);
 
 
-		if (nowday.equals("01")) {
+		if (nowday.substring(nowday.length()-2).equals("01")) {
 
 			cale.add(Calendar.MONTH, 0);
 			cale.set(Calendar.DAY_OF_MONTH, 0);

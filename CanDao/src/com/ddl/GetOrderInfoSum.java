@@ -105,7 +105,7 @@ public class GetOrderInfoSum {
     	orderInfoSum.setTC(rs.getInt("tc"));
     	orderInfoSum.setPrice(rs.getFloat("price"));
     	orderInfoSum.setOrderdate(rs.getString("orderdate"));
-    	OrderInfoSum.insertOrderInfoSum(orderInfoSum);
+    	//OrderInfoSum.insertOrderInfoSum(orderInfoSum);
     	}
     System.out.println("当前月的销售数据已经写入了sqlserver，执行完毕");
 		getOrderInfo.destory();
@@ -118,7 +118,10 @@ public class GetOrderInfoSum {
     }
     
     public static void main(String[] args) throws Exception {
-		
+    	GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
+		getOrderInfo.init();
+		getOrderInfo.orderinfo();
+		getOrderInfo.destory();
 	}
     
     

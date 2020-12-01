@@ -14,7 +14,7 @@ public class ComparePos {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("请确认好已经下载好t表及导入了最新的ncr报表数据");
-		DataGatherLocal.reLoadFile("2020-11-17 09:00:00");
+		DataGatherLocal.reLoadFile("2020-12-01 08:00:00");
 		/*删除t表*/
 		//Tstore.truncateT();//中午别执行
 		/*重写t表*/
@@ -30,7 +30,7 @@ public class ComparePos {
 		/*生成excel报表*/
 		DatetoExcel.datetoexcel();
 		/*发送邮件*/
-		SendEmail.sendemail();
+		//SendEmail.sendemail();
 	}
 
 }

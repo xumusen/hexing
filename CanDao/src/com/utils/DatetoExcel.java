@@ -406,7 +406,11 @@ public class DatetoExcel {
     }
     //测试
     public static void main(String[] args) throws SQLException {
-    	
+      	File dir=new File(reportPath);
+    		removeDir(dir);
+            createfiles(reportPath);
+        	getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
+        	getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
     }
 
 }

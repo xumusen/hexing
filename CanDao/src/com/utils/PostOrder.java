@@ -45,6 +45,34 @@ public class PostOrder {
 		System.out.println("result ----->  "+sr);
 		
 	}
+	public static void postOldOrder(String json,String accessKey,String secret ) {
+
+		//String accessKey="4ca533f4b7f5da07";
+		//String secret="2482df65c5ecb83be8166805e9dc5c3b";
+		JSONObject jsonObject = JSONObject.fromObject(json);
+		String orderdata = jsonObject.getString("data");
+		String actionName=jsonObject.getString("actionName");
+		long timestamps = System.currentTimeMillis();
+		String Ordersign = MD5.getMD5Str(
+				accessKey + actionName + secret + timestamps + (StringUtil.isNullOrBlank(orderdata) ? "" : orderdata));
+
+		JSONObject jsonNewObj = new JSONObject();
+		jsonNewObj.put("actionName", jsonObject.getString("actionName"));
+		jsonNewObj.put("data", orderdata);
+		jsonNewObj.put("accessKey", accessKey);
+		jsonNewObj.put("sign", Ordersign);
+		jsonNewObj.put("timestamp", timestamps);
+		jsonNewObj.put("serviceType", jsonObject.getString("serviceType"));
+		jsonNewObj.put("ticket", UUID.randomUUID().toString());
+		jsonNewObj.put("vendor", jsonObject.getString("vendor"));
+		jsonNewObj.put("storeId", jsonObject.getString("storeId"));
+		System.out.println(jsonNewObj);
+		
+		String sr = HttpRequest.sendPost("http://open-api.hophing.cn/api",jsonNewObj);
+
+		System.out.println("result ----->  "+sr);
+		
+	}
 	
 	public static void orderCancel(String orderId,int status,String cancelNote) {
 
@@ -101,18 +129,18 @@ public class PostOrder {
 		
 	}
 	
-	public static void  getOrderCancel() throws SQLException {
+	public static void  getOrderCancel(String cancelreason) throws SQLException {
 		Statement stmt = DBUtil.getConnection().createStatement();
 		// ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句 ，返回一个结果集（ResultSet）对象。
 		// ResultSet rs = stmt.executeQuery("SELECT * from orderCancelCollect ");
-		// ResultSet rs = stmt.executeQuery("SELECT * from orderCollect ");
-		ResultSet rs = stmt.executeQuery("EXEC p_compare_single_seito 'YS022025','2020-10-01'");
+		 ResultSet rs = stmt.executeQuery("SELECT * FROM orders AS o WHERE o.storeId='DQ999999' ");
+		//ResultSet rs = stmt.executeQuery("EXEC p_compare_single_seito 'YS022025','2020-10-01'");
 		while (rs.next()) {
 			// System.out.println(rs.getString("req"));
 			// Test.postDineorder(rs.getString("req"));
-			String cell = rs.getString("extorderid");
+			String cell = rs.getString("orderid");
 			System.out.println(cell);
-			orderCancel(cell,-1,"9月的订单误上传");
+			orderCancel(cell,-1,cancelreason);
 		}
 		
 	}
@@ -121,13 +149,14 @@ public class PostOrder {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		//取消单个订单
-	//	PostOrder.orderCancel("YS451022007202010160319211068",-1,"缓存失效单"); 
+		PostOrder.orderCancel("YS451024002202011030317456068",-1,"东北IT确认删除"); 
 		
 		//批量取消订单
-		 //getOrderCancel();
-		String jason="{\"accessKey\":\"4ca533f4b7f5da07\",\"actionName\":\"candao.order.postDineInOrder\",\"timestamp\":1603967162191,\"ticket\":\"9a39d7b4-a705-4b90-923f-ec7ad1820754\",\"serviceType\":\"pos\",\"vendor\":\"ncr\",\"storeId\":\"DQ010133\",\"data\":{\"orderTime\":\"2020-10-09 18:30:47\",\"orderStatus\":100,\"status\":[{\"title\":\"下单（快餐）\",\"value\":105,\"dateTime\":\"2020-10-09 18:29:06\"},{\"title\":\"支付完成（快餐）\",\"value\":115,\"dateTime\":\"2020-10-09 18:30:47\"}],\"storeId\":\"DQ010133\",\"orderDate\":\"2020-10-09\",\"thirdSn\":\"1087\",\"orderId\":\"DQ0101332010091087\",\"fromType\":\"pos\",\"deviceNo\":\"1\",\"staffId\":\"21\",\"staffBane\":\"仇译萱（帆帆）\",\"orderType\":3,\"posOrderType\":12,\"payType\":1,\"isPayed\":true,\"paymentDetails\":[{\"payType\":1,\"type\":32,\"typeName\":\"其他\",\"money\":53.9,\"posType\":\"114\",\"posName\":\"X微信应收\"}],\"price\":53.9,\"deliveryFee\":0,\"mealFee\":0,\"discountPrice\":-50.1,\"thirdPlatformBearPrice\":0,\"merchantBearPrice\":50.1,\"merchantPrice\":53.9,\"commission\":0,\"discounts\":[{\"code\":\"22512\",\"vendor\":\"ncr\",\"num\":1,\"type\":3,\"childType\":3,\"title\":\"X香草90g+9.9元\",\"content\":\"X香草90g+9.9元\",\"price\":-20.1,\"totalAmount\":-20.1,\"thirdSubsidy\":0,\"merchantSubsidy\":0,\"disProducts\":[{\"pid\":\"1760020\",\"name\":\"X马达加斯加香草-小\",\"num\":1,\"price\":30.0,\"itemDisc\":20.45,\"types\":{\"bigType\":\"76\",\"extra\":\"硬冰\"},\"dept\":{\"id\":\"76\",\"title\":\"桶装冰淇淋\"},\"productTaxRate\":\"13%\"}]},{\"code\":\"21541\",\"vendor\":\"ncr\",\"num\":1,\"type\":3,\"childType\":2,\"title\":\"X商城-8折\",\"content\":\"X商城-8折\",\"price\":-6.0,\"totalAmount\":-6.0,\"thirdSubsidy\":0,\"merchantSubsidy\":0,\"disProducts\":[{\"pid\":\"1760044\",\"name\":\"X苏丹王榴莲-小\",\"num\":1,\"price\":30.0,\"itemDisc\":6.86,\"types\":{\"bigType\":\"76\",\"extra\":\"硬冰\"},\"dept\":{\"id\":\"76\",\"title\":\"桶装冰淇淋\"},\"productTaxRate\":\"13%\"}]},{\"code\":\"22305\",\"vendor\":\"ncr\",\"num\":1,\"type\":3,\"childType\":3,\"title\":\"X 商城1元优惠券\",\"content\":\"X 商城1元优惠券\",\"price\":-1.0,\"totalAmount\":-1.0,\"thirdSubsidy\":0,\"merchantSubsidy\":0},{\"code\":\"22305\",\"vendor\":\"ncr\",\"num\":1,\"type\":3,\"childType\":3,\"title\":\"X 商城1元优惠券\",\"content\":\"X 商城1元优惠券\",\"price\":-1.0,\"totalAmount\":-1.0,\"thirdSubsidy\":0,\"merchantSubsidy\":0},{\"code\":\"99999\",\"vendor\":\"ncr\",\"num\":1,\"type\":3,\"childType\":2,\"title\":\"DQ折扣(补入)\",\"content\":\"DQ折扣(缺失)\",\"price\":-22.0,\"totalAmount\":-22.0,\"thirdSubsidy\":0,\"merchantSubsidy\":0}],\"products\":[{\"pid\":\"1760020\",\"name\":\"X马达加斯加香草-小\",\"num\":1,\"price\":30.0,\"itemDisc\":20.45,\"types\":{\"bigType\":\"76\",\"extra\":\"硬冰\"},\"dept\":{\"id\":\"76\",\"title\":\"桶装冰淇淋\"},\"productTaxRate\":\"13%\"},{\"pid\":\"1760044\",\"name\":\"X苏丹王榴莲-小\",\"num\":1,\"price\":30.0,\"itemDisc\":6.86,\"types\":{\"bigType\":\"76\",\"extra\":\"硬冰\"},\"dept\":{\"id\":\"76\",\"title\":\"桶装冰淇淋\"},\"productTaxRate\":\"13%\"},{\"pid\":\"1040133\",\"name\":\"X草莓奶昔\",\"num\":1,\"price\":22.0,\"itemDisc\":11.4,\"types\":{\"bigType\":\"1\",\"extra\":\"冰淇淋\"},\"dept\":{\"id\":\"4\",\"title\":\"奶昔系列\"},\"productTaxRate\":\"6%\"},{\"pid\":\"1040134\",\"name\":\"X香草奶昔\",\"num\":1,\"price\":22.0,\"itemDisc\":11.39,\"types\":{\"bigType\":\"1\",\"extra\":\"冰淇淋\"},\"dept\":{\"id\":\"4\",\"title\":\"奶昔系列\"},\"productTaxRate\":\"6%\"},{\"pid\":\"1220582\",\"name\":\"X0元干冰\",\"num\":1,\"price\":0.0,\"itemDisc\":0.0,\"types\":{\"bigType\":\"1\",\"extra\":\"冰淇淋\"},\"dept\":{\"id\":\"22\",\"title\":\"其他\"},\"productTaxRate\":\"6%\"}],\"originPrice\":104.0,\"productPrice\":104.0,\"counts\":5},\"sign\":\"faf5542ffd61779c3e9fe641085b7d0d\"}";
-		
-		postOldOrder(jason);		
+		 //getOrderCancel("银豹测试单");
+		//String jason="{\"accessKey\":\"900b38f00bb77813\",\"actionName\":\"candao.order.postDineInOrder\",\"timestamp\":1606185205085,\"ticket\":\"c57c2739-2480-492e-b973-c7180eea1020\",\"sign\":\"9c8d6eae759adbd7d06b3a1d4e5df9c2\",\"serviceType\":\"pos\",\"vendor\":\"pospal\",\"storeId\":\"DQ999999\",\"data\":{\"merchantBearPrice\":-29.9,\"orderType\":3,\"orderId\":\"202011241033196250001:4196816\",\"counts\":0,\"discountPrice\":0.0,\"orderStatus\":100,\"originPrice\":0.0,\"posOrderType\":\"1\",\"products\":[],\"orderTime\":\"2020-11-24 10:33:22\",\"payType\":1,\"fromType\":\"pos\",\"price\":29.9,\"merchantPrice\":29.9,\"commission\":0.0,\"paymentDetails\":[{\"posName\":\"现金\",\"payType\":1,\"money\":29.9,\"typeName\":\"现金\",\"type\":1,\"posType\":\"1\"}],\"thirdSn\":\"65605827362070261\",\"mealFee\":0.0,\"storeId\":\"DQ999999\",\"deliveryFee\":0.0,\"thirdPlatformBearPrice\":0.0,\"isPayed\":true,\"orderDate\":\"2020-11-24\",\"productPrice\":0.0,\"status\":[{\"dateTime\":\"2020-11-24 10:33:25\",\"title\":\"支付完成（快餐）\",\"value\":\"115\"}]}}";
+		//postOldOrder(jason);	
+		//postOldOrder(jason, "900b38f00bb77813", "be5c7db333dfc6dab19afdab2055ebe3");//银豹？
+		//postOldOrder(jason, "4ca533f4b7f5da07", "2482df65c5ecb83be8166805e9dc5c3b");//NCR
 		
 	}
 
