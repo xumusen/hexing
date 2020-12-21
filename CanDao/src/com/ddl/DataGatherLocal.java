@@ -44,6 +44,9 @@ public class DataGatherLocal {
 	private static final String USER = resource.getString("USER");
 	private static final String PASSWORD = resource.getString("PASSWORD");
 	private final static String reportPath = resource.getString("reportPath");
+	private final static String stPath = resource.getString("stPath");
+	private final static String ybPath = resource.getString("ybPath");
+	//private static final String path = "C://postxt";
 
 	private static Connection conn = null;
 	// 静态代码块（将加载驱动、连接数据库放入静态块中）
@@ -67,7 +70,7 @@ public class DataGatherLocal {
 
 
 	//private static final String path = "V://";
-	private static final String path = "C://postxt";
+	
 	// private static final String path = "h://TYS010255202007040145.txt";
 
 	public static final String openFileStyle = "r";
@@ -106,7 +109,7 @@ public class DataGatherLocal {
 	 * 
 	 */
 
-	public void loadFile() {
+	public void loadFile(String path) {
 
 		try {
 
@@ -164,8 +167,13 @@ public class DataGatherLocal {
 		 */
 	}
 
-	public  void reloadFile(String begintime) throws Exception {
-		DataGather.getSt();
+	public  void reloadFile(String begintime,String path,String pos) throws Exception {
+		if(pos.equals("2") ){
+			DataGather.getDq();
+		}else {
+			DataGather.getSt();
+		}
+		
 		
 	 	Statement stmt = conn.createStatement();
     	List <DiffSeitoSum> list=new ArrayList<DiffSeitoSum>();
@@ -278,10 +286,10 @@ public class DataGatherLocal {
 
 	}
 	
-	public static void reLoadFile(String begintime) throws Exception {
+	public static void reLoadFile(String begintime,String path,String stOrDq) throws Exception {
 		DataGatherLocal dataGatherLocal = new DataGatherLocal();
 		//dataGatherLocal.loadFile();
-		dataGatherLocal.reloadFile(begintime);
+		dataGatherLocal.reloadFile(begintime,path,"1");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -292,7 +300,8 @@ public class DataGatherLocal {
 		 */
 		DataGatherLocal dataGatherLocal = new DataGatherLocal();
 		//dataGatherLocal.loadFile();
-		dataGatherLocal.reloadFile("2020-11-02 00:00:00");
+		//dataGatherLocal.reloadFile("2020-11-02 00:00:00",stPath);
+		dataGatherLocal.reloadFile("2020-12-20 00:00:00",ybPath,"2");
 
 	}
 

@@ -560,32 +560,63 @@ public class DataGather {
 			System.out.println("连接失败");
 	}
 	
-public static  void getDq()  throws SocketException, IOException, ParseException {
+public static  void getDq()  throws SocketException, IOException, ParseException, SQLException {
+	FileTime.truncatefiletime();
+	FTPClient ftpClient = new FTPClient();
+	ftpClient.connect("ftp.hophingfood.com", 21);
+	ftpClient.login("newdq", "newdq");//
+	ftpClient.setDefaultTimeout(20000);
+	ftpClient.setConnectTimeout(50000);
+	ftpClient.setSoTimeout(50000);
+	ftpClient.setDataTimeout(50000);
+	
+	if (FTPReply.isPositiveCompletion(ftpClient.getReplyCode())) {
+		Timestamp ts = new Timestamp(System.currentTimeMillis());
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String begintime = sdf.format(ts);
+		System.out.println("连接成功，开始读取银豹文件夹  "+begintime);
+		ftpClient.changeWorkingDirectory("/");// 找到指定目录
+		ftpClient.enterLocalPassiveMode();
+		// FTPFile[] file = ftpClient.listFiles();
+		FTPFile[] file = getFTPDirectoryFiles(ftpClient, "/");
+		if (file != null && file.length > 0) {
+			for (int i = 0; i < file.length; i++) {
+				if (file[i].isFile() && file[i].getName().substring(0, 2).equals("TD")) {						
+					  Long uploadtime = file[i].getTimestamp().getTimeInMillis();
+					  FileTime fileTime=new FileTime();
+					  fileTime.setStoreid(file[i].getName().substring(1,9));
+					  fileTime.setOrderdate(file[i].getName().substring(9,17));
+					  fileTime.setOrdertime(file[i].getName().substring(17,21));
+					 // FileTime.insertFileTime(fileTime);
+					  
+					  
+					  String lastModifyTimeStr = ftpClient.getModificationTime(file[i].getName());
+					  fileTime.setUploadtime(Long.parseLong(lastModifyTimeStr));
+					  DateFormat sdf1 =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+					  fileTime.setTxttime(sdf1.format(uploadtime));
+					  fileTime.setFilename(file[i].getName());
+					  FileTime.insertFileTime(fileTime);
+					 
+				       
+					/*
+					 * SimpleDateFormat sdf1 = new SimpleDateFormat( "yyyyMMddHHmmss"); Date
+					 * startTimeDate = sdf1.parse(lastModifyTimeStr); Long lastModifyTime =
+					 * startTimeDate.getTime() + file[0].getTimestamp().getTimeZone().getOffset(0);
+					 * fileTime.setUploadtime(lastModifyTime); FileTime.insertFileTime(fileTime);
+					 */
+					  
 		
-		FTPClient ftpClient = new FTPClient();
-		ftpClient.connect("ftp.hophingfood.com", 21);
-		ftpClient.login("candao", "candao");//
-		if (FTPReply.isPositiveCompletion(ftpClient.getReplyCode())) {
-			Timestamp ts = new Timestamp(System.currentTimeMillis());
-			DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String begintime = sdf.format(ts);
-			System.out.println("连接成功，开始读取DQ文件夹  "+begintime);
-			ftpClient.changeWorkingDirectory("dq");// 找到指定目录
-			ftpClient.enterLocalPassiveMode();
-			// FTPFile[] file = ftpClient.listFiles();
-			FTPFile[] file = getFTPDirectoryFiles(ftpClient, "dq");
-			if (file != null && file.length > 0) {
-				for (int i = 0; i < file.length; i++) {
-					if (file[i].isFile() && file[i].getName().substring(0, 1).equals("T")) {}
-						//readFile(ftpClient, file[i].getName());
+					  
+					  //readFile(ftpClient, file[i].getName());
 				}
 			}
-			Timestamp ts2 = new Timestamp(System.currentTimeMillis());
-			DateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String endtime = sdf2.format(ts2);
-			System.out.println("执行成功    "+endtime);
-		} else
-			System.out.println("连接失败");
+		}
+		Timestamp ts2 = new Timestamp(System.currentTimeMillis());
+		DateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String endtime = sdf2.format(ts2);
+		System.out.println("执行成功    "+endtime);
+	} else
+		System.out.println("连接失败");
 	}
 
 	public static void main(String[] args) throws SocketException, IOException, ParseException, SQLException {

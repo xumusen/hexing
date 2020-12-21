@@ -125,6 +125,24 @@ public class GetHiveSingleStoreDetail {
 		}
 		System.out.println("大数据的DQ门店记录都写入完毕，执行完毕");
 	}
+	public static void  getYbOrderDetail() throws Exception{
+		OrderInfoDQ.truncateOrderInfoDq();
+		//OrderDiff.truncateOrderDiff();
+		// 3.通过数据库的连接操作数据库，实现增删改查
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+		while (rs.next()) {
+			// System.out.println(rs.getString("req"));
+			// Test.postDineorder(rs.getString("req"));
+			String storeid = rs.getString("storeid");
+			String orderdate=rs.getString("orderdate");
+			System.out.println(storeid+" "+orderdate);
+			//getDiffDetail(storeid, orderdate);
+			GetOrderInfoDq.excuteyb(storeid, orderdate);
+			
+		}
+		System.out.println("大数据的DQ门店记录都写入完毕，执行完毕");
+	}
 	public static void getDetail() throws Exception {
 		
 		getNcrOrderDetail();
@@ -134,7 +152,7 @@ public class GetHiveSingleStoreDetail {
 	// 测试用例
 	public static void main(String[] args) throws Exception {
 		
-	
+		getYbOrderDetail();
 		
 	}
 

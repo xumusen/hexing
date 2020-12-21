@@ -52,10 +52,10 @@ public class GetOdsOrder {
 		}
 	}
 
-	public void getOdsOrder(String storeid, String orderdate) throws Exception {
+	public void getOdsOrder(String storeid, String orderdate,String datetime) throws Exception {
 		// String sql = "show databases";
 		// String order_info="select * from test.order_info limit 10";
-		String checkEveryDay = "select * from middle_log.ods_log" + orderdate + " where msg like '%" + storeid + "%'";// +
+		String checkEveryDay = "select * from middle_log.ods_log" + orderdate + " where msg like '%" + storeid + "%' and proc_time >='"+datetime+"' ";// +
 		// "where action_name ='candao.order.postDineInOrder' ";
 
 		// System.out.println("Running: " + sql);
@@ -76,6 +76,32 @@ public class GetOdsOrder {
 			}
 		}
 	}
+
+	public void getOdsOrder(String storeid, String orderdate) throws Exception {
+		// String sql = "show databases";
+		// String order_info="select * from test.order_info limit 10";
+		String checkEveryDay = "select * from middle_log.ods_log" + orderdate + " where msg like '%" + storeid + "%'  ";// +
+		// "where action_name ='candao.order.postDineInOrder' ";
+
+		// System.out.println("Running: " + sql);
+		rs = stmt.executeQuery(checkEveryDay);
+		while (rs.next()) {
+			String cell = rs.getString("msg");
+			System.out.println(cell);
+			JSONObject jsonobj = JSONObject.fromObject(cell);// 将字符串转化成json对象
+			String actionName = jsonobj.getString("actionName");
+			if (actionName.equals("candao.order.postDineInOrder")) {
+				Test.postDineorder(cell);
+			} else if (actionName.equals("candao.retail.order")) {
+				Test2.retailOrder(cell);
+			} else if (actionName.equals("candao.order.postDineInStatus")) {
+				CancelOrder.CancelOrder(cell);
+			} else if (actionName.equals("candao.retail.updateOrderStatus")) {
+				System.out.println("更新新零售订单状态啦啦啦啦啦");
+			}
+		}
+	}
+
 
 	public void destory() throws Exception {
 		if (rs != null) {
@@ -100,7 +126,7 @@ public class GetOdsOrder {
 		GetOdsOrder testhive = new GetOdsOrder();
 		testhive.init();
 		// testhive.getOdsOrder();
-		testhive.getOdsOrder("DQ022015", "20201130");
+		testhive.getOdsOrder("pospal", "20201220","2020-12-21 17:00:00");
 		testhive.destory();
 	}
 }

@@ -13,7 +13,7 @@ import com.entity.OrderInfoSum;
 
 import net.sf.json.JSONObject;
 
-public class GetOrderInfoSum {
+public class GetOrderInfoSumA {
   	private static String driverName = "org.apache.hive.jdbc.HiveDriver";
     private static String url = "jdbc:hive2://192.168.212.2:10000";
     private static String user = "hive";
@@ -83,7 +83,7 @@ public class GetOrderInfoSum {
         }
     }
     public static void main(String[] args) throws Exception {
-		GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
+		GetOrderInfoSumA getOrderInfo=new GetOrderInfoSumA();
 		getOrderInfo.init();
 		getOrderInfo.orderinfo();
 		getOrderInfo.destory();

@@ -62,6 +62,28 @@ public class GetOrderDiff {
 			OrderDiff.insertOrderDiff(diff);
 		}
 	}
+	
+	public static void getYbDiffDetail(String storeid,String orderdate) throws SQLException {
+		OrderDiff.truncateOrderDiff();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("EXEC p_compare_single_pospal '"+storeid+"','"+orderdate+"'");
+		while(rs.next()) {
+			OrderDiff diff=new OrderDiff();
+			diff.setPosStore(rs.getString("store"));
+			diff.setPosUploaddatetime(rs.getString("uploaddate"));
+			diff.setPosRef(rs.getString("ref"));
+			diff.setPosAmt(rs.getString("amt"));
+			diff.setPosType(rs.getString("type"));
+			diff.setZtStore(rs.getString("storeid"));
+			diff.setZtBrandName(rs.getString("brandname"));
+			diff.setZtOrderid(rs.getString("orderid"));
+			diff.setZtThirdSn(rs.getString("thirdsn"));
+			diff.setZtMerchantPrice(rs.getString("merchantprice"));
+			diff.setZtExtorderid(rs.getString("extorderid"));
+			diff.setZtOrderdate(rs.getString("orderdate"));
+			OrderDiff.insertOrderDiff(diff);
+		}
+	}
 	public static void getorderdifff() throws SQLException {
 
 		OrderDiff.truncateOrderDiff();
@@ -84,10 +106,26 @@ public class GetOrderDiff {
 		}
 		System.out.println("所有的门店异常记录都写入，执行完毕");
 	}
+	public static void getYborderdifff() throws SQLException {
+
+		OrderDiff.truncateOrderDiff();
+		// 3.通过数据库的连接操作数据库，实现增删改查
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+		while (rs.next()) {
+			// System.out.println(rs.getString("req"));
+			// Test.postDineorder(rs.getString("req"));
+			String storeid = rs.getString("storeid");
+			String orderdate=rs.getString("orderdate");
+			System.out.println(storeid+" "+orderdate);
+			getYbDiffDetail(storeid, orderdate);
+		}
+		System.out.println("所有的门店异常记录都写入，执行完毕");
+	}
 
 	// 测试用例
 	public static void main(String[] args) throws Exception {
-		
+		getYborderdifff();
 	}
 
 }

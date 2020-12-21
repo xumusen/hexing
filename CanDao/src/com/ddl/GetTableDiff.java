@@ -90,11 +90,11 @@ public class GetTableDiff {
 	public static void main(String[] args) throws SQLException {
 			
 		TableDiff.truncateTableDiff();
-		GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "4");  //北京
-		GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "10007011"); //郑州
-		GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "10006795");//东北
+		//GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "4");  //北京
+		//GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "10007011"); //郑州
+		//GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "10006795");//东北
 		GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "26002056");//DQ
-		GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "26002055");//芳叔
+		//GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "26002055");//芳叔
 		
 		
 	}

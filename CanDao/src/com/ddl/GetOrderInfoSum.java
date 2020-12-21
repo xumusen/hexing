@@ -40,15 +40,62 @@ public class GetOrderInfoSum {
     		String last=TimeUtils.getLastDay("yyyy-MM-dd");
 	        System.out.println("===============first:"+first);
 	        System.out.println("===============last:"+last);
-       String checkEveryDay="select storeid,count(orderid) as TC , sum(merchantprice) as price,orderdate  from test.order_info \r\n" + 
-       		"where trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'   \r\n" + 
-       		"and  fromtype not in ('180','247') and iscustomordernopush =TRUE\r\n" + 
-       		"and brandid in (4,10007011,10006795)\r\n" + 
-       		"group by storeid ,orderdate \r\n" + 
-       		"UNION \r\n" + 
+		/*
+		 * String
+		 * checkEveryDay="select storeid,count(orderid) as TC , sum(merchantprice) as price,orderdate  from test.order_info \r\n"
+		 * +
+		 * "where trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'   \r\n"
+		 * + "and  fromtype not in ('180','247') and iscustomordernopush =TRUE\r\n" +
+		 * "and brandid in (4,10007011,10006795)\r\n" +
+		 * "group by storeid ,orderdate \r\n" + "UNION \r\n" +
+		 * "select storeid,count(orderid) as TC ,  sum(merchantprice) as price,orderdate  from test.order_info \r\n"
+		 * + "where  trim(orderdate) >='"+first+"' and trim(orderdate) <='"
+		 * +last+"'   \r\n" + "and brandid in (26002055,26002056)\r\n" +
+		 * "group by storeid ,orderdate";
+		 */
+	        String checkEveryDay="select storeid,count(orderid) as TC , sum(merchantprice) as price,orderdate  from test.order_info \r\n" + 
+	           		"where trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'   \r\n" + 
+	           		"and  fromtype not in ('180','247') and iscustomordernopush =TRUE\r\n" + 
+	           		"and brandid in (4,10007011,10006795)\r\n" + 
+	           		"group by storeid ,orderdate \r\n" + 
+	           		"UNION \r\n" + 
+	           		"select storeid,count(orderid) as TC ,  sum(merchantprice) as price,orderdate  from test.order_info \r\n" + 
+	           		"where  trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'\r\n" + 
+	           		"and brandid =26002055\r\n" + 
+	           		"group by storeid ,orderdate\r\n" + 
+	           		"UNION \r\n" + 
+	           		"select storeid,count(orderid) as TC ,  sum(merchantprice) as price,orderdate  from test.order_info \r\n" + 
+	           		"where  trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"' and fromtype =94\r\n" + 
+	           		"and brandid =26002056\r\n" + 
+	           		"group by storeid ,orderdate";
+       
+       // System.out.println(checkEveryDay);
+        //System.out.println("Running: " + sql);
+        rs = stmt.executeQuery(checkEveryDay);
+        while (rs.next()) {
+        	OrderInfoSum orderInfoSum=new OrderInfoSum();
+        	orderInfoSum.setStoreid(rs.getString("storeid"));
+        	orderInfoSum.setTC(rs.getInt("tc"));
+        	orderInfoSum.setPrice(rs.getFloat("price"));
+        	orderInfoSum.setOrderdate(rs.getString("orderdate"));
+        	OrderInfoSum.insertOrderInfoSum(orderInfoSum);
+        	}
+        System.out.println("当前月的销售数据已经写入了sqlserver，执行完毕");
+    }
+    
+
+    public void orderinfoyb() throws Exception {
+    	OrderInfoSum.truncateOrderInfoSum();
+    	
+    		String first=TimeUtils.getFirstDay("yyyy-MM-dd");
+    		String last=TimeUtils.getYesterday("yyyy-MM-dd");
+    		// last="2020-12-18";
+	        System.out.println("===============first:"+first);
+	        System.out.println("===============last:"+last);
+       String checkEveryDay=
        		"select storeid,count(orderid) as TC ,  sum(merchantprice) as price,orderdate  from test.order_info \r\n" + 
-       		"where  trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'   \r\n" + 
-       		"and brandid in (26002055,26002056)\r\n" + 
+       		"where  trim(orderdate) >='"+first+"' and fromtype =108 and trim(orderdate) <='"+last+"'   \r\n" + 
+       		"and brandid =26002056\r\n" + 
        		"group by storeid ,orderdate";
        
        // System.out.println(checkEveryDay);
@@ -85,6 +132,19 @@ public class GetOrderInfoSum {
 		//String last=TimeUtils.getLastDay("yyyy-MM-dd");
         System.out.println("===============first:"+first);
         System.out.println("===============last:"+last);
+		/*
+		 * String
+		 * checkEveryDay="select storeid,count(orderid) as TC , sum(merchantprice) as price,orderdate  from test.order_info \r\n"
+		 * +
+		 * "where trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'   \r\n"
+		 * + "and  fromtype not in ('180','247') and iscustomordernopush =TRUE\r\n" +
+		 * "and brandid in (4,10007011,10006795)\r\n" +
+		 * "group by storeid ,orderdate \r\n" + "UNION \r\n" +
+		 * "select storeid,count(orderid) as TC ,  sum(merchantprice) as price,orderdate  from test.order_info \r\n"
+		 * + "where  trim(orderdate) >='"+first+"' and trim(orderdate) <='"
+		 * +last+"'   \r\n" + "and brandid in (26002055,26002056)\r\n" +
+		 * "group by storeid ,orderdate";
+		 */
    String checkEveryDay="select storeid,count(orderid) as TC , sum(merchantprice) as price,orderdate  from test.order_info \r\n" + 
    		"where trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'   \r\n" + 
    		"and  fromtype not in ('180','247') and iscustomordernopush =TRUE\r\n" + 
@@ -92,8 +152,13 @@ public class GetOrderInfoSum {
    		"group by storeid ,orderdate \r\n" + 
    		"UNION \r\n" + 
    		"select storeid,count(orderid) as TC ,  sum(merchantprice) as price,orderdate  from test.order_info \r\n" + 
-   		"where  trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'   \r\n" + 
-   		"and brandid in (26002055,26002056)\r\n" + 
+   		"where  trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"'\r\n" + 
+   		"and brandid =26002055\r\n" + 
+   		"group by storeid ,orderdate\r\n" + 
+   		"UNION \r\n" + 
+   		"select storeid,count(orderid) as TC ,  sum(merchantprice) as price,orderdate  from test.order_info \r\n" + 
+   		"where  trim(orderdate) >='"+first+"' and trim(orderdate) <='"+last+"' and fromtype =94\r\n" + 
+   		"and brandid =26002056\r\n" + 
    		"group by storeid ,orderdate";
    
    // System.out.println(checkEveryDay);
@@ -120,7 +185,8 @@ public class GetOrderInfoSum {
     public static void main(String[] args) throws Exception {
     	GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
 		getOrderInfo.init();
-		getOrderInfo.orderinfo();
+		//getOrderInfo.orderinfo();
+		getOrderInfo.orderinfoyb();
 		getOrderInfo.destory();
 	}
     

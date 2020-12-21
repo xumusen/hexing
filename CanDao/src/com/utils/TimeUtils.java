@@ -225,10 +225,7 @@ public class TimeUtils {
 		System.out.println(name);
 
 	}
-
-	public static void main(String[] args) throws UnsupportedEncodingException {
-		// TODO Auto-generated method stub
-
+	public static void postTest() {
 		/*
 		 * java中如何将string 转化成long 转自：https://www.cnblogs.com/feifeicui/p/8390604.html
 		 * 
@@ -373,7 +370,13 @@ public class TimeUtils {
 		
 		  long l = Long.valueOf("1604238827098").longValue();
 		  System.out.println(getTimeStamptoString(l));
-		 
+	}
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		// TODO Auto-generated method stub
+
+	
+		System.out.println( getFirstDay("MMdd"));
+		System.out.println( getYesterday("MMdd"));
 
 	}
 	

@@ -1,0 +1,7 @@
+协议类型：http
+相同内容群发地址：http://123.57.229.179:9090/sms/batch/v1
+一对一内容群发地址：http://123.57.229.179:9090/sms/distinct/v1
+余额查询地址：http://123.57.229.179:9090/sms/balance/v1
+appkey：35001
+appsecret：D82ZYs
+appcode：1000
