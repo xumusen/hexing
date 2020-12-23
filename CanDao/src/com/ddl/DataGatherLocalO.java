@@ -39,14 +39,14 @@ import com.entity.DiffSeitoSum;
 import com.entity.Ostore;
 import com.entity.Tstore;
 
-public class DataGatherLocal {
+public class DataGatherLocalO {
 	static ResourceBundle resource = ResourceBundle.getBundle("web");
 	private final static String URL = resource.getString("URL");
 	private static final String USER = resource.getString("USER");
 	private static final String PASSWORD = resource.getString("PASSWORD");
 	private final static String reportPath = resource.getString("reportPath");
 	private final static String stPath = resource.getString("stPath");
-	private final static String ybPath = resource.getString("ybPath");
+	private final static String oPath = resource.getString("oPath");
 	//private static final String path = "C://postxt";
 
 	private static Connection conn = null;
@@ -78,7 +78,7 @@ public class DataGatherLocal {
 
 	public static final String fieldLimitChar = ",";
 
-	public static final int fieldAllCount = 11;
+	public static final int fieldAllCount = 12;
 
 	private static int count;
 
@@ -86,19 +86,21 @@ public class DataGatherLocal {
 
 	private static String type;
 
+	private static String date;
+	
 	private static String mode;
 
-	private static String date;
+	private static String item_code;
 
-	private static String time;
-
-	private static String staff;
+	private static String price;
 
 	private static String disc;
 
-	private static String amt;
+	private static String coupon;
 
-	private static String reason;
+	private static String qty;
+	
+	private static String combo;
 
 	private static String tax;
 
@@ -110,7 +112,7 @@ public class DataGatherLocal {
 	 * 
 	 */
 
-	public void loadFile(String path) {
+	public void loadFileO(String path) {
 
 		try {
 
@@ -130,7 +132,7 @@ public class DataGatherLocal {
 				 * System.out.println("isSymbolicLink   = " + attr.isSymbolicLink());
 				 * System.out.println("size             = " + attr.size());
 				 */
-				if (file.isFile() && file.exists() && file.getName().substring(0, 1).equals("T")) {
+				if (file.isFile() && file.exists() && file.getName().substring(0, 1).equals("O")) {
 
 					RandomAccessFile raf = new RandomAccessFile(file.getAbsolutePath(), openFileStyle);
 					//System.out.println("file.getsolutepath" + file.getAbsolutePath());
@@ -141,7 +143,7 @@ public class DataGatherLocal {
 
 						// 解析每一条记录
 
-						parseRecord(line_record,file.getName());
+						parseRecordO(line_record,file.getName());
 						//System.out.println("file.getname  " +file.getName());
 
 						line_record = raf.readLine();
@@ -168,32 +170,33 @@ public class DataGatherLocal {
 		 */
 	}
 
-	public  void reloadFile(String begintime,String path,String pos) throws Exception {
-		if(pos.equals("2") ){
-			DataGather.getDq();
-		}if(pos.equals("1") ) {
-			DataGather.getSt();
+	
+
+	public  void reloadFileO(String begintime,String path,String pos) throws Exception {
+		if(pos.equals("3") ) {
+			DataGather.getDqO();
+			//System.out.println("已经读取了ftp的o表时间");
 		}
 		
 		
 	 	Statement stmt = conn.createStatement();
-    	List <DiffSeitoSum> list=new ArrayList<DiffSeitoSum>();
     	ResultSet rs = stmt.executeQuery("SELECT v.storeid, v.orderdate, v.ordertime, v.uploadtime,f.[filename],f.txttime\r\n" + 
-    			"  FROM v_validfile AS v LEFT JOIN filetime AS f ON f.storeid = v.storeid AND f.orderdate = v.orderdate AND f.ordertime = v.ordertime AND f.uploadtime = v.uploadtime \r\n" + 
+    			"  FROM v_validfileO AS v LEFT JOIN otime AS f ON f.storeid = v.storeid AND f.orderdate = v.orderdate AND f.ordertime = v.ordertime AND f.uploadtime = v.uploadtime \r\n" + 
     			"   WHERE f.txttime>'"+begintime+"'\r\n" + 
     			"ORDER BY txttime DESC");
     	
     	while(rs.next()) {
-    		Tstore.deleteT(rs.getString("storeid"), rs.getString("orderdate"));
-    		RandomAccessFile raf = new RandomAccessFile(path+"//"+rs.getString("filename"), openFileStyle);
+    		Ostore.deleteO(rs.getString("storeid"), rs.getString("orderdate"));
 
+    		RandomAccessFile raf = new RandomAccessFile(path+"//"+rs.getString("filename"), openFileStyle);
+  
 			String line_record = raf.readLine();
 
 			while (line_record != null) {
 
 				// 解析每一条记录
 
-				parseRecord(line_record,rs.getString("filename"));
+				parseRecordO(line_record,rs.getString("filename"));
 
 				line_record = raf.readLine();
 
@@ -206,9 +209,7 @@ public class DataGatherLocal {
 
 
 	}
-	
-
-	private void parseRecord(String line_record, String path) throws Exception {
+	private void parseRecordO(String line_record, String path) throws Exception {
 
 		// 拆分记录
 
@@ -220,49 +221,48 @@ public class DataGatherLocal {
 
 			type = tranStr(fields[1]);
 
-			mode = tranStr(fields[2]);
+			date = tranStr(fields[2]);
 
-			date = tranStr(fields[3]);
+			mode= tranStr(fields[3]);
 
-			time = tranStr(fields[4]);
+			item_code = tranStr(fields[4]);
 
-			staff = tranStr(fields[5]);
+			price = tranStr(fields[5]);
 
 			disc = tranStr(fields[6]);
 
-			amt = tranStr(fields[7]);
+			coupon = tranStr(fields[7]);
 
-			reason = tranStr(fields[8]);
+			qty = tranStr(fields[8]);
 
-			tax = tranStr(fields[9]);
+			combo = tranStr(fields[9]);
 
-			aftertax = tranStr(fields[10]);
+			tax = tranStr(fields[10]);
+			
+			aftertax = tranStr(fields[11]);
 
-			/*
-			 * System.out.println(ref + " " + type + " " + mode + " "
-			 * 
-			 * + date + " " + time + " " + staff + " " + disc
-			 * 
-			 * + " " + amt + " " + reason + " " + tax + " " + aftertax);
-			 */
+			
+			 // System.out.println(ref );
+			 
 
-			Tstore tstore = new Tstore();
+			Ostore tstore = new Ostore();
 			tstore.setStorename(path.substring(1, 9));
 			tstore.setUploadDatetime(path.substring(9, 21));
 			tstore.setRef(ref);
 			tstore.setType(type);
 			tstore.setMode(mode);
 			tstore.setDate(date);
-			tstore.setTime(time);
-			tstore.setStaff(staff);
+			tstore.setItem_code(item_code);
+			tstore.setPrice(price);
 			tstore.setDisc(disc);
-			tstore.setAmt(amt);
-			tstore.setReason(reason);
+			tstore.setCombo(coupon);
+			tstore.setQty(qty);
+			tstore.setCombo(combo);
 			tstore.setTax(tax);
 			tstore.setAftertax(aftertax);
 			tstore.setUploadDate(path.substring(9, 13) + "-" + path.substring(13, 15) + "-" + path.substring(15, 17));
 			tstore.setUploadTime(path.substring(17, 21));
-			Tstore.insertTstore(tstore);
+			Ostore.insertOstore(tstore);
 
 			count++;
 
@@ -288,11 +288,7 @@ public class DataGatherLocal {
 
 	}
 	
-	public static void reLoadFile(String begintime,String path,String stOrDq) throws Exception {
-		DataGatherLocal dataGatherLocal = new DataGatherLocal();
-		//dataGatherLocal.loadFile();
-		dataGatherLocal.reloadFile(begintime,path,"1");
-	}
+
 
 	public static void main(String[] args) throws Exception {
 
@@ -300,10 +296,10 @@ public class DataGatherLocal {
 		 * String name="TUF020020202007122330"; System.out.println(name.substring(1,9));
 		 * System.out.println(name.substring(17,21));
 		 */
-		DataGatherLocal dataGatherLocal = new DataGatherLocal();
+		DataGatherLocalO dataGatherLocal = new DataGatherLocalO();
 		//dataGatherLocal.loadFile();
 		//dataGatherLocal.reloadFile("2020-11-02 00:00:00",stPath);
-		dataGatherLocal.reloadFile("2020-12-23 00:00:00",ybPath,"2");
+		dataGatherLocal.reloadFileO("2020-12-23 00:00:00",oPath,"3");
 
 	}
 

@@ -64,7 +64,7 @@ public class GetOrderDiff {
 	}
 	
 	public static void getYbDiffDetail(String storeid,String orderdate) throws SQLException {
-		OrderDiff.truncateOrderDiff();
+
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("EXEC p_compare_single_pospal '"+storeid+"','"+orderdate+"'");
 		while(rs.next()) {
@@ -107,8 +107,8 @@ public class GetOrderDiff {
 		System.out.println("所有的门店异常记录都写入，执行完毕");
 	}
 	public static void getYborderdifff() throws SQLException {
-
 		OrderDiff.truncateOrderDiff();
+	
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
@@ -125,6 +125,7 @@ public class GetOrderDiff {
 
 	// 测试用例
 	public static void main(String[] args) throws Exception {
+	
 		getYborderdifff();
 	}
 

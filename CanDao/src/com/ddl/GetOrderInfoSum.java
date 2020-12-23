@@ -90,6 +90,7 @@ public class GetOrderInfoSum {
     		String first=TimeUtils.getFirstDay("yyyy-MM-dd");
     		String last=TimeUtils.getYesterday("yyyy-MM-dd");
     		// last="2020-12-18";
+    		System.out.println("银豹的销售数据");
 	        System.out.println("===============first:"+first);
 	        System.out.println("===============last:"+last);
        String checkEveryDay=

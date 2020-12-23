@@ -126,7 +126,8 @@ public class GetOdsOrder {
 		GetOdsOrder testhive = new GetOdsOrder();
 		testhive.init();
 		// testhive.getOdsOrder();
-		testhive.getOdsOrder("pospal", "20201220","2020-12-21 17:00:00");
+		testhive.getOdsOrder("pospal", "20201222","2020-12-22 14:00:00");
+		//testhive.getOdsOrder("YS451023", "20201212","2020-12-12 00:00:00");
 		testhive.destory();
 	}
 }
