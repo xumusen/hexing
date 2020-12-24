@@ -10,6 +10,7 @@ import java.util.Calendar;
 import com.entity.OrderInfo;
 import com.entity.OrderInfoDQ;
 import com.entity.OrderInfoSum;
+import com.entity.OrderInfoSumYb;
 import com.utils.TimeUtils;
 
 import net.sf.json.JSONObject;
@@ -85,10 +86,10 @@ public class GetOrderInfoSum {
     
 
     public void orderinfoyb() throws Exception {
-    	OrderInfoSum.truncateOrderInfoSum();
+    	OrderInfoSumYb.truncateOrderInfoSumYb();
     	
     		String first=TimeUtils.getFirstDay("yyyy-MM-dd");
-    		String last=TimeUtils.getYesterday("yyyy-MM-dd");
+    		String last=TimeUtils.getLastDay("yyyy-MM-dd");
     		// last="2020-12-18";
     		System.out.println("银豹的销售数据");
 	        System.out.println("===============first:"+first);
@@ -103,14 +104,14 @@ public class GetOrderInfoSum {
         //System.out.println("Running: " + sql);
         rs = stmt.executeQuery(checkEveryDay);
         while (rs.next()) {
-        	OrderInfoSum orderInfoSum=new OrderInfoSum();
-        	orderInfoSum.setStoreid(rs.getString("storeid"));
-        	orderInfoSum.setTC(rs.getInt("tc"));
-        	orderInfoSum.setPrice(rs.getFloat("price"));
-        	orderInfoSum.setOrderdate(rs.getString("orderdate"));
-        	OrderInfoSum.insertOrderInfoSum(orderInfoSum);
+        	OrderInfoSumYb orderInfoSumYb=new OrderInfoSumYb();
+        	orderInfoSumYb.setStoreid(rs.getString("storeid"));
+        	orderInfoSumYb.setTC(rs.getInt("tc"));
+        	orderInfoSumYb.setPrice(rs.getFloat("price"));
+        	orderInfoSumYb.setOrderdate(rs.getString("orderdate"));
+        	OrderInfoSumYb.insertOrderInfoSumYb(orderInfoSumYb);
         	}
-        System.out.println("当前月的销售数据已经写入了sqlserver，执行完毕");
+        System.out.println("当前月银豹的销售数据已经写入了sqlserver，执行完毕");
     }
     public void destory() throws Exception {
         if ( rs != null) {
@@ -180,6 +181,13 @@ public class GetOrderInfoSum {
     	GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
 		getOrderInfo.init();
 		getOrderInfo.orderinfo();
+		getOrderInfo.destory();
+    }
+    
+    public static void getorderinfoYb() throws Exception {
+    	GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
+		getOrderInfo.init();
+		getOrderInfo.orderinfoyb();
 		getOrderInfo.destory();
     }
     

@@ -126,7 +126,7 @@ public class GetHiveSingleStoreDetail {
 		System.out.println("大数据的DQ门店记录都写入完毕，执行完毕");
 	}
 	public static void  getYbOrderDetail() throws Exception{
-		OrderInfoDQ.truncateOrderInfoDq();
+		OrderInfoDQ.truncateOrderInfoYb();
 		//OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
@@ -147,6 +147,7 @@ public class GetHiveSingleStoreDetail {
 		
 		getNcrOrderDetail();
 		getSeitoOrderDetail();
+		getYbOrderDetail();
 	}
 
 	// 测试用例

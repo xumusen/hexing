@@ -564,7 +564,7 @@ public class DataGather {
 	
 
 public static  void getDq()  throws SocketException, IOException, ParseException, SQLException {
-	FileTime.truncatefiletime();
+	FileTime.truncatefiletimeYbT();
 	FTPClient ftpClient = new FTPClient();
 	ftpClient.connect("ftp.hophingfood.com", 21);
 	ftpClient.login("newdq", "newdq");//
@@ -598,7 +598,7 @@ public static  void getDq()  throws SocketException, IOException, ParseException
 					  DateFormat sdf1 =  new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
 					  fileTime.setTxttime(sdf1.format(uploadtime));
 					  fileTime.setFilename(file[i].getName());
-					  FileTime.insertFileTime(fileTime);
+					  FileTime.insertFileTimeYbT(fileTime);
 					 
 				       
 					/*

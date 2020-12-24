@@ -234,7 +234,7 @@ public class GetOrderInfoDq {
          	orderInfo.setTc("");
          	orderInfo.setPrice("");
          	//System.out.println(rs.getString("extorderid"));
-         	OrderInfoDQ.insertOrderInfoDQ(orderInfo);
+         	OrderInfoDQ.insertOrderInfoYb(orderInfo);
         	
         }
         

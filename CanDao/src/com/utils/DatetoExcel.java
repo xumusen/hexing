@@ -24,6 +24,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.entity.DiffNcrDetail;
 import com.entity.DiffNcrSum;
+import com.entity.DiffPospalDetail;
+import com.entity.DiffPospalSum;
 import com.entity.DiffSeitoDetail;
 import com.entity.DiffSeitoSum;
 
@@ -53,6 +55,28 @@ public class DatetoExcel {
 	public static Connection getConnection() {
 		return conn;
 	}
+
+    public static List<DiffPospalSum> getDiffPospalSum() throws SQLException{
+    	Statement stmt = conn.createStatement();
+    	List<DiffPospalSum> list=new ArrayList<DiffPospalSum>();
+    	ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+    	while(rs.next()) {
+    		DiffPospalSum diffPospalSum=new DiffPospalSum();
+    		diffPospalSum.setStore(rs.getString("store"));
+    		diffPospalSum.setUploaddate(rs.getString("uploaddate"));
+    		diffPospalSum.setYb_tc(rs.getString("yb_tc"));
+    		diffPospalSum.setYb_price(rs.getString("yb_price"));
+    		diffPospalSum.setStoreid(rs.getString("storeid"));
+    		diffPospalSum.setZt_tc(rs.getString("zt_tc"));
+    		diffPospalSum.setZt_price(rs.getString("zt_price"));
+    		diffPospalSum.setOrderdate(rs.getString("orderdate"));
+    		diffPospalSum.setTc差值(rs.getString("tc差值"));
+    		diffPospalSum.set实收差值(rs.getString("实收差值"));
+    		list.add(diffPospalSum);
+    	}
+    	return list;
+    }
+    
     public static List<DiffSeitoSum> getDiffSeitoSum() throws SQLException{
     	Statement stmt = conn.createStatement();
     	List<DiffSeitoSum> list=new ArrayList<DiffSeitoSum>();
@@ -123,6 +147,28 @@ public class DatetoExcel {
     	return list;
     }
     
+    public static List<DiffPospalDetail> getDiffPospalDetail() throws SQLException{
+    	Statement stmt = conn.createStatement();
+    	List<DiffPospalDetail> list=new ArrayList<DiffPospalDetail>();
+    	ResultSet rs = stmt.executeQuery("SELECT * FROM orderDiffYb");
+    	while(rs.next()) {
+    		DiffPospalDetail diffPospalDetail=new DiffPospalDetail();
+    		diffPospalDetail.setPosStore(rs.getString("PosStore"));
+    		diffPospalDetail.setPosUploaddatetime(rs.getString("PosUploaddatetime"));
+    		diffPospalDetail.setPosRef(rs.getString("PosRef"));
+    		diffPospalDetail.setPosAmt(rs.getString("PosAmt"));
+    		diffPospalDetail.setPosType(rs.getString("PosType"));
+    		diffPospalDetail.setZtStore(rs.getString("ZtStore"));
+    		diffPospalDetail.setZtBrandname(rs.getString("ZtBrandName"));
+    		diffPospalDetail.setZtOrderid(rs.getString("ZtOrderid"));
+    		diffPospalDetail.setZtThirdSn(rs.getString("ZtThirdSn"));
+    		diffPospalDetail.setZtMerchantPrice(rs.getString("ZtMerchantPrice"));
+    		diffPospalDetail.setZtExtorderid(rs.getString("ZtExtorderid"));
+    		diffPospalDetail.setZtorderdate(rs.getString("ZtOrderdate"));
+    		list.add(diffPospalDetail);
+    	}
+    	return list;
+    }
 
     public static List<DiffNcrDetail> getDiffNcrDetail() throws SQLException{
     	Statement stmt = conn.createStatement();
@@ -139,6 +185,117 @@ public class DatetoExcel {
     		list.add(diffNcrDetail);
     	}
     	return list;
+    }
+
+    public static void getPospalDiff(List<DiffPospalSum> list,List<DiffPospalDetail> list2){
+        //第一步：创建一个workbook对应一个Excel文件
+        HSSFWorkbook workbook=new HSSFWorkbook();
+        //第二部：在workbook中创建一个sheet对应Excel中的sheet
+        HSSFSheet sheet=workbook.createSheet("汇总");      
+        //第三部：在sheet表中添加表头第0行，老版本的poi对sheet的行列有限制
+        HSSFRow row=sheet.createRow(0);
+        //第四部：创建单元格，设置表头
+        HSSFCell cell=row.createCell((short) 0);
+        cell.setCellValue("store门店编码");
+        cell=row.createCell((short) 1);
+        cell.setCellValue("uploaddatePOS账单日期");
+        cell=row.createCell((short) 2);
+        cell.setCellValue("yb_tc银豹tc数");
+        cell=row.createCell((short) 3);
+        cell.setCellValue("yb_price商家实收");
+        cell=row.createCell((short) 4);
+        cell.setCellValue("disc优惠金额");
+        cell=row.createCell((short) 5);
+        cell.setCellValue("storeid中台门店编码");
+        cell=row.createCell((short) 6);
+        cell.setCellValue("zt_tc中台tc数");
+        cell=row.createCell((short) 7);
+        cell.setCellValue("zt_price中台商家实收");
+        cell=row.createCell((short) 8);
+        cell.setCellValue("zt_orderdate中台账单日期");
+        cell=row.createCell((short) 9);
+        cell.setCellValue("tc差值");
+        cell=row.createCell((short) 10);
+        cell.setCellValue("金额差值");
+
+        
+        HSSFSheet sheet1=workbook.createSheet("明细");
+        HSSFRow rowd=sheet1.createRow(0);
+        HSSFCell cell1=rowd.createCell((short) 0);
+        cell1.setCellValue("PosStore银豹门店编号");
+        cell1=rowd.createCell((short) 1);
+        cell1.setCellValue("PosUploaddatetime银豹账单日期");
+        cell1=rowd.createCell((short) 2);
+        cell1.setCellValue("PosRef银豹流水号");
+        cell1=rowd.createCell((short) 3);
+        cell1.setCellValue("PosAmt银豹实收");
+        cell1=rowd.createCell((short) 4);
+        cell1.setCellValue("PosType订单状态");
+        cell1=rowd.createCell((short) 5);
+        cell1.setCellValue("ZtStore中台门店编码");
+        cell1=rowd.createCell((short) 6);
+        cell1.setCellValue("ZtBrandName所属品牌");
+        cell1=rowd.createCell((short) 7);
+        cell1.setCellValue("ZtOrderid中台订单号");
+        cell1=rowd.createCell((short) 8);
+        cell1.setCellValue("ZtThirdSn中台流水号");
+        cell1=rowd.createCell((short) 9);
+        cell1.setCellValue("ZtMerchantPrice中台商家实收");
+        cell1=rowd.createCell((short) 10);
+        cell1.setCellValue("ZtExtorderid中台第三方订单ID");
+        cell1=rowd.createCell((short) 11);
+        cell1.setCellValue("ZtOrderdate中台账单日期");
+        //第五部：写入实体数据，实际应用中这些 数据从数据库得到，对象封装数据，集合包对象。对象的属性值对应表的每行的值
+        for(int i=0;i<list.size();i++){
+            HSSFRow row1=sheet.createRow(i+1);
+            DiffPospalSum diffPospalSum=list.get(i);
+            //创建单元格设值
+            row1.createCell((short)0).setCellValue(diffPospalSum.getStore());
+            row1.createCell((short)1).setCellValue(diffPospalSum.getUploaddate());
+            row1.createCell((short)2).setCellValue(diffPospalSum.getYb_tc());
+            row1.createCell((short)3).setCellValue(diffPospalSum.getYb_price());
+            row1.createCell((short)4).setCellValue(diffPospalSum.getDisc());
+            row1.createCell((short)5).setCellValue(diffPospalSum.getStoreid());
+            row1.createCell((short)6).setCellValue(diffPospalSum.getZt_tc());
+            row1.createCell((short)7).setCellValue(diffPospalSum.getZt_price());
+            row1.createCell((short)8).setCellValue(diffPospalSum.getOrderdate());
+            row1.createCell((short)9).setCellValue(diffPospalSum.getTc差值());
+            row1.createCell((short)10).setCellValue(diffPospalSum.get实收差值());
+        }
+        
+        for(int i=0;i<list2.size();i++){
+            HSSFRow row1=sheet1.createRow(i+1);
+            DiffPospalDetail diffPospalDetail=list2.get(i);
+            //创建单元格设值
+            row1.createCell((short)0).setCellValue(diffPospalDetail.getPosStore());
+            row1.createCell((short)1).setCellValue(diffPospalDetail.getPosUploaddatetime());
+            row1.createCell((short)2).setCellValue(diffPospalDetail.getPosRef());
+            row1.createCell((short)3).setCellValue(diffPospalDetail.getPosAmt());
+            row1.createCell((short)4).setCellValue(diffPospalDetail.getPosType());
+            row1.createCell((short)5).setCellValue(diffPospalDetail.getZtStore());
+            row1.createCell((short)6).setCellValue(diffPospalDetail.getZtBrandname());
+            row1.createCell((short)7).setCellValue(diffPospalDetail.getZtOrderid());
+            row1.createCell((short)8).setCellValue(diffPospalDetail.getZtThirdSn());
+            row1.createCell((short)9).setCellValue(diffPospalDetail.getZtMerchantPrice());
+            row1.createCell((short)10).setCellValue(diffPospalDetail.getZtExtorderid());
+            row1.createCell((short)11).setCellValue(diffPospalDetail.getZtorderdate());
+        }
+        //将文件保存到指定的位置
+        try {
+        	Timestamp ts = new Timestamp(System.currentTimeMillis());
+    		DateFormat sdf = new SimpleDateFormat("HHmmss");
+    		DateFormat dayf = new SimpleDateFormat("dd");
+    		String time = sdf.format(ts);
+    		String day=dayf.format(ts);
+            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"银豹差异-"+time+".xls");
+            workbook.write(fos);
+            System.out.println("银豹pos差异报告生成，执行完毕");
+            fos.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
     
     public static void getSeitoDiff(List<DiffSeitoSum> list,List<DiffSeitoDetail> list2){
@@ -403,14 +560,16 @@ public class DatetoExcel {
         createfiles(reportPath);
     	getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
     	getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
+    	getPospalDiff(getDiffPospalSum(), getDiffPospalDetail());
     }
     //测试
     public static void main(String[] args) throws SQLException {
       	File dir=new File(reportPath);
     		removeDir(dir);
             createfiles(reportPath);
-        	getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
-        	getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
+          //  getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
+        	//getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
+        	getPospalDiff(getDiffPospalSum(), getDiffPospalDetail());
     }
 
 }

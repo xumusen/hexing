@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 import com.entity.OrderDiff;
+import com.entity.OrderDiffYb;
 
 import net.sf.json.JSONObject;
 
@@ -68,7 +69,7 @@ public class GetOrderDiff {
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery("EXEC p_compare_single_pospal '"+storeid+"','"+orderdate+"'");
 		while(rs.next()) {
-			OrderDiff diff=new OrderDiff();
+			OrderDiffYb diff=new OrderDiffYb();
 			diff.setPosStore(rs.getString("store"));
 			diff.setPosUploaddatetime(rs.getString("uploaddate"));
 			diff.setPosRef(rs.getString("ref"));
@@ -81,7 +82,7 @@ public class GetOrderDiff {
 			diff.setZtMerchantPrice(rs.getString("merchantprice"));
 			diff.setZtExtorderid(rs.getString("extorderid"));
 			diff.setZtOrderdate(rs.getString("orderdate"));
-			OrderDiff.insertOrderDiff(diff);
+			OrderDiffYb.insertOrderDiffYb(diff);
 		}
 	}
 	public static void getorderdifff() throws SQLException {
@@ -107,7 +108,7 @@ public class GetOrderDiff {
 		System.out.println("所有的门店异常记录都写入，执行完毕");
 	}
 	public static void getYborderdifff() throws SQLException {
-		OrderDiff.truncateOrderDiff();
+		OrderDiffYb.truncateOrderDiffYb();
 	
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();

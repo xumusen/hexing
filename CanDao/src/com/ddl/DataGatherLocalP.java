@@ -289,7 +289,7 @@ public class DataGatherLocalP {
 		//dataGatherLocal.loadFile();
 		//dataGatherLocal.reloadFile("2020-11-02 00:00:00",stPath);
 		
-		dataGatherLocal.reloadFileP("2020-12-23 00:00:00",pPath,"4");
+		dataGatherLocal.reloadFileP("2020-12-24 00:00:00",pPath,"4");
 
 	}
 

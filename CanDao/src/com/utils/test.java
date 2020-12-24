@@ -33,6 +33,7 @@ public class test {
 		Timestamp ts =new Timestamp(System.currentTimeMillis());
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String nowday = sdf.format(ts);
+		System.out.println("nowday is "+TimeUtils.getYesterday("yyyy-MM-dd")+" 09:00:00");
 		String firstday;
 		SimpleDateFormat dayformat = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println(nowday.length());

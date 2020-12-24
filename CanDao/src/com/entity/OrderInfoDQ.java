@@ -365,6 +365,89 @@ public static void insertOrderInfoDQ(OrderInfoDQ orderinfo)throws SQLException{
      */
 }
 
+public static void insertOrderInfoYb(OrderInfoDQ orderinfo)throws SQLException{
+  
+    Connection conn=DBUtil.getConnection();
+   String sql="INSERT INTO  dbo . order_info_yb \r\n" + 
+   		"           ( storeid \r\n" + 
+   		"           , brandid \r\n" + 
+   		"           , brandname \r\n" + 
+   		"           , orderid \r\n" + 
+   		"           , thirdsn \r\n" + 
+   		"           , registeredamount \r\n" + 
+   		"           , iscustomordernopush \r\n" + 
+   		"           , realtimeproductprice \r\n" + 
+   		"           , mealfee \r\n" + 
+   		"           , deliveryfee \r\n" + 
+   		"           , fromtype \r\n" + 
+   		"           , merchantprice \r\n" + 
+   		"           , extorderid \r\n" + 
+   		"           , fromname \r\n" + 
+   		"           , flag \r\n" + 
+   		"           , provinceid \r\n" + 
+   		"           , provincename \r\n" + 
+   		"           , cityid \r\n" + 
+   		"           , cityname \r\n" + 
+   		"           , cdbrandid \r\n" + 
+   		"           , cdbrandname \r\n" + 
+   		"           , cdplatformkey \r\n" + 
+   		"           , cdplatformname \r\n" + 
+   		"           , paasstoreid \r\n" + 
+   		"           , cdstorename \r\n" + 
+   		"           , extstoreid \r\n" + 
+   		"           , extstorename \r\n" + 
+   		"           , orderdate \r\n" + 
+   		"           , tc \r\n" + 
+   		"           , price )\r\n" + 
+   		"     VALUES\r\n" + 
+   		"(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    PreparedStatement psmt = conn.prepareStatement(sql);
+    //先对应SQL语句，给SQL语句传递参数
+    psmt.setString(1,  orderinfo.getStoreid());
+    psmt.setFloat(2,  orderinfo.getBrandid());
+    psmt.setString(3,  orderinfo.getBrandname());
+    psmt.setString(4,  orderinfo.getOrderid());
+    psmt.setString(5,  orderinfo.getThirdsn());
+    psmt.setString(6,  orderinfo.getRegisteredamount());
+    psmt.setBoolean(7,  orderinfo.getIscustomordernopush());
+    psmt.setString(8,  orderinfo.getRealtimeproductprice());
+    psmt.setString(9,  orderinfo.getMealfee());
+    psmt.setString(10,  orderinfo.getDeliveryfee());
+    psmt.setString(11,  orderinfo.getFromtype());
+    psmt.setString(12,  orderinfo.getMerchantprice());
+    psmt.setString(13,  orderinfo.getExtorderid());
+    psmt.setString(14,  orderinfo.getFromname());
+    psmt.setString(15,  orderinfo.getFlag());
+    psmt.setString(16,  orderinfo.getProvinceid());
+    psmt.setString(17,  orderinfo.getProvincename());
+    psmt.setString(18,  orderinfo.getCityid());
+    psmt.setString(19,  orderinfo.getCityname());
+    psmt.setString(20,  orderinfo.getCdbrandid());
+    psmt.setString(21,  orderinfo.getCdbrandname());
+    psmt.setString(22,  orderinfo.getCdplatformkey());
+    psmt.setString(23,  orderinfo.getCdplatformname());
+    psmt.setString(24,  orderinfo.getPaasstoreid());
+    psmt.setString(25,  orderinfo.getCdstorename());
+    psmt.setString(26,  orderinfo.getExtstoreid());
+    psmt.setString(27,  orderinfo.getExtstorename());
+    psmt.setString(28,  orderinfo.getOrderdate());
+    psmt.setString(29,  orderinfo.getTc());
+    psmt.setString(30,  orderinfo.getPrice());
+  
+
+
+    //执行SQL语句
+    psmt.execute();
+    /**
+     * prepareStatement这个方法会将SQL语句加载到驱动程序conn集成程序中，但是并不直接执行
+     * 而是当它调用execute()方法的时候才真正执行；
+     * 
+     * 上面SQL中的参数用?表示，相当于占位符，然后在对参数进行赋值。
+     * 当真正执行时，这些参数会加载在SQL语句中，把SQL语句拼接完整才去执行。
+     * 这样就会减少对数据库的操作
+     */
+}
+
 public static int truncateOrderInfoDq()throws SQLException{
 	  
     Connection conn=DBUtil.getConnection();
@@ -374,6 +457,18 @@ public static int truncateOrderInfoDq()throws SQLException{
     int result=psmt.executeUpdate();
    // conn.close();
     System.out.println("order_info_dq 已经被清空了");
+    return result;
+}
+
+public static int truncateOrderInfoYb()throws SQLException{
+	  
+    Connection conn=DBUtil.getConnection();
+   String sql="TRUNCATE TABLE order_info_yb";
+    PreparedStatement psmt = conn.prepareStatement(sql);
+    //执行SQL语句
+    int result=psmt.executeUpdate();
+   // conn.close();
+    System.out.println("order_info_yb 已经被清空了");
     return result;
 }
 

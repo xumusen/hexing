@@ -208,6 +208,44 @@ public class DataGatherLocal {
 	}
 	
 
+	public  void reloadFileYb(String begintime,String path,String pos) throws Exception {
+	
+		DataGather.getDq();
+
+	 	Statement stmt = conn.createStatement();
+    	List <DiffSeitoSum> list=new ArrayList<DiffSeitoSum>();
+    	ResultSet rs = stmt.executeQuery("SELECT v.storeid, v.orderdate, v.ordertime, v.uploadtime,f.[filename],f.txttime\r\n" + 
+    			"  FROM v_validfileYbT AS v LEFT JOIN filetimeYbT AS f ON f.storeid = v.storeid AND f.orderdate = v.orderdate AND f.ordertime = v.ordertime AND f.uploadtime = v.uploadtime \r\n" + 
+    			"   WHERE f.txttime>'"+begintime+"'\r\n" + 
+    			"ORDER BY txttime DESC");
+    	
+    	while(rs.next()) {
+    		//System.out.println(rs.getString("storeid  ")+rs.getString("   orderdate"));
+    		Tstore.deleteT(rs.getString("storeid"), rs.getString("orderdate"));
+    		RandomAccessFile raf = new RandomAccessFile(path+"//"+rs.getString("filename"), openFileStyle);
+
+			String line_record = raf.readLine();
+
+			while (line_record != null) {
+
+				// 解析每一条记录
+
+				parseRecord(line_record,rs.getString("filename"));
+
+				line_record = raf.readLine();
+
+			}
+
+			System.out.println("共有合法的记录" + count + "条");
+
+    	}
+    	
+
+
+	}
+	
+	
+
 	private void parseRecord(String line_record, String path) throws Exception {
 
 		// 拆分记录
@@ -288,10 +326,11 @@ public class DataGatherLocal {
 
 	}
 	
-	public static void reLoadFile(String begintime,String path,String stOrDq) throws Exception {
+	public static void reLoadFile(String begintime) throws Exception {
 		DataGatherLocal dataGatherLocal = new DataGatherLocal();
 		//dataGatherLocal.loadFile();
-		dataGatherLocal.reloadFile(begintime,path,"1");
+		dataGatherLocal.reloadFile(begintime,stPath,"1");
+		dataGatherLocal.reloadFileYb(begintime,ybPath,"2");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -303,7 +342,7 @@ public class DataGatherLocal {
 		DataGatherLocal dataGatherLocal = new DataGatherLocal();
 		//dataGatherLocal.loadFile();
 		//dataGatherLocal.reloadFile("2020-11-02 00:00:00",stPath);
-		dataGatherLocal.reloadFile("2020-12-23 00:00:00",ybPath,"2");
+		dataGatherLocal.reloadFileYb("2020-12-24 00:00:00",ybPath,"2");
 
 	}
 
