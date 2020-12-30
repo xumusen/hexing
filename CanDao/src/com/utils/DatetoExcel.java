@@ -567,8 +567,8 @@ public class DatetoExcel {
       	File dir=new File(reportPath);
     		removeDir(dir);
             createfiles(reportPath);
-          //  getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
-        	//getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
+            getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
+        	getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
         	getPospalDiff(getDiffPospalSum(), getDiffPospalDetail());
     }
 

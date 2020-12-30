@@ -48,6 +48,7 @@ public class DataGatherLocalP {
 	private final static String reportPath = resource.getString("reportPath");
 	private final static String stPath = resource.getString("stPath");
 	private final static String pPath = resource.getString("pPath");
+	//private final static String stpPath = resource.getString("stpPath");
 	//private static final String path = "C://postxt";
 
 	private static Connection conn = null;
@@ -289,7 +290,7 @@ public class DataGatherLocalP {
 		//dataGatherLocal.loadFile();
 		//dataGatherLocal.reloadFile("2020-11-02 00:00:00",stPath);
 		
-		dataGatherLocal.reloadFileP("2020-12-24 00:00:00",pPath,"4");
+		dataGatherLocal.reloadFileP("2020-12-28 00:00:00",pPath,"4");
 
 	}
 

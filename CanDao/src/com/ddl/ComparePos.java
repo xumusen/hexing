@@ -19,7 +19,7 @@ public class ComparePos {
 		// TODO Auto-generated method stub
 		System.out.println("请确认好已经下载好世通和银豹的t表及导入了最新的ncr报表数据");
 		String begintime=TimeUtils.getYesterday("yyyy-MM-dd")+" 09:00:00";
-		DataGatherLocal.reLoadFile(begintime);
+		DataGatherLocal.reLoadFile("2020-12-30 09:00:00");
 		//DataGatherLocal.reLoadFile("2020-12-10 07:00:00",ybPath,"2");
 		/*删除t表*/
 		//Tstore.truncateT();//中午别执行
