@@ -27,8 +27,8 @@ public class ComparePos {
 		// TODO Auto-generated method stub
 		System.out.println("请确认好已经下载好世通和银豹的t表");
 		String begintime=TimeUtils.getYesterday("yyyy-MM-dd")+" 09:00:00";
-		DataGatherLocal.reLoadFile("2021-01-07 09:00:00");
-		//DataGatherLocal.reLoadFile(begintime);
+		//DataGatherLocal.reLoadFile("2021-01-07 09:00:00");
+		DataGatherLocal.reLoadFile(begintime);
 		//DataGatherLocal.reLoadFile("2020-12-10 07:00:00",ybPath,"2");
 		/*删除t表*/
 		//Tstore.truncateT();//中午别执行
@@ -44,6 +44,9 @@ public class ComparePos {
 		/*对比形成差异数据*/
 		GetOrderDiff.getorderdifff(first,last);
 		GetOrderDiff.getYborderdifff(first,last);
+		/*对比外卖和小程序差异数据*/
+		GetFooSum.getFooSum(first,last,"","22");
+		GetFooSum.getFooSum(first,last,"","06");
 		/*生成excel报表*/
 		DatetoExcel.datetoexcel(first,last);
 		/*发送邮件*/

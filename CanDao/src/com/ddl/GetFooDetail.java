@@ -14,7 +14,7 @@ import net.sf.json.JSONObject;
 public class GetFooDetail {
 	
 	
-	public static void getFooDetail(String storeid,String orderdate) {
+	public static void getFooDetail(String storeid,String orderdate,String station) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("Success loading Mysql Driver!");
@@ -31,12 +31,23 @@ public class GetFooDetail {
 			System.out.println("Success connect Mysql server!");
 			Statement stmt = connect.createStatement();
 			stmt.setFetchSize(Integer.MIN_VALUE);
-			ResultSet rs = stmt.executeQuery("SELECT uniteStoreId AS storeid,extOrderId, originalPrice/100 AS originalPrice,merchantBearPrice/100 AS merchantBearPrice,billDate,(originalPrice-merchantBearPrice)/100 AS caculateMerchanPrice FROM orderdetail\r\n" + 
-					"WHERE billDate='"+orderdate+"' \r\n" + 
-					"AND uniteStoreId='"+storeid+"'\r\n" + 
-					"AND orderStatus=100\r\n" + 
-					"AND isCustomOrderNoPush=0\r\n" + 
-					"ORDER BY uniteStoreId,billDate");
+			String sql="";
+			if (station.equals("06")) 
+				sql="SELECT uniteStoreId AS storeid,extOrderId, originalPrice/100 AS originalPrice,merchantBearPrice/100 AS merchantBearPrice,billDate,(originalPrice-merchantBearPrice)/100 AS caculateMerchanPrice FROM orderdetail\r\n" + 
+						"WHERE billDate='"+orderdate+"' \r\n" + 
+						"AND uniteStoreId='"+storeid+"'\r\n" + 
+						"AND orderStatus=100\r\n" + 
+						"AND isCustomOrderNoPush=0\r\n" + 
+						"ORDER BY uniteStoreId,billDate";
+			if (station.equals("22"))
+				sql="SELECT uniteStoreId AS storeid,extOrderId, originalPrice/100 AS originalPrice,merchantBearPrice/100 AS merchantBearPrice,billDate,(originalPrice-merchantBearPrice)/100 AS caculateMerchanPrice \r\n" + 
+						"FROM orderdetail\r\n" + 
+						"WHERE billDate='"+orderdate+"'\r\n" + 
+						"AND orderStatus=100\r\n" + 
+						"AND isCustomOrderNoPush=1\r\n" + 
+						"AND fromType=180\r\n" + 
+						"AND uniteStoreId='"+storeid+"'";
+			ResultSet rs = stmt.executeQuery(sql);
 			
 			while (rs.next()) {
 				OrderFoo orderfoo=new OrderFoo();
@@ -58,7 +69,7 @@ public class GetFooDetail {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		getFooDetail("YS010199","2020-12-19");
+		getFooDetail("YS010199","2020-12-19","006");//获取外卖订单明细
 		
 	}
 

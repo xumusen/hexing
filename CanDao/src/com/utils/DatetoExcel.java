@@ -27,6 +27,7 @@ import com.entity.DiffNcrSum;
 import com.entity.DiffPospalDetail;
 import com.entity.DiffPospalSum;
 import com.entity.DiffSeitoDetail;
+import com.entity.DiffSeitoFoo;
 import com.entity.DiffSeitoSum;
 
 public class DatetoExcel {
@@ -55,7 +56,28 @@ public class DatetoExcel {
 	public static Connection getConnection() {
 		return conn;
 	}
-
+    public static List<DiffSeitoFoo> getDiff0206Sum(String first,String last) throws SQLException{
+    	Statement stmt = conn.createStatement();
+    	List<DiffSeitoFoo> list=new ArrayList<DiffSeitoFoo>();
+    	String sql="SELECT * FROM  v_compare_0622";
+		ResultSet rs = stmt.executeQuery(sql);
+ 
+    	while(rs.next()) {
+    		DiffSeitoFoo diffSeitoFoo=new DiffSeitoFoo();
+    		diffSeitoFoo.setStation(rs.getString("station"));
+    		diffSeitoFoo.setStoreid(rs.getString("storeid"));
+    		diffSeitoFoo.set分店(rs.getString("分店"));
+    		diffSeitoFoo.setTc(rs.getString("tc"));
+    		diffSeitoFoo.setPrice(rs.getString("price"));
+    		diffSeitoFoo.setOrderdate(rs.getString("orderdate"));
+    		diffSeitoFoo.setPOS_TC(rs.getString("POS_TC"));
+    		diffSeitoFoo.setPOS实收金额(rs.getString("POS实收金额"));
+    		diffSeitoFoo.setTc差值(rs.getString("tc差值"));
+    		diffSeitoFoo.set金额差值(rs.getString("金额差值"));
+    		list.add(diffSeitoFoo);
+    	}
+    	return list;
+    }
     public static List<DiffPospalSum> getDiffPospalSum(String first,String last) throws SQLException{
     	Statement stmt = conn.createStatement();
     	List<DiffPospalSum> list=new ArrayList<DiffPospalSum>();
@@ -502,6 +524,71 @@ public class DatetoExcel {
 
     }
 
+    public static void get0206Diff(List<DiffSeitoFoo> list,String first,String last){
+        //第一步：创建一个workbook对应一个Excel文件
+        HSSFWorkbook workbook=new HSSFWorkbook();
+        //第二部：在workbook中创建一个sheet对应Excel中的sheet
+        HSSFSheet sheet=workbook.createSheet("汇总");      
+        //第三部：在sheet表中添加表头第0行，老版本的poi对sheet的行列有限制
+        HSSFRow row=sheet.createRow(0);
+        //第四部：创建单元格，设置表头
+        HSSFCell cell=row.createCell((short) 0);
+        cell.setCellValue("station");
+        cell=row.createCell((short) 1);
+        cell.setCellValue("storeid");
+        cell=row.createCell((short) 2);
+        cell.setCellValue("分店");
+        cell=row.createCell((short) 3);
+        cell.setCellValue("中台tc");
+        cell=row.createCell((short) 4);
+        cell.setCellValue("中台price");
+        cell=row.createCell((short) 5);
+        cell.setCellValue("orderdate");
+        cell=row.createCell((short) 6);
+        cell.setCellValue("POS_TC");
+        cell=row.createCell((short) 7);
+        cell.setCellValue("POS实收金额");
+        cell=row.createCell((short) 8);
+        cell.setCellValue("tc差值");
+        cell=row.createCell((short) 9);
+        cell.setCellValue("金额差值");
+ 
+
+        
+        //第五部：写入实体数据，实际应用中这些 数据从数据库得到，对象封装数据，集合包对象。对象的属性值对应表的每行的值
+        for(int i=0;i<list.size();i++){
+            HSSFRow row1=sheet.createRow(i+1);
+            DiffSeitoFoo diffSeitoFoo=list.get(i);
+            //创建单元格设值
+            row1.createCell((short)0).setCellValue(diffSeitoFoo.getStation());
+            row1.createCell((short)1).setCellValue(diffSeitoFoo.getStoreid());
+            row1.createCell((short)2).setCellValue(diffSeitoFoo.get分店());
+            row1.createCell((short)3).setCellValue(diffSeitoFoo.getTc());
+            row1.createCell((short)4).setCellValue(diffSeitoFoo.getPrice());
+            row1.createCell((short)5).setCellValue(diffSeitoFoo.getOrderdate());
+            row1.createCell((short)6).setCellValue(diffSeitoFoo.getPOS_TC());
+            row1.createCell((short)7).setCellValue(diffSeitoFoo.getPOS实收金额());
+            row1.createCell((short)8).setCellValue(diffSeitoFoo.getTc差值());
+            row1.createCell((short)9).setCellValue(diffSeitoFoo.get金额差值());
+        }
+        
+      
+        //将文件保存到指定的位置
+        try {
+        	Timestamp ts = new Timestamp(System.currentTimeMillis());
+    		DateFormat sdf = new SimpleDateFormat("HHmmss");
+    		String time = sdf.format(ts);
+            //FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"DQ差异-"+time+".xls");
+    		FileOutputStream fos=new FileOutputStream(reportPath+"//"+first+"-"+last+"外卖与小程序堂食差异-"+time+".xls");
+            workbook.write(fos);
+            System.out.println("0206差异报告生成，执行完毕");
+            fos.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 
 	private static void removeDir(File dir) {
 		File[] files=dir.listFiles();
@@ -572,6 +659,7 @@ public class DatetoExcel {
     	//getNcrDiff(getDiffNcrSum(first,last),getDiffNcrDetail(),first,last);
     	getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
     	getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
+    	get0206Diff(getDiff0206Sum(first, last), first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
     }
     //测试
     public static void main(String[] args) throws SQLException {
@@ -585,8 +673,10 @@ public class DatetoExcel {
    		 	String lastpatten=yesterday.substring(5, 7)+yesterday.substring(8, 10);
         	//getNcrDiff(getDiffNcrSum(first,last),getDiffNcrDetail(),firstpatten,lastpatten);
         	//getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
-        	getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),firstpatten,lastpatten);
-        	getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
+        	
+   		 	//getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),firstpatten,lastpatten);
+        	//getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
+   		 	get0206Diff(getDiff0206Sum(first, last), firstpatten, lastpatten);
     }
 
 }

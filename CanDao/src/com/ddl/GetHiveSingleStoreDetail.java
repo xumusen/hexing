@@ -111,18 +111,47 @@ public class GetHiveSingleStoreDetail {
 		System.out.println("大数据的吉野家门店记录都写入完毕，执行完毕");
 	}
 	
-	public static void  getFooOrderDetail(String first,String last) throws Exception{
-
+	public static void  getFooOrderDetail(String first,String last,String station) throws Exception{
+		//以下代码都不对
 		Statement stmt = conn.createStatement();
-		String sql="EXEC p_compare_seito_foo '"+first+"','"+last+"'";
+		String sql="";
+		if(station.equals("06")) {
+			sql="EXEC p_compare_seito_foo '"+first+"','"+last+"'";
+			ResultSet rs=stmt.executeQuery(sql);
+			while (rs.next()) {
+				String storeid=rs.getString("storeid");
+				String orderdate=rs.getString("orderdate");
+				GetFooDetail.getFooDetail(storeid, orderdate,"006");	
+			}
+			System.out.println("FOO的外卖订单已经写入明细表，执行完毕");
+		}if(station.equals("22")){
+			sql="EXEC p_compare_seito_xiucan '"+first+"','"+last+"'";
+			ResultSet rs=stmt.executeQuery(sql);
+			while (rs.next()) {
+				String storeid=rs.getString("storeid");
+				String orderdate=rs.getString("orderdate");
+				GetFooDetail.getFooDetail(storeid, orderdate,"022");	
+			}
+			System.out.println("FOO的小程序堂食订单已经写入明细表，执行完毕");
+		}
+		
+	}
+	
+	
+	public static void  compare0622towrite() throws Exception{
+		
+		Statement stmt = conn.createStatement();
+		String sql="SELECT * FROM  v_compare_0622";
 		ResultSet rs=stmt.executeQuery(sql);
 		while (rs.next()) {
+			String station=rs.getString("station");
 			String storeid=rs.getString("storeid");
 			String orderdate=rs.getString("orderdate");
-			GetFooDetail.getFooDetail(storeid, orderdate);	
+			GetFooDetail.getFooDetail(storeid, orderdate,station);	
 		}
-		System.out.println("FOO的外卖订单已经写入明细表，执行完毕");
+		System.out.println("FOO的小程序堂食和外卖订单已经写入明细表，执行完毕");
 	}
+	
 	
 	public static void  getFooXiuCanOrderDetail(String first,String last) throws Exception{
 
@@ -132,7 +161,7 @@ public class GetHiveSingleStoreDetail {
 		while (rs.next()) {
 			String storeid=rs.getString("storeid");
 			String orderdate=rs.getString("orderdate");
-			GetFooDetail.getFooDetail(storeid, orderdate);	
+			GetFooDetail.getFooDetail(storeid, orderdate,"022");	
 		}
 		System.out.println("FOO的小程序堂食订单已经写入明细表，执行完毕");
 	}
@@ -188,8 +217,7 @@ public class GetHiveSingleStoreDetail {
 	public static void main(String[] args) throws Exception {
 		
 		//getYbOrderDetail("2020-12-01","2020-12-31");
-		getFooOrderDetail("2021-01-01","2021-01-11");  //对比中台外卖订单
-		//getFooXiuCanOrderDetail("2021-01-01", "2021-01-11");  //对比中台小程序订单
+		compare0622towrite() ;
 	}
 
 }
