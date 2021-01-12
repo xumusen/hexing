@@ -34,13 +34,15 @@ public class GetOrderInfoSum {
         return stmt;
     }
     
-    public void orderinfo() throws Exception {
+    public void orderinfo(String first,String last) throws Exception {
     	OrderInfoSum.truncateOrderInfoSum();
     	
-    		String first=TimeUtils.getFirstDay("yyyy-MM-dd");
-    		String last=TimeUtils.getLastDay("yyyy-MM-dd");
+    		// first=TimeUtils.getFirstDay("yyyy-MM-dd");
+    		 //last=TimeUtils.getLastDay("yyyy-MM-dd");
 	        System.out.println("===============first:"+first);
 	        System.out.println("===============last:"+last);
+	        //first="2020-12-01";
+	        //last="2020-12-31";
 		/*
 		 * String
 		 * checkEveryDay="select storeid,count(orderid) as TC , sum(merchantprice) as price,orderdate  from test.order_info \r\n"
@@ -85,12 +87,14 @@ public class GetOrderInfoSum {
     }
     
 
-    public void orderinfoyb() throws Exception {
+    public void orderinfoyb(String first,String last) throws Exception {
     	OrderInfoSumYb.truncateOrderInfoSumYb();
     	
-    		String first=TimeUtils.getFirstDay("yyyy-MM-dd");
-    		String last=TimeUtils.getLastDay("yyyy-MM-dd");
+    		//String first=TimeUtils.getFirstDay("yyyy-MM-dd");
+    		//String last=TimeUtils.getLastDay("yyyy-MM-dd");
     		// last="2020-12-18";
+    	    //first="2020-12-01";
+	        //last="2020-12-31";
     		System.out.println("银豹的销售数据");
 	        System.out.println("===============first:"+first);
 	        System.out.println("===============last:"+last);
@@ -177,25 +181,25 @@ public class GetOrderInfoSum {
     System.out.println("当前月的销售数据已经写入了sqlserver，执行完毕");
 		getOrderInfo.destory();
     }
-    public static void getorderinfo() throws Exception {
+    public static void getorderinfo(String first,String last) throws Exception {
     	GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
 		getOrderInfo.init();
-		getOrderInfo.orderinfo();
+		getOrderInfo.orderinfo( first, last);
 		getOrderInfo.destory();
     }
     
-    public static void getorderinfoYb() throws Exception {
+    public static void getorderinfoYb(String first,String last) throws Exception {
     	GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
 		getOrderInfo.init();
-		getOrderInfo.orderinfoyb();
+		getOrderInfo.orderinfoyb(first,last);
 		getOrderInfo.destory();
     }
     
     public static void main(String[] args) throws Exception {
     	GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
 		getOrderInfo.init();
-		//getOrderInfo.orderinfo();
-		getOrderInfo.orderinfoyb();
+		getOrderInfo.orderinfo("2020-12-01","2020-12-31");
+		//getOrderInfo.orderinfoyb(TimeUtils.getFirstDay("yyyy-MM-dd"),TimeUtils.getFirstDay("yyyy-MM-dd"));
 		getOrderInfo.destory();
 	}
     

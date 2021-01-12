@@ -174,6 +174,11 @@ public class DataGatherLocalP {
 			//System.out.println("已经读取了ftp的P表时间");
 		}
 		
+		if(pos.equals("1") ) {
+			DataGather.getStP();
+			//System.out.println("已经读取了ftp的P表时间");
+		}
+		
 		
 	 	Statement stmt = conn.createStatement();
     	ResultSet rs = stmt.executeQuery("SELECT v.storeid, v.orderdate, v.ordertime, v.uploadtime,f.[filename],f.txttime\r\n" + 
@@ -290,7 +295,8 @@ public class DataGatherLocalP {
 		//dataGatherLocal.loadFile();
 		//dataGatherLocal.reloadFile("2020-11-02 00:00:00",stPath);
 		
-		dataGatherLocal.reloadFileP("2020-12-28 00:00:00",pPath,"4");
+		dataGatherLocal.reloadFileP("2020-12-29 00:00:00",pPath,"4"); //银豹
+		//dataGatherLocal.reloadFileP("2020-12-01 00:00:00",pPath,"1"); //世通
 
 	}
 

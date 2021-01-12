@@ -56,10 +56,13 @@ public class DatetoExcel {
 		return conn;
 	}
 
-    public static List<DiffPospalSum> getDiffPospalSum() throws SQLException{
+    public static List<DiffPospalSum> getDiffPospalSum(String first,String last) throws SQLException{
     	Statement stmt = conn.createStatement();
     	List<DiffPospalSum> list=new ArrayList<DiffPospalSum>();
-    	ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+       	//ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+    	String sql=" EXEC [p_compare_pospol] '"+first+"','"+last+"'";
+		ResultSet rs = stmt.executeQuery(sql);
+ 
     	while(rs.next()) {
     		DiffPospalSum diffPospalSum=new DiffPospalSum();
     		diffPospalSum.setStore(rs.getString("store"));
@@ -77,16 +80,19 @@ public class DatetoExcel {
     	return list;
     }
     
-    public static List<DiffSeitoSum> getDiffSeitoSum() throws SQLException{
+    public static List<DiffSeitoSum> getDiffSeitoSum(String first,String last) throws SQLException{
     	Statement stmt = conn.createStatement();
     	List<DiffSeitoSum> list=new ArrayList<DiffSeitoSum>();
-    	ResultSet rs = stmt.executeQuery("SELECT ss.分店,cs.* FROM v_compare_sum AS cs\r\n" + 
-				"LEFT JOIN seitoStore AS ss ON cs.storeid=ss.内部编号\r\n" + 
-				"WHERE\r\n" + 
-				"((cs.storeid NOT LIKE 'D%' ) OR cs.storeid IS NULL)\r\n" + 
-				"AND \r\n" + 
-				"(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)\r\n" + 
-				"ORDER BY cs.orderdate ASC");
+		String sql="EXEC p_compare_seito '"+first+"','"+last+"'";
+		ResultSet rs=stmt.executeQuery(sql);
+		/*
+		 * ResultSet rs =
+		 * stmt.executeQuery("SELECT ss.分店,cs.* FROM v_compare_sum AS cs\r\n" +
+		 * "LEFT JOIN seitoStore AS ss ON cs.storeid=ss.内部编号\r\n" + "WHERE\r\n" +
+		 * "((cs.storeid NOT LIKE 'D%' ) OR cs.storeid IS NULL)\r\n" + "AND \r\n" +
+		 * "(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)\r\n"
+		 * + "ORDER BY cs.orderdate ASC");
+		 */
     	while(rs.next()) {
     		DiffSeitoSum diffSeitoSum=new DiffSeitoSum();
     		diffSeitoSum.set分店(rs.getString("分店"));
@@ -105,11 +111,13 @@ public class DatetoExcel {
     	return list;
     }
     
-    public static List<DiffNcrSum> getDiffNcrSum() throws SQLException{
+    public static List<DiffNcrSum> getDiffNcrSum(String first,String last) throws SQLException{
     	Statement stmt = conn.createStatement();
     	List<DiffNcrSum> list=new ArrayList<DiffNcrSum>();
     	//ResultSet rs = stmt.executeQuery("SELECT * FROM diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
-    	ResultSet rs = stmt.executeQuery("SELECT * FROM v_diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
+    	//ResultSet rs = stmt.executeQuery("SELECT * FROM v_diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
+    	String sql="exec p_compare_ncr '"+first+"','"+last+"' ";
+		ResultSet rs=stmt.executeQuery(sql);
     	while(rs.next()) {
     		DiffNcrSum diffNcrSum=new DiffNcrSum();
     		diffNcrSum.setDQstoreid(rs.getString("DQstoreid"));
@@ -187,7 +195,7 @@ public class DatetoExcel {
     	return list;
     }
 
-    public static void getPospalDiff(List<DiffPospalSum> list,List<DiffPospalDetail> list2){
+    public static void getPospalDiff(List<DiffPospalSum> list,List<DiffPospalDetail> list2,String first,String last){
         //第一步：创建一个workbook对应一个Excel文件
         HSSFWorkbook workbook=new HSSFWorkbook();
         //第二部：在workbook中创建一个sheet对应Excel中的sheet
@@ -287,7 +295,8 @@ public class DatetoExcel {
     		DateFormat dayf = new SimpleDateFormat("dd");
     		String time = sdf.format(ts);
     		String day=dayf.format(ts);
-            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"银豹差异-"+time+".xls");
+            //FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"银豹差异-"+time+".xls");
+    		 FileOutputStream fos=new FileOutputStream(reportPath+"//"+first+"-"+last+"银豹差异-"+time+".xls");
             workbook.write(fos);
             System.out.println("银豹pos差异报告生成，执行完毕");
             fos.close();
@@ -298,7 +307,7 @@ public class DatetoExcel {
 
     }
     
-    public static void getSeitoDiff(List<DiffSeitoSum> list,List<DiffSeitoDetail> list2){
+    public static void getSeitoDiff(List<DiffSeitoSum> list,List<DiffSeitoDetail> list2,String first,String last){
         //第一步：创建一个workbook对应一个Excel文件
         HSSFWorkbook workbook=new HSSFWorkbook();
         //第二部：在workbook中创建一个sheet对应Excel中的sheet
@@ -398,7 +407,8 @@ public class DatetoExcel {
     		DateFormat dayf = new SimpleDateFormat("dd");
     		String time = sdf.format(ts);
     		String day=dayf.format(ts);
-            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"吉野家差异-"+time+".xls");
+           // FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"吉野家差异-"+time+".xls");
+    	    FileOutputStream fos=new FileOutputStream(reportPath+"//"+first+"-"+last+"吉野家差异-"+time+".xls");
             workbook.write(fos);
             System.out.println("吉野家差异报告生成，执行完毕");
             fos.close();
@@ -410,7 +420,7 @@ public class DatetoExcel {
     }
     
 
-    public static void getNcrDiff(List<DiffNcrSum> list,List<DiffNcrDetail> list2){
+    public static void getNcrDiff(List<DiffNcrSum> list,List<DiffNcrDetail> list2,String first,String last){
         //第一步：创建一个workbook对应一个Excel文件
         HSSFWorkbook workbook=new HSSFWorkbook();
         //第二部：在workbook中创建一个sheet对应Excel中的sheet
@@ -480,7 +490,8 @@ public class DatetoExcel {
         	Timestamp ts = new Timestamp(System.currentTimeMillis());
     		DateFormat sdf = new SimpleDateFormat("HHmmss");
     		String time = sdf.format(ts);
-            FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"DQ差异-"+time+".xls");
+            //FileOutputStream fos=new FileOutputStream(reportPath+"//"+TimeUtils.getFirstDay("MMdd")+"-"+TimeUtils.getYesterday("MMdd")+"DQ差异-"+time+".xls");
+    		FileOutputStream fos=new FileOutputStream(reportPath+"//"+first+"-"+last+"DQ差异-"+time+".xls");
             workbook.write(fos);
             System.out.println("DQ差异报告生成，执行完毕");
             fos.close();
@@ -554,22 +565,28 @@ public class DatetoExcel {
               dir.mkdirs();
           }
     }
-    public static void datetoexcel() throws SQLException {
+    public static void datetoexcel(String first,String last) throws SQLException {
     	File dir=new File(reportPath);
 		removeDir(dir);
         createfiles(reportPath);
-    	getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
-    	getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
-    	getPospalDiff(getDiffPospalSum(), getDiffPospalDetail());
+    	//getNcrDiff(getDiffNcrSum(first,last),getDiffNcrDetail(),first,last);
+    	getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
+    	getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
     }
     //测试
     public static void main(String[] args) throws SQLException {
       	File dir=new File(reportPath);
     		removeDir(dir);
             createfiles(reportPath);
-            getNcrDiff(getDiffNcrSum(),getDiffNcrDetail());
-        	getSeitoDiff(getDiffSeitoSum(),getDiffSeitoDetail());
-        	getPospalDiff(getDiffPospalSum(), getDiffPospalDetail());
+            String first=TimeUtils.getFirstDay("yyyy-MM-dd");
+   		 	String last=TimeUtils.getYesterday("yyyy-MM-dd");
+   		 	String yesterday=TimeUtils.getYesterday("yyyy-MM-dd");
+   		 	String firstpatten=first.substring(5, 7)+first.substring(8, 10);
+   		 	String lastpatten=yesterday.substring(5, 7)+yesterday.substring(8, 10);
+        	//getNcrDiff(getDiffNcrSum(first,last),getDiffNcrDetail(),firstpatten,lastpatten);
+        	//getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
+        	getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),firstpatten,lastpatten);
+        	getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
     }
 
 }

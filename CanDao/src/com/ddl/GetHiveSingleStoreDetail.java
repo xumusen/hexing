@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 
 import com.entity.OrderDiff;
+import com.entity.OrderFoo;
 import com.entity.OrderInfo;
 import com.entity.OrderInfoDQ;
 import com.entity.OrderInfoSum;
@@ -81,22 +82,25 @@ public class GetHiveSingleStoreDetail {
 		return conn;
 	}
 	
-	public static void  getSeitoOrderDetail() throws Exception{
+	public static void  getSeitoOrderDetail(String first,String last) throws Exception{
 		OrderInfo.truncateOrderInfo();
 		OrderDiff.truncateOrderDiff();
 		//DataGather.getSt();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT ss.分店,cs.* FROM v_compare_sum AS cs\r\n" + 
-				"LEFT JOIN seitoStore AS ss ON cs.storeid=ss.内部编号\r\n" + 
-				"WHERE\r\n" + 
-				"((cs.storeid NOT LIKE 'D%' ) OR cs.storeid IS NULL)\r\n" + 
-				"AND \r\n" + 
-				"(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)\r\n" + 
-				"ORDER BY cs.orderdate ASC");
+		/*
+		 * ResultSet rs =
+		 * stmt.executeQuery("SELECT ss.分店,cs.* FROM v_compare_sum AS cs\r\n" +
+		 * "LEFT JOIN seitoStore AS ss ON cs.storeid=ss.内部编号\r\n" + "WHERE\r\n" +
+		 * "((cs.storeid NOT LIKE 'D%' ) OR cs.storeid IS NULL)\r\n" + "AND \r\n" +
+		 * "(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)\r\n"
+		 * + "ORDER BY cs.orderdate ASC");
+		 */
+		String sql="EXEC p_compare_seito '"+first+"','"+last+"'";
+		ResultSet rs=stmt.executeQuery(sql);
+		
 		while (rs.next()) {
-			// System.out.println(rs.getString("req"));
-			// Test.postDineorder(rs.getString("req"));
+
 			String storeid = rs.getString("storeid");
 			String orderdate=rs.getString("orderdate");
 			System.out.println(storeid+" "+orderdate);
@@ -107,12 +111,40 @@ public class GetHiveSingleStoreDetail {
 		System.out.println("大数据的吉野家门店记录都写入完毕，执行完毕");
 	}
 	
-	public static void  getNcrOrderDetail() throws Exception{
+	public static void  getFooOrderDetail(String first,String last) throws Exception{
+
+		Statement stmt = conn.createStatement();
+		String sql="EXEC p_compare_seito_foo '"+first+"','"+last+"'";
+		ResultSet rs=stmt.executeQuery(sql);
+		while (rs.next()) {
+			String storeid=rs.getString("storeid");
+			String orderdate=rs.getString("orderdate");
+			GetFooDetail.getFooDetail(storeid, orderdate);	
+		}
+		System.out.println("FOO的外卖订单已经写入明细表，执行完毕");
+	}
+	
+	public static void  getFooXiuCanOrderDetail(String first,String last) throws Exception{
+
+		Statement stmt = conn.createStatement();
+		String sql="EXEC p_compare_seito_xiucan '"+first+"','"+last+"'";
+		ResultSet rs=stmt.executeQuery(sql);
+		while (rs.next()) {
+			String storeid=rs.getString("storeid");
+			String orderdate=rs.getString("orderdate");
+			GetFooDetail.getFooDetail(storeid, orderdate);	
+		}
+		System.out.println("FOO的小程序堂食订单已经写入明细表，执行完毕");
+	}
+	
+	public static void  getNcrOrderDetail(String first,String last) throws Exception{
 		OrderInfoDQ.truncateOrderInfoDq();
 		//OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM v_diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
+		//ResultSet rs = stmt.executeQuery("SELECT * FROM v_diffdq AS d ORDER BY d.DQorderdate,d.DQstoreid ");
+		String sql="exec p_compare_ncr '"+first+"','"+last+"' ";
+		ResultSet rs=stmt.executeQuery(sql);
 		while (rs.next()) {
 			// System.out.println(rs.getString("req"));
 			// Test.postDineorder(rs.getString("req"));
@@ -125,12 +157,14 @@ public class GetHiveSingleStoreDetail {
 		}
 		System.out.println("大数据的DQ门店记录都写入完毕，执行完毕");
 	}
-	public static void  getYbOrderDetail() throws Exception{
+	public static void  getYbOrderDetail(String first,String last) throws Exception{
 		OrderInfoDQ.truncateOrderInfoYb();
 		//OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+		//ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+		String sql=" EXEC [p_compare_pospol] '"+first+"','"+last+"'";
+		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()) {
 			// System.out.println(rs.getString("req"));
 			// Test.postDineorder(rs.getString("req"));
@@ -143,18 +177,19 @@ public class GetHiveSingleStoreDetail {
 		}
 		System.out.println("大数据的DQ门店记录都写入完毕，执行完毕");
 	}
-	public static void getDetail() throws Exception {
+	public static void getDetail(String first,String last) throws Exception {
 		
-		getNcrOrderDetail();
-		getSeitoOrderDetail();
-		getYbOrderDetail();
+		//getNcrOrderDetail(first,last);
+		getSeitoOrderDetail(first,last);
+		getYbOrderDetail(first,last);
 	}
 
 	// 测试用例
 	public static void main(String[] args) throws Exception {
 		
-		getYbOrderDetail();
-		
+		//getYbOrderDetail("2020-12-01","2020-12-31");
+		getFooOrderDetail("2021-01-01","2021-01-11");  //对比中台外卖订单
+		//getFooXiuCanOrderDetail("2021-01-01", "2021-01-11");  //对比中台小程序订单
 	}
 
 }

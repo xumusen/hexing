@@ -86,16 +86,18 @@ public class GetOrderDiff {
 		}
 	}
 
-	public static void getorderdifff() throws SQLException {
+	public static void getorderdifff(String first,String last) throws SQLException {
 
 		OrderDiff.truncateOrderDiff();
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT ss.分店,cs.* FROM v_compare_sum AS cs\r\n"
+	/*	ResultSet rs = stmt.executeQuery("SELECT ss.分店,cs.* FROM v_compare_sum AS cs\r\n"
 				+ "LEFT JOIN seitoStore AS ss ON cs.storeid=ss.内部编号\r\n" + "WHERE\r\n"
 				+ "((cs.storeid NOT LIKE 'D%' ) OR cs.storeid IS NULL)\r\n" + "AND \r\n"
 				+ "(cs.orderdate<convert(varchar(10),getdate(),120)  OR cs.orderdate IS NULL)\r\n"
-				+ "ORDER BY cs.orderdate ASC");
+				+ "ORDER BY cs.orderdate ASC");*/
+		String sql="EXEC p_compare_seito '"+first+"','"+last+"'";
+		ResultSet rs = stmt.executeQuery(sql);
 		while (rs.next()) {
 			// System.out.println(rs.getString("req"));
 			// Test.postDineorder(rs.getString("req"));
@@ -107,12 +109,14 @@ public class GetOrderDiff {
 		System.out.println("所有的门店异常记录都写入，执行完毕");
 	}
 
-	public static void getYborderdifff() throws SQLException {
+	public static void getYborderdifff(String first,String last) throws SQLException {
 		OrderDiffYb.truncateOrderDiffYb();
 
 		// 3.通过数据库的连接操作数据库，实现增删改查
 		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+		//ResultSet rs = stmt.executeQuery("SELECT * FROM v_diff_sum_yb AS dsy");
+		String sql=" EXEC [p_compare_pospol] '"+first+"','"+last+"'";
+		ResultSet rs = stmt.executeQuery(sql);
 		String storeid = "";
 		String orderdate = "";
 		while (rs.next()) {
@@ -134,7 +138,7 @@ public class GetOrderDiff {
 	// 测试用例
 	public static void main(String[] args) throws Exception {
 
-		getYborderdifff();
+		getYborderdifff("2020-12-01","2020-12-31");
 	}
 
 }

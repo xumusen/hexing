@@ -375,8 +375,16 @@ public class TimeUtils {
 		// TODO Auto-generated method stub
 
 	
-		System.out.println( getFirstDay("MMdd"));
-		System.out.println( getYesterday("MMdd"));
+		//System.out.println( getFirstDay("MMdd"));
+		//System.out.println( getYesterday("MMdd"));
+		String intime="2020-12-01";
+		 String first=TimeUtils.getFirstDay("yyyy-MM-dd");
+		 String last=TimeUtils.getYesterday("yyyy-MM-dd");
+		 String yesterday=TimeUtils.getYesterday("yyyy-MM-dd");
+		 String firstpatten=first.substring(5, 7)+first.substring(8, 10);
+		 String lastpatten=yesterday.substring(5, 7)+yesterday.substring(8, 10);
+		
+		System.out.println(lastpatten);
 
 	}
 	

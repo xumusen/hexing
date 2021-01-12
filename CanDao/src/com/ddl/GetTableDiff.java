@@ -79,7 +79,7 @@ public class GetTableDiff {
 				String orderdate = rs.getString("orderDate").replace("-", "");
 				System.out.println(orderdate);
 				//if (!storeid.equals("DQ999999"))
-				GetOdsOrder.getdiscountdiff(storeid, orderdate);
+			//	GetOdsOrder.getdiscountdiff(storeid, orderdate);
 			}
 		} catch (Exception e) {
 			System.out.print("get data error!");
@@ -88,13 +88,23 @@ public class GetTableDiff {
 	}
 
 	public static void main(String[] args) throws SQLException {
-			
+		//String first=TimeUtils.getFirstDay("yyyy-MM-dd");
+		//String last=TimeUtils.getLastDay("yyyy-MM-dd");
+		//String first="2020-12-01";
+		//String last="2020-12-31";
+		String first=TimeUtils.getFirstDay("yyyy-MM-dd");
+		String last=TimeUtils.getYesterday("yyyy-MM-dd");
+		String yesterday=TimeUtils.getYesterday("yyyy-MM-dd");
+		String firstpatten=first.substring(5, 7)+first.substring(8, 10);
+		String lastpatten=yesterday.substring(5, 7)+yesterday.substring(8, 10);
 		TableDiff.truncateTableDiff();
-		//GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "4");  //北京
-		//GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "10007011"); //郑州
-		//GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "10006795");//东北
-		GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "26002056");//DQ
-		//GetTableDiff.getMysqlTable(TimeUtils.getFirstDay("yyyy-MM-dd"), TimeUtils.getLastDay("yyyy-MM-dd"), "26002055");//芳叔
+		System.out.println("first is "+first);
+		System.out.println("last is "+last);
+		//GetTableDiff.getMysqlTable(first,last, "4");  //北京
+		//GetTableDiff.getMysqlTable(first,last, "10007011"); //郑州
+		//GetTableDiff.getMysqlTable(first,last, "10006795");//东北
+		//GetTableDiff.getMysqlTable(first,last, "26002056");//DQ
+		GetTableDiff.getMysqlTable(first,last, "26002055");//芳叔
 		
 		
 	}
