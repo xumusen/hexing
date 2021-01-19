@@ -26,9 +26,9 @@ public class ComparePos {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		System.out.println("请确认好已经下载好世通和银豹的t表");
-		String begintime=TimeUtils.getYesterday("yyyy-MM-dd")+" 09:00:00";
-		//DataGatherLocal.reLoadFile("2021-01-07 09:00:00");
-		DataGatherLocal.reLoadFile(begintime);
+		//String begintime=TimeUtils.getYesterday("yyyy-MM-dd")+" 09:00:00";
+		DataGatherLocal.reLoadFile("2021-01-19 08:00:00");
+	//	DataGatherLocal.reLoadFile(begintime);
 		//DataGatherLocal.reLoadFile("2020-12-10 07:00:00",ybPath,"2");
 		/*删除t表*/
 		//Tstore.truncateT();//中午别执行

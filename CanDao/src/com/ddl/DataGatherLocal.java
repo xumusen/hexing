@@ -341,7 +341,7 @@ public class DataGatherLocal {
 		 */
 		DataGatherLocal dataGatherLocal = new DataGatherLocal();
 		//dataGatherLocal.loadFile();
-		dataGatherLocal.reloadFile("2021-01-12 08:00:00",stPath,"1");
+		dataGatherLocal.reloadFile("2021-01-19 08:00:00",stPath,"1");
 		//dataGatherLocal.reloadFileYb("2021-01-11 00:00:00",ybPath,"2");
 
 	}

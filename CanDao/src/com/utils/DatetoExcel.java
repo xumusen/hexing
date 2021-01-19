@@ -59,7 +59,7 @@ public class DatetoExcel {
     public static List<DiffSeitoFoo> getDiff0206Sum(String first,String last) throws SQLException{
     	Statement stmt = conn.createStatement();
     	List<DiffSeitoFoo> list=new ArrayList<DiffSeitoFoo>();
-    	String sql="SELECT * FROM  v_compare_0622";
+    	String sql="SELECT * FROM  v_compare_0622 ORDER BY orderdate ASC ";
 		ResultSet rs = stmt.executeQuery(sql);
  
     	while(rs.next()) {
@@ -674,7 +674,7 @@ public class DatetoExcel {
         	//getNcrDiff(getDiffNcrSum(first,last),getDiffNcrDetail(),firstpatten,lastpatten);
         	//getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
         	
-   		 	//getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),firstpatten,lastpatten);
+   		 	getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),firstpatten,lastpatten);
         	//getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
    		 	get0206Diff(getDiff0206Sum(first, last), firstpatten, lastpatten);
     }

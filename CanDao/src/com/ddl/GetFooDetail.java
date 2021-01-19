@@ -15,7 +15,9 @@ public class GetFooDetail {
 	
 	
 	public static void getFooDetail(String storeid,String orderdate,String station) {
+		
 		try {
+			OrderFoo.deleteOrderFoo( orderdate, storeid, station);
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("Success loading Mysql Driver!");
 		} catch (Exception e) {
@@ -33,14 +35,14 @@ public class GetFooDetail {
 			stmt.setFetchSize(Integer.MIN_VALUE);
 			String sql="";
 			if (station.equals("06")) 
-				sql="SELECT uniteStoreId AS storeid,extOrderId, originalPrice/100 AS originalPrice,merchantBearPrice/100 AS merchantBearPrice,billDate,(originalPrice-merchantBearPrice)/100 AS caculateMerchanPrice FROM orderdetail\r\n" + 
+				sql="SELECT uniteStoreId AS storeid,extOrderId,createtime, originalPrice/100 AS originalPrice,merchantBearPrice/100 AS merchantBearPrice,billDate,(originalPrice-merchantBearPrice)/100 AS caculateMerchanPrice FROM orderdetail\r\n" + 
 						"WHERE billDate='"+orderdate+"' \r\n" + 
 						"AND uniteStoreId='"+storeid+"'\r\n" + 
 						"AND orderStatus=100\r\n" + 
 						"AND isCustomOrderNoPush=0\r\n" + 
 						"ORDER BY uniteStoreId,billDate";
 			if (station.equals("22"))
-				sql="SELECT uniteStoreId AS storeid,extOrderId, originalPrice/100 AS originalPrice,merchantBearPrice/100 AS merchantBearPrice,billDate,(originalPrice-merchantBearPrice)/100 AS caculateMerchanPrice \r\n" + 
+				sql="SELECT uniteStoreId AS storeid,extOrderId,createtime, originalPrice/100 AS originalPrice,merchantBearPrice/100 AS merchantBearPrice,billDate,(originalPrice-merchantBearPrice)/100 AS caculateMerchanPrice \r\n" + 
 						"FROM orderdetail\r\n" + 
 						"WHERE billDate='"+orderdate+"'\r\n" + 
 						"AND orderStatus=100\r\n" + 
@@ -53,10 +55,12 @@ public class GetFooDetail {
 				OrderFoo orderfoo=new OrderFoo();
 				orderfoo.setStoreid(rs.getString("storeid"));
 				orderfoo.setExtOrderId(rs.getString("extOrderId"));
+				orderfoo.setCreatetime(rs.getString("createtime").substring(11, rs.getString("createtime").length()));
 				orderfoo.setOriginalPrice(rs.getString("originalPrice"));
 				orderfoo.setMerchantBearPrice(rs.getString("merchantBearPrice"));
 				orderfoo.setBillDate(rs.getString("billDate"));
-				orderfoo.setCaculateMerchanPrice(rs.getString("caculateMerchanPrice"));			
+				orderfoo.setCaculateMerchanPrice(rs.getString("caculateMerchanPrice"));	
+				orderfoo.setStation(station);
 				OrderFoo.insertFooOrder(orderfoo);	
 			}
 		} catch (Exception e) {
@@ -69,7 +73,9 @@ public class GetFooDetail {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		getFooDetail("YS010199","2020-12-19","006");//获取外卖订单明细
+		getFooDetail("YS010055","2021-01-13","06");//获取外卖订单明细
+		//String time="2021-01-13 17:52:34";
+		//System.out.println(time.substring(11, time.length()));
 		
 	}
 

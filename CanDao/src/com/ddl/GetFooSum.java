@@ -112,8 +112,8 @@ public class GetFooSum {
 		// TODO Auto-generated method stub
 		OrderInfoSum.truncateOrderInfoFoo("2020-12-01", "2020-12-31", "", "06");
 		OrderInfoSum.truncateOrderInfoFoo("2020-12-01", "2020-12-31", "", "22");
-		getFooSum("2021-01-01","2021-01-11","","22");  
-		getFooSum("2021-01-01","2021-01-11","","06");  
+		getFooSum("2020-12-01","2020-12-31","YS010106","22");  
+		getFooSum("2020-12-01","2020-12-31","YS010106","06");  
 		//getFooSum("2020-12-30","2020-12-30","YS010199","022");  //读取中台外卖订单
 		//getFooSum("2020-12-30","2020-12-30","YS010199","006");  //读取中台外卖订单
 	}

@@ -10,12 +10,28 @@ import com.utils.DBUtil;
 
 public class OrderFoo {
 
-	String storeid,originalPrice,merchantBearPrice,billDate,caculateMerchanPrice,extOrderId;
+	String storeid,originalPrice,merchantBearPrice,billDate,caculateMerchanPrice,extOrderId,createtime,station;
 	
 	
 	
 	
 	
+
+public String getStation() {
+		return station;
+	}
+
+	public void setStation(String station) {
+		this.station = station;
+	}
+
+public String getCreatetime() {
+		return createtime;
+	}
+
+	public void setCreatetime(String createtime) {
+		this.createtime = createtime;
+	}
 
 public String getExtOrderId() {
 		return extOrderId;
@@ -67,25 +83,30 @@ public String getStoreid() {
 
 public static void insertFooOrder(OrderFoo orderfoo)throws SQLException{
   
+	
     Connection conn=DBUtil.getConnection();
    String sql="\r\n" + 
    		"INSERT INTO [dbo].[order_foo]\r\n" + 
    		"           ([storeid]\r\n" + 
    		"           ,[extOrderId]\r\n" + 
    		"           ,[billDate]\r\n" + 
+   		"           ,[createtime]\r\n" + 
    		"           ,[originalPrice]\r\n" + 
    		"           ,[merchantBearPrice]\r\n" + 
-   		"           ,[caculateMerchanPrice])\r\n" + 
+   		"           ,[caculateMerchanPrice]\r\n" + 
+   		"           ,[station])\r\n" + 
    		"     VALUES\r\n" + 
-   		"            (?,?,?,?,?,?)";
+   		"            (?,?,?,?,?,?,?,?)";
     PreparedStatement psmt = conn.prepareStatement(sql);
     //先对应SQL语句，给SQL语句传递参数
     psmt.setString(1,  orderfoo.getStoreid());
     psmt.setString(2,  orderfoo.getExtOrderId());
     psmt.setString(3,  orderfoo.getBillDate());
-    psmt.setString(4,  orderfoo.getOriginalPrice());
-    psmt.setString(5,  orderfoo.getMerchantBearPrice());
-    psmt.setString(6, orderfoo.getCaculateMerchanPrice());
+    psmt.setString(4,  orderfoo.getCreatetime());
+    psmt.setString(5,  orderfoo.getOriginalPrice());
+    psmt.setString(6,  orderfoo.getMerchantBearPrice());
+    psmt.setString(7, orderfoo.getCaculateMerchanPrice());
+    psmt.setString(8, orderfoo.getStation());
 
  
 
@@ -101,6 +122,25 @@ public static void insertFooOrder(OrderFoo orderfoo)throws SQLException{
      * 这样就会减少对数据库的操作
      */
 }
+
+public static int deleteOrderFoo(String orderdate,String storeid,String station)throws SQLException{
+	  
+    Connection conn=DBUtil.getConnection();
+    String sql="DELETE FROM order_foo WHERE billDate>='"+orderdate+"' and storeid='"+storeid+"'  AND station='"+station+"' ";
+    System.out.println(sql);
+ 
+    PreparedStatement psmt = conn.prepareStatement(sql);
+
+ 
+
+
+    //执行SQL语句
+    int result=psmt.executeUpdate();
+   // conn.close();
+    System.out.println(" 已经删除对应的 order_foo记录了");
+    return result;
+}
+
 
 public static int truncateOrderFoo()throws SQLException{
 	  

@@ -53,7 +53,7 @@ public class DBUtil {
 		// ResultSet executeQuery(String sqlString)：执行查询数据库的SQL语句 ，返回一个结果集（ResultSet）对象。
 		// ResultSet rs = stmt.executeQuery("SELECT * from orderCancelCollect ");
 		// ResultSet rs = stmt.executeQuery("SELECT * from orderCollect ");
-		ResultSet rs = stmt.executeQuery("SELECT msg FROM xiucan1528");
+		ResultSet rs = stmt.executeQuery("  SELECT * FROM pospaltable AS p");
 		// ResultSet rs = stmt.executeQuery("SELECT x.ods_order_postdineinorder_orderid
 		// ,x.ods_order_postdineinorder_products,x.ods_order_postdineinorder_storeid,x.ods_order_postdineinorder_ordertime,x.ods_order_postdineinorder_paymentdetails,
 		// x.ods_order_postdineinorder_orderdate FROM xiaochengxu AS x");
@@ -109,7 +109,7 @@ public class DBUtil {
 		while (rs.next()) {
 			// System.out.println(rs.getString("req"));
 			// Test.postDineorder(rs.getString("req"));
-			String cell = rs.getString("msg");
+			String cell = rs.getString("json");
 			System.out.println(cell);
 			/*
 			 * String
