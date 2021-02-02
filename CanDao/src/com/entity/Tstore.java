@@ -186,6 +186,60 @@ public static void insertTstore(Tstore tstore)throws SQLException{
      */
 }
 
+
+public static void insertTstoreLocal(Tstore tstore)throws SQLException{
+    //首先拿到数据库的连接
+    Connection conn=DBUtil.getConnection();
+ /*   String sql="" + 
+            "insert into status"+
+            "(title,value,dateTime) "+
+            "values(?,?,?)";//参数用?表示，相当于占位符;
+*/	        
+/*    String sql=""+
+    		"INSERT INTO [order]"+
+    				"(orderid,thirdSn,storeId,fromType,name,phone,、takeNo,tableNum,userNote,peopleNum,tableNo,deviceNo,staffId,staffNo,staffBane,memberId,point,pointExpiryDate,orderTime,orderDate,orderStatus,orderType,posOrderType,isPayed,payType,isInvoice,invoiceDesc,taxNo,price,deliveryFee,mealFee,productPrice,discountPrice,merchantBearPrice,thirdPlatformBearPrice,merchantPrice,commission,extra,paymentDetails,status,products,discounts)"+
+    				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";*/
+    String sql=""+
+    		"INSERT INTO [tlocal]"+
+    				"(store,uploaddatetime,ref,type,mode,date,time,staff,disc,amt,reason,tax,aftertax,uploaddate,uploadtime)"+
+    				"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    PreparedStatement psmt = conn.prepareStatement(sql);
+    //先对应SQL语句，给SQL语句传递参数
+    psmt.setString(1,  tstore.getStorename());
+    psmt.setString(2, tstore.getUploadDatetime());
+    psmt.setString(3,  tstore.getRef());
+    psmt.setString(4, tstore.getType());
+    psmt.setString(5,  tstore.getMode());
+    psmt.setString(6,  tstore.getDate());
+    psmt.setString(7,  tstore.getTime());
+    psmt.setString(8,  tstore.getStaff());
+    psmt.setString(9,  tstore.getDisc());
+    psmt.setString(10,  tstore.getAmt());
+    psmt.setString(11,  tstore.getReason());
+    psmt.setString(12,  tstore.getTax());
+    psmt.setString(13,  tstore.getAftertax());
+    psmt.setString(14,  tstore.getUploadDate());
+    psmt.setString(15,  tstore.getUploadTime());
+
+	Date date=new Date();
+	SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	String dateStr2 = df2.format(date);
+	//psmt.setString(41,dateStr2);
+
+
+
+    //执行SQL语句
+    psmt.execute();
+    /**
+     * prepareStatement这个方法会将SQL语句加载到驱动程序conn集成程序中，但是并不直接执行
+     * 而是当它调用execute()方法的时候才真正执行；
+     * 
+     * 上面SQL中的参数用?表示，相当于占位符，然后在对参数进行赋值。
+     * 当真正执行时，这些参数会加载在SQL语句中，把SQL语句拼接完整才去执行。
+     * 这样就会减少对数据库的操作
+     */
+}
+
 public static int truncateT()throws SQLException{
 	  
     Connection conn=DBUtil.getConnection();

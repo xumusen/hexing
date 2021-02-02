@@ -301,12 +301,15 @@ public class DataGatherLocal {
 			tstore.setUploadDate(path.substring(9, 13) + "-" + path.substring(13, 15) + "-" + path.substring(15, 17));
 			tstore.setUploadTime(path.substring(17, 21));
 			Tstore.insertTstore(tstore);
+			//Tstore.insertTstoreLocal(tstore);
 
 			count++;
 
 		}
 
 	}
+	
+	
 
 	private static String tranStr(String oldstr) {
 
@@ -341,8 +344,12 @@ public class DataGatherLocal {
 		 */
 		DataGatherLocal dataGatherLocal = new DataGatherLocal();
 		//dataGatherLocal.loadFile();
-		dataGatherLocal.reloadFile("2021-01-19 08:00:00",stPath,"1");
 		//dataGatherLocal.reloadFileYb("2021-01-11 00:00:00",ybPath,"2");
+		
+		
+		dataGatherLocal.reloadFile("2021-02-01 07:00:00",stPath,"1");
+
+		//dataGatherLocal.loadFile("C:\\test");
 
 	}
 

@@ -73,7 +73,15 @@ public class GetFooDetail {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		getFooDetail("YS010055","2021-01-13","06");//获取外卖订单明细
+		getFooDetail("YS010219","2020-12-09","22");//获取外卖订单明细
+		getFooDetail("YS010219","2020-12-23","22");//获取外卖订单明细
+		getFooDetail("YS010219","2020-11-04","06");//获取外卖订单明细
+		getFooDetail("YS010219","2020-11-05","06");//获取外卖订单明细
+		getFooDetail("YS010219","2020-11-06","06");//获取外卖订单明细
+		getFooDetail("YS010219","2020-11-10","06");//获取外卖订单明细
+		getFooDetail("YS010219","2020-10-28","06");//获取外卖订单明细
+		getFooDetail("YS010219","2020-10-29","06");//获取外卖订单明细
+		getFooDetail("YS010219","2020-10-30","06");//获取外卖订单明细
 		//String time="2021-01-13 17:52:34";
 		//System.out.println(time.substring(11, time.length()));
 		

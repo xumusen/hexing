@@ -659,7 +659,7 @@ public class DatetoExcel {
     	//getNcrDiff(getDiffNcrSum(first,last),getDiffNcrDetail(),first,last);
     	getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
     	getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
-    	get0206Diff(getDiff0206Sum(first, last), first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
+    //	get0206Diff(getDiff0206Sum(first, last), first.substring(5, 7)+first.substring(8, 10),last.substring(5, 7)+last.substring(8, 10));
     }
     //测试
     public static void main(String[] args) throws SQLException {
@@ -668,6 +668,8 @@ public class DatetoExcel {
             createfiles(reportPath);
             String first=TimeUtils.getFirstDay("yyyy-MM-dd");
    		 	String last=TimeUtils.getYesterday("yyyy-MM-dd");
+   		 	first="2021-01-01";
+   		 	last="2021-01-31";
    		 	String yesterday=TimeUtils.getYesterday("yyyy-MM-dd");
    		 	String firstpatten=first.substring(5, 7)+first.substring(8, 10);
    		 	String lastpatten=yesterday.substring(5, 7)+yesterday.substring(8, 10);
@@ -675,8 +677,8 @@ public class DatetoExcel {
         	//getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
         	
    		 	getPospalDiff(getDiffPospalSum(first,last), getDiffPospalDetail(),firstpatten,lastpatten);
-        	//getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
-   		 	get0206Diff(getDiff0206Sum(first, last), firstpatten, lastpatten);
+        	getSeitoDiff(getDiffSeitoSum(first,last),getDiffSeitoDetail(),firstpatten,lastpatten);
+   		// 	get0206Diff(getDiff0206Sum(first, last), firstpatten, lastpatten);
     }
 
 }

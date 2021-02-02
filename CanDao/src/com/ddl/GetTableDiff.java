@@ -100,11 +100,11 @@ public class GetTableDiff {
 		TableDiff.truncateTableDiff();
 		System.out.println("first is "+first);
 		System.out.println("last is "+last);
-		//GetTableDiff.getMysqlTable(first,last, "4");  //北京
+		GetTableDiff.getMysqlTable("2021-01-20","2021-01-31", "4");  //北京
 		//GetTableDiff.getMysqlTable(first,last, "10007011"); //郑州
 		//GetTableDiff.getMysqlTable(first,last, "10006795");//东北
 		//GetTableDiff.getMysqlTable(first,last, "26002056");//DQ
-		GetTableDiff.getMysqlTable(first,last, "26002055");//芳叔
+		//GetTableDiff.getMysqlTable(first,last, "26002055");//芳叔
 		
 		
 	}

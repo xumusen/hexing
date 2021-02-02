@@ -309,14 +309,14 @@ public class Test {
 		String fromType = jsonobject.getString("fromType");
 
 		String orderTime = jsonobject.getString("orderTime");
-		//String orderDate = jsonobject.getString("orderDate");
-		String orderDate="";
+		// String orderDate = jsonobject.getString("orderDate");
+		String orderDate = "";
 		try {
-			 orderDate = jsonobject.getString("orderDate");
+			orderDate = jsonobject.getString("orderDate");
 			// System.out.println("orderType =" + orderType);
 		} catch (Exception e) {
 			// TODO: handle exception
-			 orderDate = "1999-01-01";
+			orderDate = "1999-01-01";
 		}
 
 		int orderStatus = jsonobject.getInt("orderStatus");
@@ -330,11 +330,28 @@ public class Test {
 		}
 
 		boolean isPayed = jsonobject.getBoolean("isPayed");
+		
 
-		JSONObject paymentDetails = null;
+		JSONObject paymentDetails ;
+		/*
+		 * 1.判断data是否为空
+		 * 
+		 * JSONObject dataJson =resJsonObj .getJSONObject("data");
+		 * 
+		 * if(dataJson == null || dataJson.isEmpty() || dataJson.isNullObject() ||
+		 * "null".equals(dataJson)){ return "error"; }
+		 * 
+		 * 2.判断Nacigation数组是否为空
+		 * 
+		 * JSONArray dataNJson = dataJson.getJSONArray("Navigation");
+		 * if(dataNJson.isEmpty()||dataNJson.size()<1){ return "error"; }
+		 * 
+		 * 分类
+		 */
 		try {
 			paymentDetails = jsonobject.getJSONObject(jsonobject.getString("paymentDetails"));// 获取数组
 			JSONArray jsonArray = JSONArray.fromObject(jsonobject.getString("paymentDetails")); // 位于data下面
+
 			if (jsonArray.size() == 0 && Math.abs(jsonobject.getDouble("discountPrice")) == Math
 					.abs((jsonobject.getDouble("merchantPrice"))))
 				System.out.println(orderId + " paymentDetails是空的");
@@ -357,6 +374,7 @@ public class Test {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println(orderId+" 没有paymentDetails");
 
 		}
 
@@ -525,7 +543,8 @@ public class Test {
 				JSONObject productContentobject = JSONObject.fromObject(product1.getProductContent());// 将字符串转化成json对象
 				JSONObject productCategoryobject = JSONObject.fromObject(product1.getProductCategory());// 将字符串转化成json对象
 
-				if (deptobject == null || deptobject.isEmpty() || deptobject.isNullObject() || "null".equals(deptobject)) {
+				if (deptobject == null || deptobject.isEmpty() || deptobject.isNullObject()
+						|| "null".equals(deptobject)) {
 					// System.out.println("deptobject is 空");
 				} else {
 					// System.out.println("depart 不是空");
@@ -563,8 +582,8 @@ public class Test {
 					Category.insertCategory(orderId, category, product1.getPid());
 					// System.out.println("category end ");
 				}
-				if (productContentobject == null || productContentobject.isEmpty() || productContentobject.isNullObject()
-						|| "null".equals(productContentobject)) {
+				if (productContentobject == null || productContentobject.isEmpty()
+						|| productContentobject.isNullObject() || "null".equals(productContentobject)) {
 					// System.out.println("productContentobject is 空");
 				} else {
 					// System.out.println("productContent start ");
@@ -573,8 +592,8 @@ public class Test {
 					ProductContent.insertProductContent(orderId, productContent, product1.getPid());
 					// System.out.println("productContent end ");
 				}
-				if (productCategoryobject == null || productCategoryobject.isEmpty() || productCategoryobject.isNullObject()
-						|| "null".equals(productCategoryobject)) {
+				if (productCategoryobject == null || productCategoryobject.isEmpty()
+						|| productCategoryobject.isNullObject() || "null".equals(productCategoryobject)) {
 					// System.out.println("productCategoryobject is 空");
 				} else {
 					// System.out.println("productCategory start ");
@@ -627,8 +646,8 @@ public class Test {
 							JSONArray comboses1 = JSONArray.fromObject(product1.getCombos()); // 位于discounts下面
 							// System.out.println("j is " + j);
 							Combos combos = (Combos) JSONObject.toBean(comboses1.getJSONObject(j), Combos.class);
-							Combos.insertCombos(orderId, combos, product1.getPid(), product1.getNum(), storeId, orderDate,
-									"", "");
+							Combos.insertCombos(orderId, combos, product1.getPid(), product1.getNum(), storeId,
+									orderDate, "", "");
 
 							if (product1.getCombos().get(j).getSkus() != null) {
 								try {
@@ -684,9 +703,8 @@ public class Test {
 				}
 
 			}
-			
-		} 
-		catch (Exception e) {
+
+		} catch (Exception e) {
 			// TODO: handle exception
 		}
 

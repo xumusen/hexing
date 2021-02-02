@@ -198,7 +198,7 @@ public class GetOrderInfoSum {
     public static void main(String[] args) throws Exception {
     	GetOrderInfoSum getOrderInfo=new GetOrderInfoSum();
 		getOrderInfo.init();
-		getOrderInfo.orderinfo("2020-12-01","2020-12-31");
+		getOrderInfo.orderinfo("2021-01-01","2021-01-31");
 		//getOrderInfo.orderinfoyb(TimeUtils.getFirstDay("yyyy-MM-dd"),TimeUtils.getFirstDay("yyyy-MM-dd"));
 		getOrderInfo.destory();
 	}

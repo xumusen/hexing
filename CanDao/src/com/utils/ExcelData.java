@@ -89,8 +89,8 @@ public class ExcelData {
 		for(int i=0;i<rows;i++){
 			//获取列数
 			XSSFRow row = sheet.getRow(i);
-			//int columns = row.getPhysicalNumberOfCells();
-			int columns=30;
+			int columns = row.getPhysicalNumberOfCells();
+			//int columns=30;
 			for(int j=0;j<columns;j++){
 				String cell = row.getCell(j).toString();
 				System.out.println(cell);
@@ -115,6 +115,7 @@ public class ExcelData {
 				
 				
 				//Test.postDineorder(cell);
+				PostOrder.postOldOrder(cell, "900b38f00bb77813", "be5c7db333dfc6dab19afdab2055ebe3");//银豹？
 			}
 		}
 	}
@@ -199,13 +200,13 @@ public class ExcelData {
 		
 			//ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\私有上线\\报表核对\\xiucan\\error.xlsx", "Sheet1");
 		
-		ExcelData sheet1 = new ExcelData("E:\\OneDrive - cd\\项目资料\\吉野家\\世通数据\\10月销售数据\\CrystalViewer - 2020-11-05T102414.432.xlsx", "Sheet1");
+		ExcelData sheet1 = new ExcelData("C:\\一些文件\\0130.xlsx", "Sheet3");
 		 // ExcelData sheet1 = new ExcelData("/Users/jason/OneDrive - cd/项目资料/吉野家/order/1129/订单数据20191129.xlsx", "Sheet1");
-		//  sheet1.readExcelData();
+		  sheet1.readExcelData();
 		 
 		
 		
-		testLoad();
+		//testLoad();
 		
 		//sheet1.readExcelDataRetail();
 		//获取第二行第4列

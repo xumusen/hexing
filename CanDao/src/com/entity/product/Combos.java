@@ -54,7 +54,13 @@ public void setAddPrice(String addPrice) {
 	this.addPrice = addPrice;
 }
 String name;
-String num;
+String num,totalNum;
+public String getTotalNum() {
+	return totalNum;
+}
+public void setTotalNum(String totalNum) {
+	this.totalNum = totalNum;
+}
 String price;
 String addPrice;
 List<Skus> skus;
@@ -78,23 +84,24 @@ public static void insertCombos(String orderid,Combos combos,String fid,String f
 */	        
     String sql=""+
     		"INSERT INTO combos"+
-    		"(pid,name,num,price,addPrice,orderid,fid,fnum,storeid,orderdate,fname,accesskey)"+
-    		"values(?,?,?,?,?,?,?,?,?,?,?,?)";
+    		"(pid,name,num,totalNum,price,addPrice,orderid,fid,fnum,storeid,orderdate,fname,accesskey)"+
+    		"values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
     PreparedStatement psmt = conn.prepareStatement(sql);
     
     //先对应SQL语句，给SQL语句传递参数
     psmt.setString(1,  combos.getPid());
     psmt.setString(2, combos.getName());
     psmt.setString(3, combos.getNum());
-    psmt.setString(4, combos.getPrice());
-    psmt.setString(5, combos.getAddPrice());
-    psmt.setString(6,orderid);
-    psmt.setString(7,fid);
-    psmt.setString(8,fnum);
-    psmt.setString(9,storeid);
-    psmt.setString(10, orderdate);
-    psmt.setString(11, fname);
-    psmt.setString(12, accesskey);
+    psmt.setString(4, combos.getTotalNum());
+    psmt.setString(5, combos.getPrice());
+    psmt.setString(6, combos.getAddPrice());
+    psmt.setString(7,orderid);
+    psmt.setString(8,fid);
+    psmt.setString(9,fnum);
+    psmt.setString(10,storeid);
+    psmt.setString(11, orderdate);
+    psmt.setString(12, fname);
+    psmt.setString(13, accesskey);
     //执行SQL语句
     psmt.execute();
     /**

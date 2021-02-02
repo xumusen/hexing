@@ -126,7 +126,7 @@ public static void insertFooOrder(OrderFoo orderfoo)throws SQLException{
 public static int deleteOrderFoo(String orderdate,String storeid,String station)throws SQLException{
 	  
     Connection conn=DBUtil.getConnection();
-    String sql="DELETE FROM order_foo WHERE billDate>='"+orderdate+"' and storeid='"+storeid+"'  AND station='"+station+"' ";
+    String sql="DELETE FROM order_foo WHERE billDate='"+orderdate+"' and storeid='"+storeid+"'  AND station='"+station+"' ";
     System.out.println(sql);
  
     PreparedStatement psmt = conn.prepareStatement(sql);

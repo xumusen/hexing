@@ -138,7 +138,9 @@ public class GetOrderDiff {
 	// 测试用例
 	public static void main(String[] args) throws Exception {
 
-		getYborderdifff("2020-12-01","2020-12-31");
+		//getYborderdifff("2020-12-01","2020-12-31");
+		
+		getDiffDetail("YS471010","2021-01-31");
 	}
 
 }

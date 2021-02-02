@@ -26,11 +26,11 @@ public class PostDemo {
 			httpClient = new DefaultHttpClient();
 			httppost = new HttpPost("http://123.57.229.179:9090/sms/batch/v1");
 			Map<String, String> map = new HashMap<String, String>();
-			String appkey = "35001";
-			String appsecret = "D82ZYs";
+			String appkey = "DX9544";
+			String appsecret = "BW117H";
 			String appcode = "1000";
 			map.put("appkey", appkey);
-			map.put("appcode", appsecret);
+			map.put("appcode", appcode);
 			String timestamp = System.currentTimeMillis() + "";
 			map.put("timestamp", timestamp);
 			map.put("phone", "18601070550");

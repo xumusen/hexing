@@ -110,10 +110,10 @@ public class GetFooSum {
 
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
-		OrderInfoSum.truncateOrderInfoFoo("2020-12-01", "2020-12-31", "", "06");
-		OrderInfoSum.truncateOrderInfoFoo("2020-12-01", "2020-12-31", "", "22");
-		getFooSum("2020-12-01","2020-12-31","YS010106","22");  
-		getFooSum("2020-12-01","2020-12-31","YS010106","06");  
+		OrderInfoSum.truncateOrderInfoFoo("2021-01-01", "2021-01-31", "", "06");
+		OrderInfoSum.truncateOrderInfoFoo("2021-01-01", "2021-01-31", "", "22");
+		getFooSum("2021-01-01","2021-01-31","","22");  
+		getFooSum("2021-01-01","2021-01-31","","06");  
 		//getFooSum("2020-12-30","2020-12-30","YS010199","022");  //读取中台外卖订单
 		//getFooSum("2020-12-30","2020-12-30","YS010199","006");  //读取中台外卖订单
 	}

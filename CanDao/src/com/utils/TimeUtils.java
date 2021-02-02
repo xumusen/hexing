@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,6 +37,21 @@ public class TimeUtils {
 		// System.out.println(time);
 		return time;
 	}
+	public static void getTimeStamptoLong(String time) {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	Date date = null;
+		try {
+			date = df.parse(time);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	long timestamp = cal.getTimeInMillis();
+    	System.out.println(timestamp);
+	}
+	
 	
 	public static String getFirstDay() {
 		  Calendar cale = null;
@@ -124,6 +140,14 @@ public class TimeUtils {
 	public static String getYesterday(String patten) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DATE, -1); //得到前一天
+		Date date1 = calendar.getTime();
+		DateFormat df = new SimpleDateFormat(patten);
+		String yesterday=df.format(date1);
+	    return yesterday;
+	}
+	public static String getToday(String patten) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, 0); //得到前一天
 		Date date1 = calendar.getTime();
 		DateFormat df = new SimpleDateFormat(patten);
 		String yesterday=df.format(date1);
@@ -384,7 +408,11 @@ public class TimeUtils {
 		 String firstpatten=first.substring(5, 7)+first.substring(8, 10);
 		 String lastpatten=yesterday.substring(5, 7)+yesterday.substring(8, 10);
 		
-		System.out.println(lastpatten);
+		//System.out.println(lastpatten);
+		 
+		 
+		 //getTimeStamptoLong("2021-01-18 16:00:00");
+		 System.out.println(getToday("yyyy-MM-dd"));
 
 	}
 	
